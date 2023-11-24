@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { getAllUser, getAllUserNotReducer } from '../../../../redux/action/accountAction';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Segmented } from 'antd';
 import { DashboardArea } from './component/DashboardArea';

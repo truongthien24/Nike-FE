@@ -1,8 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { getAllUserNotReducer } from "../../../../../redux/action/accountAction";
-import { getAllBookingNoReducer } from "../../../../../redux/action/bookingAction";
-import { layDuLieuDanhGia } from "../../../../../redux/action/danhGiaAction";
 import { AreaAccount } from "./AreaAccount";
 import { AreaBooking } from "./AreaBooking";
 import { AreaReaction } from "./AreaReaction";
@@ -10,8 +7,6 @@ import { AreaReaction } from "./AreaReaction";
 export const DashboardArea = (props) => {
   // Props
   const { segment } = props;
-
-  const dispatch = useDispatch();
 
   const [isData, setIsData] = useState([]);
 

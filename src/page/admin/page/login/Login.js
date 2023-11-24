@@ -65,7 +65,7 @@ export const Login = () => {
     <>
       <div className="fixed flex items-center top-0 left-0 w-screen h-screen bg-[#ffeadc] z-[101]">
         <div className="flex flex-1 items-center justify-center">
-          <img src="/images/logo.png" className="w-[200px] md:w-[250px]" />
+          <img src="/images/nike-logo.png" className="w-[200px] md:w-[250px]" />
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div

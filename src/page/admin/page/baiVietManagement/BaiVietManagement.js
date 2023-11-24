@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux";
 import { columns } from "./helper";
 import { ModalEditBaiViet } from "./component/modal/ModalEditBaiViet";
 import { ModalCreateBaiViet } from "./component/modal/ModalCreateBaiViet";
-import { ModalEditReaction } from "./component/modal/ModalEditReaction";
-import { getCommonCode } from "redux/action/getCommonCode";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { setConfirm } from "redux/action/homeAction";
 import toast from "react-hot-toast";
@@ -145,12 +143,6 @@ export const BaiVietManagement = () => {
         isOpen={isModalOpen}
         fetcher={fetchDetail}
         fetch={fetchData}
-      />
-      <ModalEditReaction
-        isOpen={isModalEditReaction}
-        methodCancel={() => setIsModalEditReaction(false)}
-        title={t("Edit Reaction")}
-        idRoom={dataEdit?.id}
       />
       <Confirm />
     </>

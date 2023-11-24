@@ -176,7 +176,7 @@ export const Navigation = () => {
             { <MenuFoldOutlined />}
             </Button> */}
       <div className="flex items-center justify-center py-[20px]">
-        <img src="/images/logo.png" className="w-[100px]" />
+        <img src="/images/nike-logo.png" className="w-[100px]" />
       </div>
       <Menu
         defaultSelectedKeys={["1"]}

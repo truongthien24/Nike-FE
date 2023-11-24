@@ -1,9 +1,7 @@
-import { Badge, Button, Modal, Popconfirm, Popover, Skeleton } from "antd";
+import { Badge, Modal, Popover, Skeleton } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "../../../../../../assets/icon";
 import { UploadOutlined } from "@ant-design/icons";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "../../../../../../firebase/firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { setConfirm } from "../../../../../../redux/action/homeAction";
 import { useForm } from "react-hook-form";
@@ -12,9 +10,7 @@ import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
 import { FormAddRoom } from "../form/FormAddRoom";
-import { updateRoom } from "../../../../../../redux/action/phongAction";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
-import useUpdateBook from "../../hook/useUpdateBaiViet";
 import { toast } from "react-hot-toast";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
 import useUpdateBaiViet from "../../hook/useUpdateBaiViet";
@@ -94,7 +90,6 @@ export const ModalEditBaiViet = (props) => {
 
   useEffect(() => {
     if (dataEdit) {
-      // APIEdit.forEach(data => setValue(`${data.name}`, dataEdit?.[data.name]));
       reset({ ...dataEdit, hinhAnh: dataEdit?.hinhAnh });
     }
   }, [dataEdit]);
@@ -111,14 +106,6 @@ export const ModalEditBaiViet = (props) => {
   };
 
   const submitForm = async (data) => {
-    // if (isChangeImage) {
-    //     const storageRef = getStorage(app);
-    //     const testRef = ref(storageRef, `${fileImage?.name}`);
-    //     await uploadBytes(testRef, fileImage).then(async (snapshot) => {
-    //         const down = await getDownloadURL(testRef);
-    //         setValue('image', down);
-    //     });
-    // }
     await mutate({
       Data: { ...data },
       onSuccess: async (msg) => {

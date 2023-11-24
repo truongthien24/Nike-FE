@@ -63,11 +63,11 @@ export const Login = () => {
 
   return (
     <>
-      <div className="fixed flex items-center top-0 left-0 w-screen h-screen z-[101]">
-        <div className="flex flex-1 items-center justify-center">
+      <div className="fixed flex flex-col md:flex-row items-center top-0 left-0 w-screen h-screen z-[101]">
+        <div className="flex md:flex-1 items-center justify-center">
           <img src="/images/nike-logo.png" className="w-[200px] md:w-[250px]" />
         </div>
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex w-[90%] md:flex-1 items-center justify-center">
           <div
             className="bg-[#f7d38f00] w-[85%] md:w-[450px] rounded-[10px] px-[15px] md:px-[30px] py-[20px]"
             style={{ boxShadow: "rgba(0, 0, 0, 0.26) 0px 5px 40px" }}

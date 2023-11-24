@@ -1,24 +1,15 @@
-import { Badge, Modal, Popover, Skeleton } from "antd";
+import { Modal, Skeleton } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "../../../../../../assets/icon";
 import { UploadOutlined } from "@ant-design/icons";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "../../../../../../firebase/firebase.config";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setConfirm,
-  setLoading,
-} from "../../../../../../redux/action/homeAction";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
-import { FormAddRoom } from "../form/FormAddRoom";
-import useCreateBook from "../../hook/useCreateBaiViet";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { toast } from "react-hot-toast";
-import useUploadFile from "util/hook/useUploadFile";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
 import useCreateBaiViet from "../../hook/useCreateBaiViet";
 

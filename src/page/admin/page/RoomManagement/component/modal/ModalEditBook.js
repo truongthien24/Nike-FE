@@ -1,9 +1,7 @@
-import { Badge, Button, DatePicker, Modal, Popconfirm, Popover, Skeleton } from "antd";
+import { Badge,Modal,  Popover, Skeleton } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "../../../../../../assets/icon";
 import { UploadOutlined } from "@ant-design/icons";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { app } from "../../../../../../firebase/firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { setConfirm } from "../../../../../../redux/action/homeAction";
 import { useForm } from "react-hook-form";
@@ -12,7 +10,6 @@ import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
 import { FormAddRoom } from "../form/FormAddRoom";
-import { updateRoom } from "../../../../../../redux/action/phongAction";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import useUpdateBook from "../../hook/useUpdateBook";
 import { toast } from "react-hot-toast";

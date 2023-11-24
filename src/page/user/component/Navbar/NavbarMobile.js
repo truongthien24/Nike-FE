@@ -21,14 +21,14 @@ const NavbarMobile = (props) => {
         <div className="flex items-center justify-center w-[100%]">
           <div className="flex items-center mr-[30px]">
             <img
-              src="/images/logo.png"
-              className="w-[50px] md:w-[70px] lg:w-[80px] cursor-pointer"
+              src="/images/nike-logo.png"
+              className="w-[50px] md:w-[70px] lg:w-[80px] cursor-pointer mr-[10px]"
               onClick={returnHome}
             />
-            <h1 className="text-[20px]">Black&Cat</h1>
+            <h1 className="text-[20px]">Nike Fake</h1>
           </div>
         </div>
-        <div className="mt-[10px] flex items-center justify-center">
+        <div className="flex items-center justify-evenly">
           <ChangeLanguage />
           <UserLogin setIsProfile={setIsProfile} />
           <div style={{ marginLeft: "15px" }}>

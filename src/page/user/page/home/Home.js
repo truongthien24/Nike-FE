@@ -1,10 +1,7 @@
 import React from "react";
-import { ListRoomArea } from "../../component/ListRoomArea";
 import { Slider } from "../../component/Slider";
-import { Reason } from "../../component/Reason";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { layDuLieuPhong } from "../../../../redux/action/phongAction";
 import AreaBook from "page/user/component/AreaBook";
 import useGetDataBook from "page/admin/page/RoomManagement/hook/useGetDataBook";
 
@@ -14,20 +11,14 @@ export const HomeUser = () => {
     {
       title: "é é",
       image:
-        "https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_1.jpg?1685433925349",
+        "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1305,c_limit/475d527e-432e-4708-a032-54a56c2de7b6/nike-just-do-it.jpg",
     },
     {
       title: "é é 2",
       image:
-        "https://bizweb.dktcdn.net/100/364/248/themes/736344/assets/slider_3.jpg?1685433925349",
+        "https://static.nike.com/a/images/f_auto/dpr_1.0,cs_srgb/w_1305,c_limit/add7aee5-2be6-444c-8c46-11c3b3c7de93/nike-just-do-it.jpg",
     },
   ];
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(layDuLieuPhong());
-  }, []);
 
   const { sachData, isDataLoading, fetchData, isFetching } = useGetDataBook(
     "0",

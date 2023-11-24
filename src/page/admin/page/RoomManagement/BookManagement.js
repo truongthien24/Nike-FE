@@ -6,7 +6,6 @@ import { useDispatch } from "react-redux";
 import { columns } from "./helper";
 import { ModalEditBook } from "./component/modal/ModalEditBook";
 import { ModalCreateRoom } from "./component/modal/ModalCreateRoom";
-import { ModalEditReaction } from "./component/modal/ModalEditReaction";
 import { getCommonCode } from "redux/action/getCommonCode";
 import useGetDataBook from "./hook/useGetDataBook";
 import useGetDetailBook from "./hook/useGetDetailBook";
@@ -147,12 +146,6 @@ export const BookManagement = () => {
         isOpen={isModalOpen}
         fetcher={fetchDetail}
         fetch={fetchData}
-      />
-      <ModalEditReaction
-        isOpen={isModalEditReaction}
-        methodCancel={() => setIsModalEditReaction(false)}
-        title={t("Edit Reaction")}
-        idRoom={dataEdit?.id}
       />
       <Confirm />
     </>

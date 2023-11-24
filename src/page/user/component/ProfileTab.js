@@ -33,7 +33,7 @@ export const ProfileTab = (props) => {
   }, [setIsProfile])
 
   // API
-  const { userInfo } = useSelector(state => state.taiKhoan);
+  // const { userInfo } = useSelector(state => state.taiKhoan);
 
   // Method
   const handleViewProfile = () => {
