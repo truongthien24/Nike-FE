@@ -5,34 +5,34 @@ const ListCategory = ({isMobile = false}) => {
   const listCategory = [
     {
       key: "all",
-      title: "All Books",
-      path: "/allBooks",
+      title: "New & Featured",
+      path: "/new&featured",
       child: [],
     },
-    {
-      key: "art",
-      title: "Art & Design",
-      path: "/book?category=art",
-      child: [],
-    },
-    {
-      key: "comic",
-      title: "Comic & Graphic Novel",
-      path: "/book?category=comic",
-      child: [],
-    },
-    {
-      key: "language",
-      title: "Language & Textbook",
-      path: "/book?category=language",
-      child: [],
-    },
-    {
-      key: "love",
-      title: "Love & Psychological",
-      path: "/book?category=love",
-      child: [],
-    },
+    // {
+    //   key: "art",
+    //   title: "Art & Design",
+    //   path: "/book?category=art",
+    //   child: [],
+    // },
+    // {
+    //   key: "comic",
+    //   title: "Comic & Graphic Novel",
+    //   path: "/book?category=comic",
+    //   child: [],
+    // },
+    // {
+    //   key: "language",
+    //   title: "Language & Textbook",
+    //   path: "/book?category=language",
+    //   child: [],
+    // },
+    // {
+    //   key: "love",
+    //   title: "Love & Psychological",
+    //   path: "/book?category=love",
+    //   child: [],
+    // },
   ];
 
 
