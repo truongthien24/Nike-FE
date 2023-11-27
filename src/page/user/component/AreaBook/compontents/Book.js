@@ -16,7 +16,7 @@ const Book = (props) => {
   const addToFavourite = () => {
     // Check login
     if (checkLogin()) {
-      toast("Chuc nang dang phat trien!", {
+      toast("Chức năng đang phát triển!", {
         icon: "👏",
       });
     } else {
@@ -25,9 +25,12 @@ const Book = (props) => {
   };
 
   const handleReview = (data) => {
-    onReview({
-      open: true,
-      data,
+    // onReview({
+    //   open: true,
+    //   data,
+    // });
+    toast("Chức năng đang phát triển!", {
+      icon: "👏",
     });
   };
 
@@ -36,7 +39,7 @@ const Book = (props) => {
       <div className="rounded-[5px] bg-[white] book">
         <div className="relative w-full book__heading">
           <img
-            src={data?.hinhAnh?.url}
+            src={data?.image?.url}
             className="w-full h-[220px] md:h-[260px] 2xl:h-[300px] rounded-[5px] book__heading-img"
           />
           <div className="book__heading-option">
@@ -59,12 +62,12 @@ const Book = (props) => {
           </div>
         </div>
         <div className="flex flex-col items-center mt-[5px]">
-          <h5>{data?.tenSach}</h5>
+          <h5>{data?.nameShoe}</h5>
           <span style={{ color: `${COLOR.primaryColor}` }} className="my-[7px]">
-            {data?.gia?.toLocaleString()} VND
+            {data?.price?.toLocaleString()} VND
           </span>
           <span className="text-[13px] text-[#f7941d]">
-            {data?.soLuong > 0 ? "In Stock" : "Sold out"}
+            {data?.quantity > 0 ? "In Stock" : "Sold out"}
           </span>
         </div>
       </div>

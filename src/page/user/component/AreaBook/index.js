@@ -1,6 +1,6 @@
 import React from 'react'
 import HeadingArea from './compontents/HeadingArea';
-import SliderBook from './compontents/SliderBook';
+import SliderGiay from './compontents/SliderBook';
 
 const AreaBook = (props) => {
     // Props
@@ -8,7 +8,7 @@ const AreaBook = (props) => {
     return (
         <div>
             <HeadingArea title={data?.title} />
-            <SliderBook data={data?.data} />
+            <SliderGiay data={data?.data} />
         </div>
     )
 }

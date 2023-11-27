@@ -42,12 +42,19 @@ export const MainRoutes = () => {
               status="404"
               title="404"
               subTitle="Sorry, the page you visited does not exist."
-              extra={<Button type="primary">Back Home</Button>}
+              extra={
+                <Button
+                  type="primary"
+                  onClick={() => window.location.replace("/")}
+                >
+                  Back Home
+                </Button>
+              }
             />
           }
         />
         <Route path="/:id/verify/:token" element={<VerifyEmail />} />
-        <Route path="/admin" element={<Layout1Admin />}>
+        {/* <Route path="/admin" element={<Layout1Admin />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="bookManagement" element={<BookManagement />} />
@@ -65,7 +72,7 @@ export const MainRoutes = () => {
           />
           <Route path="login" element={<LoginAdmin />} />
           <Route path="*" element={<div>Page not found</div>} />
-        </Route>
+        </Route> */}
       </Routes>
     </div>
   );

@@ -20,10 +20,40 @@ export const HomeUser = () => {
     },
   ];
 
-  const { sachData, isDataLoading, fetchData, isFetching } = useGetDataBook(
-    "0",
-    "0"
-  );
+  // const { sachData: giayData, isDataLoading, fetchData, isFetching } = useGetDataBook(
+  //   "0",
+  //   "0"
+  // );
+
+  const giayData = [
+    {
+      image: {
+        url: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_428,c_limit/deaada3d-b374-4c28-834f-b78314544c35/invincible-3-road-running-shoes-VZDSsw.png",
+      },
+      status: "0",
+      nameShoe: "Nike Invincible 3",
+      price: 5290000,
+      quantity: 2
+    },
+    {
+      image: {
+        url: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_428,c_limit/df88d282-47b4-4d5f-899d-2f4339977c7a/structure-25-road-running-shoes-Vnp1d0.png",
+      },
+      status: "0",
+      nameShoe: "Nike Structure 25",
+      price: 3200000,
+      quantity: 0
+    },
+    {
+      image: {
+        url: "https://static.nike.com/a/images/q_auto:eco/t_product_v1/f_auto/dpr_1.0/h_428,c_limit/df88d282-47b4-4d5f-899d-2f4339977c7a/structure-25-road-running-shoes-Vnp1d0.png",
+      },
+      status: "1",
+      nameShoe: "Nike Structure 25",
+      price: 3200000,
+      quantity: 0
+    }
+  ]
 
   return (
     <div className="flex flex-col items-center">
@@ -36,19 +66,19 @@ export const HomeUser = () => {
         <AreaBook
           data={{
             title: "New arrival",
-            data: sachData?.filter((sach) => sach.tinhTrang === "0"),
+            data: giayData?.filter((giay) => giay.status === "0"),
           }}
         />
         <AreaBook
           data={{
             title: "Hot",
-            data: sachData?.filter((sach) => sach.tinhTrang === "1"),
+            data: giayData?.filter((giay) => giay.status === "1"),
           }}
         />
         <AreaBook
           data={{
             title: "Old",
-            data: sachData?.filter((sach) => sach.tinhTrang === "2"),
+            data: giayData?.filter((giay) => giay.status === "2"),
           }}
         />
       </div>

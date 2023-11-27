@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Pagination } from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
-import Book from "./Book";
+import Shoe from "./Book";
 
 const SliderBook = (props) => {
   const { data } = props;
@@ -10,7 +10,7 @@ const SliderBook = (props) => {
     return data?.map((slide, index) => {
       return (
         <SwiperSlide key={index}>
-          <Book data={slide} />
+          <Shoe data={slide} />
         </SwiperSlide>
       );
     });

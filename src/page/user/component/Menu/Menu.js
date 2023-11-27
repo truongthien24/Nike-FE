@@ -5,14 +5,14 @@ const Menu = () => {
   const listMenu = [
     {
       key: "all",
-      title: "All Books",
-      path: "/allBooks",
+      title: "All Shoe",
+      path: "/allShoe",
       child: [],
     },
     {
       key: "newArrivals",
       title: "New Arrivals",
-      path: "/book?type=newArrivals",
+      path: "/shoe?type=newArrivals",
       child: [],
     },
     {
