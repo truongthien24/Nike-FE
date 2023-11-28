@@ -15,7 +15,7 @@ export const Login = () => {
 
   const initialValue = {
     tenDangNhap: "",
-    matKhau: "",
+    password: "",
   };
 
   const formField = [
@@ -54,7 +54,7 @@ export const Login = () => {
         }, 500);
       },
       onError: async (err) => {
-        toast.error(err.error);
+        toast.error(err.message);
       },
     });
   };

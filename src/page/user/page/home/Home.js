@@ -75,12 +75,12 @@ export const HomeUser = () => {
             data: giayData?.filter((giay) => giay.status === "1"),
           }}
         />
-        <AreaBook
+        {/* <AreaBook
           data={{
             title: "Old",
             data: giayData?.filter((giay) => giay.status === "2"),
           }}
-        />
+        /> */}
       </div>
       {/* <Reason /> */}
     </div>

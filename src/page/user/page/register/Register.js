@@ -23,18 +23,22 @@ export const Register = () => {
 
   const formField = [
     {
+      label: 'Username',
       name: "tenDangNhap",
       type: "string",
     },
     {
+      label: 'Password',
       name: "matKhau",
       type: "password",
     },
     {
+      label: 'Confirm password',
       name: "confirmPassword",
       type: "password",
     },
     {
+      label: 'Email',
       name: "email",
       type: "email",
     },
@@ -81,7 +85,7 @@ export const Register = () => {
         toast.success(msg.data.message);
       },
       onError: async (err) => {
-        toast.error(err.error.message);
+        toast.error(err?.message);
       },
     });
   };

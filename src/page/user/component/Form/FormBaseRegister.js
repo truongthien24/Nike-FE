@@ -29,13 +29,13 @@ export const FormBaseRegister = (props) => {
         return formField.map((item, index) => {
             return (
                 <div className='w-[90%] lg:w-[80%] mt-[20px]'>
-                    <h5 className='mb-[7px] text-[17px]'>* {item.name}:</h5>
+                    <h5 className='mb-[7px] text-[17px]'>* {item.label}:</h5>
                     <div className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? 'border-orange-400' : ""}`}>
                         <input
                             key={index}
                             type={item.type}
                             name={item.name}
-                            placeholder={`Điền vào ${item.name}...`}
+                            placeholder={`Điền vào ${item.label}...`}
                             className={`w-[95%] outline-none`}
                             {...register(`${item.name}`)}  //Đăng ký field vào form
                         />

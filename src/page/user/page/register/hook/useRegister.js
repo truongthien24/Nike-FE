@@ -1,8 +1,8 @@
 import { useMutation } from "react-query";
 import apiService from "../../../../../api";
 
-const registerUser = async (params = {}) => {
-  const accounts = await apiService.taiKhoan.userRegister({
+const registerAccount = async (params = {}) => {
+  const accounts = await apiService.account.registerAccount({
     ...params?.Data,
   });
 
@@ -10,7 +10,7 @@ const registerUser = async (params = {}) => {
 };
 
 const useRegister = () => {
-  return useMutation(registerUser, {
+  return useMutation(registerAccount, {
     onSuccess: (_, { onSuccess, status }) => {
       onSuccess(_);
     },
