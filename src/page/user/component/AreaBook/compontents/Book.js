@@ -3,7 +3,7 @@ import { COLOR } from "page/user/shareComponent/constant";
 import React, { useState } from "react";
 import { checkLogin } from "page/user/shareComponent/Function/checkLogin";
 import { toast } from "react-hot-toast";
-import ModalReviewSach from "../modal/ModalReviewSach";
+import ModalReviewProduct from "../modal/ModalReviewProduct";
 
 const Book = (props) => {
   const { data } = props;
@@ -39,7 +39,7 @@ const Book = (props) => {
       <div className="rounded-[5px] bg-[white] book">
         <div className="relative w-full book__heading">
           <img
-            src={data?.image?.url}
+            src={data?.hinhAnh}
             className="w-full h-[220px] md:h-[260px] 2xl:h-[300px] rounded-[5px] book__heading-img"
           />
           <div className="book__heading-option">
@@ -62,17 +62,17 @@ const Book = (props) => {
           </div>
         </div>
         <div className="flex flex-col items-center mt-[5px]">
-          <h5>{data?.nameShoe}</h5>
+          <h5>{data?.tenSanPham}</h5>
           <span style={{ color: `${COLOR.primaryColor}` }} className="my-[7px]">
-            {data?.price?.toLocaleString()} VND
+            {data?.giaSanPham?.toLocaleString()} VND
           </span>
           <span className="text-[13px] text-[#f7941d]">
-            {data?.quantity > 0 ? "In Stock" : "Sold out"}
+            {data?.soLuong > 0 ? "In Stock" : "Sold out"}
           </span>
         </div>
       </div>
       {review?.open && (
-        <ModalReviewSach
+        <ModalReviewProduct
           open={review?.open}
           data={review?.data}
           title=""

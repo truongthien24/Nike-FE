@@ -17,7 +17,7 @@ import Cart from "page/user/page/cart/Cart";
 import NgonNguManagement from "page/admin/page/System/ngonNguManagement/NgonNguManagement";
 import { BaiVietManagement } from "page/admin/page/baiVietManagement/BaiVietManagement";
 import Payment from "page/user/page/payment/Payment";
-import InfoBook from "page/user/page/infoBook/InfoBook";
+import InfoShoe from "page/user/page/infoShoe/InfoShoe";
 // import { Contact } from '../page/user/page/contact/Contact';
 import { Button, Result } from "antd";
 
@@ -29,8 +29,8 @@ export const MainRoutes = () => {
         {/* <Route path="/" element={<Welcome/>}/> */}
         <Route path="/" element={<Layout1 />}>
           <Route index element={<HomeUser />} />
-          {/* <Route path="infoBook/:id" element={<InfoBook />} />
-          <Route path="cart/:id" element={<Cart />} />
+          <Route path="infoShoe/:id" element={<InfoShoe />} />
+          {/* <Route path="cart/:id" element={<Cart />} />
           <Route path="payment" element={<Payment />} /> */}
         </Route>
         <Route path="login" element={<Login />} />

@@ -10,6 +10,7 @@ import baiViet from "./baiViet";
 import ngonNgu from "./ngonNgu";
 import gioHang from "./gioHang";
 import account from "./account";
+import product from "./product";
 
 const apiService = {
   taiKhoan,
@@ -24,6 +25,7 @@ const apiService = {
   ngonNgu,
   gioHang,
   account,
+  product,
 };
 
 export default apiService;

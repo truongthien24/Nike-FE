@@ -3,32 +3,34 @@ import React, { useEffect } from "react";
 import { Empty } from "antd";
 import OutsideClickDetector from "component/OutSide/OutSideClickDetector";
 import { useNavigate } from "react-router-dom";
+import useFindDataProduct from "page/admin/page/ProductManagement/hook/useFindProduct";
 const ResultSearch = ({ data, resultRef, searchRef }) => {
-  const { sachData, isDataLoading, fetchData, isFetching } = useFindDataBook({
-    tenSach: data,
-  });
+  const { productData, isDataLoading, fetchData, isFetching } =
+    useFindDataProduct({
+      tenSanPham: data,
+    });
 
   const navigate = useNavigate();
 
   const renderResult = () => {
-    if (sachData?.length > 0) {
-      return sachData?.map((sach, index) => {
+    if (productData?.length > 0) {
+      return productData?.map((shoe, index) => {
         return (
           <div
             className="flex rounded-[5px] duration-500 cursor-pointer hover:bg-[#eaeaea]"
             onClick={() => {
-              navigate(`/infoBook/${sach?._id}`);
-              resultRef.current.style.display = 'none'
+              navigate(`/infoShoe/${shoe?.id}`);
+              resultRef.current.style.display = "none";
             }}
           >
             <img
-              src={sach?.hinhAnh?.url}
-              className="w-[45px] h-full mr-[10px]"
+              src={shoe?.hinhAnh}
+              className="w-[70px] md:w-[100px] h-full mr-[10px]"
             />
             <div>
-              <h5 className="text-[13px]">{sach?.tenSach}</h5>
+              <h5 className="text-[13px] lg:text-[15px]">{shoe?.tenSanPham}</h5>
               <span className="text-[12px] text-[gray]">
-                {sach?.tenTheLoai}
+                {shoe?.tenTheLoai}
               </span>
             </div>
           </div>

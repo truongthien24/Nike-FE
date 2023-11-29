@@ -16,7 +16,7 @@ import { ExpandAltOutlined } from '@ant-design/icons';
 import FsLightbox from "fslightbox-react";
 
 
-const ModalReviewSach = ({ data, open = false, onReview, title }) => {
+const ModalReviewProduct = ({ data, open = false, onReview, title }) => {
   const navigate = useNavigate();
 
 
@@ -219,4 +219,4 @@ const ModalReviewSach = ({ data, open = false, onReview, title }) => {
   );
 };
 
-export default ModalReviewSach;
+export default ModalReviewProduct;
