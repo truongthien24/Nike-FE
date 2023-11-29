@@ -4,9 +4,18 @@ import React, { useState } from "react";
 import { checkLogin } from "page/user/shareComponent/Function/checkLogin";
 import { toast } from "react-hot-toast";
 import ModalReviewProduct from "../modal/ModalReviewProduct";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import _ from "lodash";
 
-const Book = (props) => {
+const Shoe = (props) => {
   const { data } = props;
+
+  const navigate = useNavigate();
+
+  const {userInfo} = useSelector(state=> state.home);
+
+  console.log('userInfo', userInfo);
 
   const [review, onReview] = useState({
     open: false,
@@ -15,7 +24,7 @@ const Book = (props) => {
 
   const addToFavourite = () => {
     // Check login
-    if (checkLogin()) {
+    if (!_.isEmpty(userInfo)) {
       toast("Chức năng đang phát triển!", {
         icon: "👏",
       });
@@ -29,9 +38,7 @@ const Book = (props) => {
     //   open: true,
     //   data,
     // });
-    toast("Chức năng đang phát triển!", {
-      icon: "👏",
-    });
+    navigate(`/infoShoe/${data?.id}`)
   };
 
   return (
@@ -83,4 +90,4 @@ const Book = (props) => {
   );
 };
 
-export default Book;
+export default Shoe;

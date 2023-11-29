@@ -8,7 +8,7 @@ import { Tabs } from "antd";
 import { Empty } from "antd";
 import _ from "lodash";
 import useFindDataProduct from "page/admin/page/ProductManagement/hook/useFindProduct";
-import ReactImageMagnify from "react-image-magnify";
+
 
 const SizeProduct = ({ data, name }) => {
   const { register, watch } = useFormContext();
@@ -21,11 +21,10 @@ const SizeProduct = ({ data, name }) => {
         style={{
           boxShadow:
             "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-          border: `${
-            watch("kichCoSanPham") === data?.maKichCo
+          border: `${watch("kichCoSanPham") === data?.maKichCo
               ? "1px solid #000"
               : "1px solid transparent"
-          }`,
+            }`,
         }}
       >
         EU
@@ -165,7 +164,7 @@ const InfoShoe = () => {
   };
 
   const onChange = (key) => {
-    console.log(key);
+    // toast("Chức năng đang phát triển");
   };
 
   const addToFavourite = () => {
@@ -182,25 +181,12 @@ const InfoShoe = () => {
             className="grid md:grid-cols-2 gap-[50px]"
             onSubmit={handleSubmit(addToCart)}
           >
-            {/* <img
-              src={productData?.hinhAnh}
-              className="h-full rounded-[10px] w-[90%]"
-            /> */}
-            <ReactImageMagnify
-            style={{width: '80%'}}
-              {...{
-                smallImage: {
-                  alt: "Wristwatch by Ted Baker London",
-                  isFluidWidth: true,
-                  src: productData?.hinhAnh,
-                },
-                largeImage: {
-                  src: productData?.hinhAnh,
-                  width: 1200,
-                  height: 1800,
-                },
-              }}
-            />
+            <div className="w-full h-300px overflow-hidden">
+              <img
+                src={productData?.hinhAnh}
+                className="h-full rounded-[10px] w-[100%] hover:scale-110 duration-500"
+              />
+            </div>
             <div className="flex flex-col md:justify-between">
               <div>
                 <h2 className="lg:text-[25px]">{productData?.tenSanPham}</h2>
@@ -247,15 +233,14 @@ const InfoShoe = () => {
                   type="button"
                   onClick={addToFavourite}
                 >
-                  Thêm vào danh sách yêu thích
+                  Thêm vào yêu thích
                 </button>
                 <button
                   disabled={productData?.soLuong < 1}
                   className="text-[#fff] w-full p-[10px] rounded-[25px] flex items-center justify-center"
                   style={{
-                    backgroundColor: `${
-                      productData?.soLuong > 0 ? "#000" : "gray"
-                    }`,
+                    backgroundColor: `${productData?.soLuong > 0 ? "#000" : "gray"
+                      }`,
                   }}
                 >
                   Thêm vào giỏ hàng

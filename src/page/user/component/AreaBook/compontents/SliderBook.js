@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Pagination } from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
-import Shoe from "./Book";
+import Shoe from "./Shoe";
 
 const SliderBook = (props) => {
   const { data } = props;
