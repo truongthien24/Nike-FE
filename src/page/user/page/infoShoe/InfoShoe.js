@@ -1,5 +1,5 @@
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { COLOR } from "page/user/shareComponent/constant";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
@@ -8,7 +8,9 @@ import { Tabs } from "antd";
 import { Empty } from "antd";
 import _ from "lodash";
 import useFindDataProduct from "page/admin/page/ProductManagement/hook/useFindProduct";
-
+import { useSelector } from "react-redux";
+import { LayoutContext } from "page/user/layout/Layout1";
+import useUpdateAccount from "page/admin/page/accountManagement/hook/useUpdateAccount";
 
 const SizeProduct = ({ data, name }) => {
   const { register, watch } = useFormContext();
@@ -21,10 +23,11 @@ const SizeProduct = ({ data, name }) => {
         style={{
           boxShadow:
             "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-          border: `${watch("kichCoSanPham") === data?.maKichCo
+          border: `${
+            watch("kichCoSanPham") === data?.maKichCo
               ? "1px solid #000"
               : "1px solid transparent"
-            }`,
+          }`,
         }}
       >
         EU
@@ -87,6 +90,12 @@ const InfoShoe = () => {
     useFindDataProduct({
       id,
     });
+
+  const { userInfo } = useSelector((state) => state.home);
+
+  const { fetchDataAccount } = useContext(LayoutContext);
+
+  const { mutate, isLoading } = useUpdateAccount();
 
   const navigate = useNavigate();
 
@@ -167,107 +176,123 @@ const InfoShoe = () => {
     // toast("Chức năng đang phát triển");
   };
 
-  const addToFavourite = () => {
-    toast("Chức năng đang phát triển");
+  const addToFavourite = async () => {
+    if (!_.isEmpty(userInfo)) {
+      const newList = JSON.parse(userInfo?.danhSachYeuThich);
+      if (newList?.findIndex((item) => item === productData?.id) == -1) {
+        newList.push(productData?.id);
+      }
+      await mutate({
+        Data: {
+          id: userInfo?.id,
+          danhSachYeuThich: newList,
+        },
+        onSuccess: async (res) => {
+          await fetchDataAccount();
+          toast.success("Add to favourite successfull");
+        },
+        onError: (err) => {
+          toast.error(err?.message);
+        },
+      });
+    } else {
+      toast.error("Bạn chưa đăng nhập");
+    }
   };
 
   useLoadingEffect(isDataLoading);
 
   return (
-    <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center">
-      <div className="flex flex-col bg-[#f1f1f1] w-[95%] xl:w-[90%] 2xl:w-[70%] px-[25px] py-[20px]">
-        <FormProvider {...method}>
-          <form
-            className="grid md:grid-cols-2 gap-[50px]"
-            onSubmit={handleSubmit(addToCart)}
-          >
-            <div className="w-full h-300px overflow-hidden">
-              <img
-                src={productData?.hinhAnh}
-                className="h-full rounded-[10px] w-[100%] hover:scale-110 duration-500"
-              />
-            </div>
-            <div className="flex flex-col md:justify-between">
-              <div>
-                <h2 className="lg:text-[25px]">{productData?.tenSanPham}</h2>
-                <div className="flex items-center">
+    <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center items-center">
+      {!_.isEmpty(productData) ? (
+        <div className="flex flex-col bg-[#f1f1f1] w-[95%] xl:w-[90%] 2xl:w-[70%] px-[25px] py-[20px]">
+          <FormProvider {...method}>
+            <form
+              className="grid md:grid-cols-2 gap-[50px]"
+              onSubmit={handleSubmit(addToCart)}
+            >
+              <div className="w-full h-300px overflow-hidden">
+                <img
+                  src={productData?.hinhAnh}
+                  className="h-full rounded-[10px] w-[100%] hover:scale-110 duration-500"
+                />
+              </div>
+              <div className="flex flex-col md:justify-between">
+                <div>
+                  <h2 className="lg:text-[25px]">{productData?.tenSanPham}</h2>
                   <div className="flex items-center">
-                    <p className="text-[gray] text-[11px] md:text-[13px] 2xl:text-[14px">
-                      Tình trạng:{" "}
-                      <span className="text-[#000]">
-                        {productData?.soLuong > 0 ? "Còn hàng" : "Hết hàng"}
-                      </span>
-                    </p>
+                    <div className="flex items-center">
+                      <p className="text-[gray] text-[11px] md:text-[13px] 2xl:text-[14px">
+                        Tình trạng:{" "}
+                        <span className="text-[#000]">
+                          {productData?.soLuong > 0 ? "Còn hàng" : "Hết hàng"}
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div
-                  className="text-[white] py-[5px] px-[12px] max-w-fit my-[20px] lg:my-[30px] ml-[5px]"
-                  style={{
-                    backgroundColor: `${COLOR.secondaryColor}`,
-                    transform: "skew(10deg)",
-                  }}
-                >
-                  <span
-                    className="inline-block text-[18px] md:text-[22px] text-bold"
-                    style={{ transform: "skew(-10deg)" }}
+                  <div
+                    className="text-[white] py-[5px] px-[12px] max-w-fit my-[20px] lg:my-[30px] ml-[5px]"
+                    style={{
+                      backgroundColor: `${COLOR.secondaryColor}`,
+                      transform: "skew(10deg)",
+                    }}
                   >
-                    {productData?.giaSanPham?.toLocaleString()}
-                  </span>
-                </div>
-                <div className="mb-[20px] lg:mb-[30px]">
-                  <h5 className="mb-[10px] font-[500] md:text-[17px]">
-                    Select Size
-                  </h5>
-                  <div className="grid grid-cols-5 gap-[10px]">
-                    {renderSize()}
+                    <span
+                      className="inline-block text-[18px] md:text-[22px] text-bold"
+                      style={{ transform: "skew(-10deg)" }}
+                    >
+                      {productData?.giaSanPham?.toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="mb-[20px] lg:mb-[30px]">
+                    <h5 className="mb-[10px] font-[500] md:text-[17px]">
+                      Select Size
+                    </h5>
+                    <div className="grid grid-cols-5 gap-[10px]">
+                      {renderSize()}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
-                <button
-                  className="w-full p-[10px] rounded-[25px] flex items-center justify-center"
-                  style={{
-                    border: `1px solid #000`,
-                    color: `#000`,
-                  }}
-                  type="button"
-                  onClick={addToFavourite}
-                >
-                  Thêm vào yêu thích
-                </button>
-                <button
-                  disabled={productData?.soLuong < 1}
-                  className="text-[#fff] w-full p-[10px] rounded-[25px] flex items-center justify-center"
-                  style={{
-                    backgroundColor: `${productData?.soLuong > 0 ? "#000" : "gray"
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-[20px]">
+                  <button
+                    className="w-full p-[10px] rounded-[25px] flex items-center justify-center"
+                    style={{
+                      border: `1px solid #000`,
+                      color: `#000`,
+                    }}
+                    type="button"
+                    onClick={addToFavourite}
+                  >
+                    Thêm vào yêu thích
+                  </button>
+                  <button
+                    disabled={productData?.soLuong < 1}
+                    className="text-[#fff] w-full p-[10px] rounded-[25px] flex items-center justify-center"
+                    style={{
+                      backgroundColor: `${
+                        productData?.soLuong > 0 ? "#000" : "gray"
                       }`,
-                  }}
-                >
-                  Thêm vào giỏ hàng
-                </button>
+                    }}
+                  >
+                    Thêm vào giỏ hàng
+                  </button>
+                </div>
               </div>
-              {/* <div className="flex justify-center">
-              <button
-                disabled={productData?.soLuong < 1}
-                className="w-full p-[10px] rounded-[25px] lg:w-[50%] flex items-center justify-center mt-[10px]"
-                style={{
-                  border: `1px solid ${COLOR.primaryColor}`,
-                  color: `${COLOR.primaryColor}`,
-                }}
-              >
-                Thêm vào danh sách yêu thích
-              </button>
-            </div> */}
-            </div>
-          </form>
-        </FormProvider>
-        <Tabs
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-          className="mt-[20px]"
+            </form>
+          </FormProvider>
+          <Tabs
+            defaultActiveKey="1"
+            items={items}
+            onChange={onChange}
+            className="mt-[20px]"
+          />
+        </div>
+      ) : (
+        <Empty
+          image={Empty.PRESENTED_IMAGE_SIMPLE}
+          description="Không tìm thấy sản phẩm"
         />
-      </div>
+      )}
     </div>
   );
 };

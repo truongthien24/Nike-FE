@@ -39,6 +39,7 @@ export const AccountReducer = (state = initialState, action) => {
         }
             break;
         case 'LAY_DU_LIEU_USER': {
+            console.log('action.payload', action.payload)
             state.userInfo = action.payload;
             return { ...state };
         }

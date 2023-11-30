@@ -14,7 +14,7 @@ const Favourite = (props) => {
 
     const handleClick = () => {
         if (checkLogin()) {
-            navigate('/favouriteBook');
+            navigate('/favouriteShoes');
         } else {
             // Swal.fire({
             //     icon: 'info',

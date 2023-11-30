@@ -20,6 +20,7 @@ import Payment from "page/user/page/payment/Payment";
 import InfoShoe from "page/user/page/infoShoe/InfoShoe";
 // import { Contact } from '../page/user/page/contact/Contact';
 import { Button, Result } from "antd";
+import Favourite from "page/user/page/favourite/Favourite";
 
 export const MainRoutes = () => {
   return (
@@ -30,6 +31,7 @@ export const MainRoutes = () => {
         <Route path="/" element={<Layout1 />}>
           <Route index element={<HomeUser />} />
           <Route path="infoShoe/:id" element={<InfoShoe />} />
+          <Route path="favouriteShoes" element={<Favourite />} />
           {/* <Route path="cart/:id" element={<Cart />} />
           <Route path="payment" element={<Payment />} /> */}
         </Route>

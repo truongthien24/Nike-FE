@@ -3,7 +3,7 @@ import { Grid, Pagination } from "swiper";
 import { SwiperSlide, Swiper } from "swiper/react";
 import Shoe from "./Shoe";
 
-const SliderBook = (props) => {
+const SliderShoe = (props) => {
   const { data } = props;
 
   const renderSlide = () => {
@@ -50,4 +50,4 @@ const SliderBook = (props) => {
   );
 };
 
-export default SliderBook;
+export default SliderShoe;
