@@ -16,7 +16,7 @@ const Shoe = (props) => {
 
   const { userInfo } = useSelector((state) => state.home);
 
-  const {fetchDataAccount} = useContext(LayoutContext);
+  const { fetchDataAccount } = useContext(LayoutContext);
 
   const { mutate, isLoading } = useUpdateAccount();
 
@@ -28,7 +28,7 @@ const Shoe = (props) => {
   const addFavourite = async () => {
     // Check login
     if (!_.isEmpty(userInfo)) {
-      const newList = JSON.parse(userInfo?.danhSachYeuThich);
+      const newList = userInfo?.danhSachYeuThich;
       if (newList?.findIndex((item) => item === data?.id) == -1) {
         newList.push(data?.id);
       }

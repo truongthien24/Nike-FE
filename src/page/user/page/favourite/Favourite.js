@@ -27,7 +27,7 @@ const Favourite = () => {
   const { productData, isDataLoading, fetchData, isFetching } =
     useFindDataProduct({
       listId: userInfo?.danhSachYeuThich
-        ? JSON.parse(userInfo?.danhSachYeuThich)
+        ? userInfo?.danhSachYeuThich
         : [],
     });
 
