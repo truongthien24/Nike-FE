@@ -8,7 +8,13 @@ export default {
   },
 
   getAccountByID: (params) => {
-    return axiosWrapper.get(`/get-account-by-ID/${params}`)
+    return axiosWrapper.get(`/get-account-by-ID/${params}`);
+  },
+
+  getPasswordByEmail: (params) => {
+    return axiosWrapper.post(`/get-password-by-email`, {
+      ...params,
+    });
   },
 
   adminLogin: (params) => {

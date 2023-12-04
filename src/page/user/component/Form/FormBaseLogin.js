@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 
 export const FormBaseLogin = (props) => {
   // Props
-  const { formField, initialValue, validationSchema, methodSubmit } = props;
+  const { formField, initialValue, validationSchema, methodSubmit, onForget } = props;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,7 +92,8 @@ export const FormBaseLogin = (props) => {
               //     timerProgressBar: true,
               //     confirmButtonColor: '#3790c7',
               // })
-              toast.error("Chức năng đang phát triển!");
+              // toast.error("Chức năng đang phát triển!");
+              onForget(true)
             }}
           >
             {t("forgotPassword")}?{" "}

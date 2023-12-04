@@ -2,19 +2,19 @@ import axiosWrapper from "../../services/jwtServices/jwtServices";
 
 export default {
   getAllGioHang: (params) => {
-    return axiosWrapper.get(`/getAllGioHang`, {
+    return axiosWrapper.get(`/get-all-cart`, {
       ...params,
     });
   },
 
   findGioHang: (params) => {
-    return axiosWrapper.post(`/findGioHang`, {
+    return axiosWrapper.post(`/find-cart`, {
       ...params,
     });
   },
 
   createGioHang: (params) => {
-    return axiosWrapper.post(`/createGioHang`, {
+    return axiosWrapper.post(`/create-cart`, {
       ...params,
     });
   },
@@ -26,14 +26,13 @@ export default {
   },
 
   updateGioHang: (params) => {
-    return axiosWrapper.patch(`/updateGioHang/${params?._id}`, {
+    return axiosWrapper.patch(`/update-cart/${params?._id}`, {
       ...params,
     });
   },
 
   deleteGioHang: (params) => {
-    console.log('params', params)
-    return axiosWrapper.delete(`/deleteGioHang/${params?._id}`, {
+    return axiosWrapper.delete(`/delete-cart/${params?._id}`, {
       ...params,
     });
   },

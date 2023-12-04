@@ -178,7 +178,7 @@ const InfoShoe = () => {
 
   const addToFavourite = async () => {
     if (!_.isEmpty(userInfo)) {
-      const newList = JSON.parse(userInfo?.danhSachYeuThich);
+      const newList = userInfo?.danhSachYeuThich;
       if (newList?.findIndex((item) => item === productData?.id) == -1) {
         newList.push(productData?.id);
       }

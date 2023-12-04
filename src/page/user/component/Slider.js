@@ -38,6 +38,12 @@ export const Slider = (props) => {
       modules={[Navigation, Pagination, Mousewheel, Keyboard]}
       className="mySwiper"
       slidesPerView={1}
+      autoplay={{
+        delay: 3000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+      }}
+      speed={1300}
     >
       {renderSlider()}
     </Swiper>
