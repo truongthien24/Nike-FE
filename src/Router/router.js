@@ -7,7 +7,7 @@ import { Layout1Admin } from "../page/admin/layout/Layout1Admin";
 import { Register } from "../page/user/page/register/Register";
 import { Dashboard } from "../page/admin/page/Dashboard/Dashboard";
 import { Login as LoginAdmin } from "../page/admin/page/login/Login";
-import { BookManagement } from "../page/admin/page/RoomManagement/BookManagement";
+import { ProductManagement } from "../page/admin/page/RoomManagement/ProductManagement";
 import VerifyEmail from "page/user/page/verifyEmail/VerifyEmail";
 import TheLoaiManagement from "page/admin/page/System/theLoaiManagement/TheLoaiManagement";
 import TacGiaManagement from "page/admin/page/System/tacGiaManagement/TacGiaManagement";
@@ -56,11 +56,11 @@ export const MainRoutes = () => {
           }
         />
         <Route path="/:id/verify/:token" element={<VerifyEmail />} />
-        {/* <Route path="/admin" element={<Layout1Admin />}>
+        <Route path="/admin" element={<Layout1Admin />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="bookManagement" element={<BookManagement />} />
-          <Route path="theLoaiManagement" element={<TheLoaiManagement />} />
+          <Route path="productManagement" element={<ProductManagement />} />
+          {/* <Route path="theLoaiManagement" element={<TheLoaiManagement />} />
           <Route path="tacGiaManagement" element={<TacGiaManagement />} />
           <Route path="ngonNguManagement" element={<NgonNguManagement />} />
           <Route path="baiVietManagement" element={<BaiVietManagement />} />
@@ -71,10 +71,10 @@ export const MainRoutes = () => {
           <Route
             path="nhaXuatBanManagement"
             element={<NhaXuatBanManagement />}
-          />
+          /> */}
           <Route path="login" element={<LoginAdmin />} />
           <Route path="*" element={<div>Page not found</div>} />
-        </Route> */}
+        </Route>
       </Routes>
     </div>
   );

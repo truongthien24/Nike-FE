@@ -1,16 +1,9 @@
 export const columns = (onClickFuncc) => {
   return [
     {
-      title: "Tên sách",
-      dataIndex: "tenSach",
-      key: "tenSach",
-      width: "25%",
-    },
-    {
-      title: "Thể loại",
-      dataIndex: "tenTheLoai",
-      key: "tenTheLoai",
-      width: "15%",
+      title: "Tên sản phẩm",
+      dataIndex: "tenSanPham",
+      key: "tenSanPham",
     },
     {
       title: "Số lượng",
@@ -19,28 +12,9 @@ export const columns = (onClickFuncc) => {
       width: "10%",
     },
     {
-      title: "Tác giả",
-      dataIndex: "tenTacGia",
-      key: "tenTacGia",
-      width: "20%",
-    },
-    {
-      title: "Nhà xuất bản",
-      dataIndex: "tenNhaXuatBan",
-      key: "tenNhaXuatBan",
-      width: "15%",
-    },
-    {
-      title: "Nhà cung cấp",
-      dataIndex: "tenNhaCungCap",
-      key: "tenNhaCungCap",
-      width: "25%",
-    },
-    {
       title: "Hình ảnh",
       dataIndex: "hinhAnh",
       key: "hinhAnh",
-      width: "20%",
     },
   ];
 };

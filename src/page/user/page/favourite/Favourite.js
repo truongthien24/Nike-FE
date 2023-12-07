@@ -13,11 +13,14 @@ const ShoeItems = ({data}) => {
     navigate(`/infoShoe/${data?.id}`)
   }
 
-  return (<div className="rounded-[10px] shadow-md cursor-pointer" onClick={handleChooseShoe}>
-    <img className="w-full h-full" src={data?.hinhAnh}/>
-    {/* <div>
-      <h3>{data?.tenSanPham}</h3>
-    </div> */}
+  return (<div className="rounded-[10px] shadow-md cursor-pointer grid grid-cols-2 lg:grid-cols-5" onClick={handleChooseShoe}>
+    <img className="w-full h-full lg:col-span-2" src={data?.hinhAnh}/>
+    <div className="lg:col-span-3 p-[10px]">
+      <h3 className="lg:text-[18px] font-[500] mb-[10px]">{data?.tenSanPham}</h3>
+      <div>
+        <h5 className="bg-[#000] text-[#fff] w-fit px-[20px] py-[10px] rounded-[5px]">{data?.giaSanPham?.toLocaleString()} VND</h5>
+      </div>
+    </div>
   </div>)
 }
 
@@ -41,11 +44,9 @@ const Favourite = () => {
       }
     }
 
-  console.log(productData);
-
   return (
     <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center items-center">
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-[10px] md:gap-[20px] px-[10px] md:px-[20px]">
+      <div className="grid grid-cols-1 gap-[10px] md:gap-[20px] px-[10px] md:px-[20px]">
         {renderProductFavourite()}
       </div>
     </div>

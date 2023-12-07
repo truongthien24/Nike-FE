@@ -14,7 +14,7 @@ import useDeleteBook from "./hook/useDeleteBook";
 import { setConfirm } from "redux/action/homeAction";
 import toast from "react-hot-toast";
 
-export const BookManagement = () => {
+export const ProductManagement = () => {
   // State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -27,26 +27,26 @@ export const BookManagement = () => {
 
   // Effect
   useEffect(async () => {
-    await dispatch(getCommonCode("tacGia"));
-    await dispatch(getCommonCode("theLoai"));
-    await dispatch(getCommonCode("nhaXuatBan"));
-    await dispatch(getCommonCode("nhaCungCap"));
-    await dispatch(getCommonCode("ngonNgu"));
+    // await dispatch(getCommonCode("tacGia"));
+    // await dispatch(getCommonCode("theLoai"));
+    // await dispatch(getCommonCode("nhaXuatBan"));
+    // await dispatch(getCommonCode("nhaCungCap"));
+    // await dispatch(getCommonCode("ngonNgu"));
   }, []);
 
-  const { sachData, isDataLoading, fetchData, isFetching } = useGetDataBook(
-    "0",
-    "0"
-  );
+  // const { sachData, isDataLoading, fetchData, isFetching } = useGetDataBook(
+  //   "0",
+  //   "0"
+  // );
 
-  const {
-    sachDataDetail,
-    isDataDetailLoading,
-    fetchData: fetchDetail,
-    isFetching: isFetchingDetail,
-  } = useGetDetailBook("0", "0", dataEdit?._id);
+  // const {
+  //   sachDataDetail,
+  //   isDataDetailLoading,
+  //   fetchData: fetchDetail,
+  //   isFetching: isFetchingDetail,
+  // } = useGetDetailBook("0", "0", dataEdit?._id);
 
-  const { mutate, isLoading: isLoadingDelete } = useDeleteBook();
+  // const { mutate, isLoading: isLoadingDelete } = useDeleteBook();
 
   // Method
   const handleAdd = () => {
@@ -69,30 +69,29 @@ export const BookManagement = () => {
   };
 
   const handleDelete = async (data) => {
-    console.log("data", data);
-    await dispatch(
-      setConfirm({
-        status: "open",
-        method: async () => {
-          await mutate({
-            Data: data,
-            onSuccess: async (res) => {
-              toast.success(res.data.message);
-              await fetchData();
-              await dispatch(
-                setConfirm({
-                  status: "close",
-                  method: () => {},
-                })
-              );
-            },
-            onError: (err) => {
-              toast.error(err.error.message);
-            },
-          });
-        },
-      })
-    );
+    // await dispatch(
+    //   setConfirm({
+    //     status: "open",
+    //     method: async () => {
+    //       await mutate({
+    //         Data: data,
+    //         onSuccess: async (res) => {
+    //           toast.success(res.data.message);
+    //           await fetchData();
+    //           await dispatch(
+    //             setConfirm({
+    //               status: "close",
+    //               method: () => {},
+    //             })
+    //           );
+    //         },
+    //         onError: (err) => {
+    //           toast.error(err.error.message);
+    //         },
+    //       });
+    //     },
+    //   })
+    // );
   };
 
   const handleViewDanhGia = (data) => {
@@ -100,13 +99,13 @@ export const BookManagement = () => {
     setIsModalEditReaction(true);
   };
 
-  useLoadingEffect(isDataLoading || isDataDetailLoading || isLoadingDelete);
+  // useLoadingEffect(isDataLoading || isDataDetailLoading || isLoadingDelete);
 
   return (
     <>
       <div className="h-[10%] flex justify-between items-center">
         <h3 className="text-[20px] text-[#3790c7] font-bold">
-          {t("Quản lý sách")}
+          {t("Quản lý sản phẩm")}
         </h3>
         <button
           className="flex items-center justify-center bg-[#3790c7] text-white py-[10px] px-[20px] rounded-[7px] duration-300 hover:shadow-[#3790c7a6] hover:shadow-lg hover:translate-y-[-3px]"
@@ -118,14 +117,14 @@ export const BookManagement = () => {
       </div>
       <div className="h-[90%]">
         <TableMain
-          data={sachData}
+          data={[]}
           columns={columns(handleViewDanhGia)}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           setIsModalOpen={setIsModalOpen}
         />
       </div>
-      <ModalEditBook
+      {/* <ModalEditBook
         methodCancel={() => {
           setDataEdit(null);
           setIsModalEditOpen(false);
@@ -146,7 +145,7 @@ export const BookManagement = () => {
         isOpen={isModalOpen}
         fetcher={fetchDetail}
         fetch={fetchData}
-      />
+      /> */}
       <Confirm />
     </>
   );

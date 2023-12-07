@@ -58,10 +58,10 @@ export const Navigation = () => {
     getItem(
       <div
         onClick={() => {
-          navigate("/admin/bookManagement");
+          navigate("/admin/productManagement");
         }}
       >
-        Quản lý Sách
+        Quản lý sản phẩm
       </div>,
       "3",
       <ContainerOutlined />
@@ -176,7 +176,11 @@ export const Navigation = () => {
             { <MenuFoldOutlined />}
             </Button> */}
       <div className="flex items-center justify-center py-[20px]">
-        <img src="/images/nike-logo.png" className="w-[100px]" />
+        <img
+          src="/images/nike-logo.png"
+          className="w-[100px]"
+          style={{filter: "drop-shadow(0.5 0.3 1rem #fff)"}}
+        />
       </div>
       <Menu
         defaultSelectedKeys={["1"]}
