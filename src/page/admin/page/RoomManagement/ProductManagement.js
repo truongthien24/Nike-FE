@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import useGetDataProduct from "./hook/useGetDataProduct";
 import useDeleteProduct from "./hook/useDeleteProduct";
 import useGetDetailProduct from "./hook/useGetDetailProduct";
+import useFindDataProduct from "./hook/useFindProduct";
 
 export const ProductManagement = () => {
   // State
@@ -40,11 +41,12 @@ export const ProductManagement = () => {
   );
 
   const {
-    productDataDetail,
-    isDataDetailLoading,
+    productData: productDataDetail,
+    isDataLoading: isDataDetailLoading,
     fetchData: fetchDetail,
     isFetching: isFetchingDetail,
-  } = useGetDetailProduct("0", "0", dataEdit?._id);
+  } = useFindDataProduct({id: dataEdit?.id});
+
 
   const { mutate, isLoading: isLoadingDelete } = useDeleteProduct();
 

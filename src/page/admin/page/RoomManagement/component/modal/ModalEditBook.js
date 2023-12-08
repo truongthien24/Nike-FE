@@ -1,4 +1,4 @@
-import { Badge,Modal,  Popover, Skeleton } from "antd";
+import { Badge, Modal, Popover, Skeleton } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "../../../../../../assets/icon";
 import { UploadOutlined } from "@ant-design/icons";
@@ -41,10 +41,6 @@ export const ModalEditBook = (props) => {
 
   const [isChangeImage, setIsChangeImage] = useState(false);
 
-  const { tacGia, theLoai, nhaXuatBan, nhaCungCap, ngonNgu } = useSelector(
-    (state) => state.commonCode
-  );
-
   const { mutate, isLoading: isSubmitting } = useUpdateProduct();
 
   const dispatch = useDispatch();
@@ -65,78 +61,27 @@ export const ModalEditBook = (props) => {
   const APIEdit = useMemo(() => {
     return [
       {
-        name: "tenSach",
+        name: "tenSanPham",
         type: "string",
         required: true,
         size: "1",
-        label: "Tên sách",
+        label: "Tên sản phẩm",
       },
       {
-        name: "maSach",
+        name: "maSanPham",
         type: "string",
         required: true,
         size: "1",
-        label: "Mã sách",
-        disable: true,
+        label: "Mã sản phẩm",
       },
+      // {
+      //   name: "namSanXuat",
+      //   type: "number",
+      //   required: true,
+      //   label: "Năm sản xuất",
+      // },
       {
-        name: "maTheLoai",
-        type: "select",
-        dataSelect: theLoai?.map((tg) => {
-          return {
-            label: tg?.tenTheLoai,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Thể loại",
-      },
-      {
-        name: "maNhaXuatBan",
-        type: "select",
-        dataSelect: nhaXuatBan?.map((tg) => {
-          return {
-            label: tg?.tenNXB,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Nhà xuất bản",
-      },
-      {
-        name: "maTacGia",
-        type: "string",
-        type: "select",
-        dataSelect: tacGia?.map((tg) => {
-          return {
-            label: tg?.tenTacGia,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Tác giả",
-      },
-      {
-        name: "namXuatBan",
-        type: "date",
-        required: true,
-        label: "Năm xuất bản",
-        max: new Date()
-      },
-      {
-        name: "maNhaCungCap",
-        type: "select",
-        dataSelect: nhaCungCap?.map((tg) => {
-          return {
-            label: tg?.tenNhaCungCap,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Nhà cung cấp",
-      },
-      {
-        name: "tinhTrang",
+        name: "trangThai",
         type: "select",
         dataSelect: [
           { label: "New Arrival", value: 0 },
@@ -144,19 +89,13 @@ export const ModalEditBook = (props) => {
           { label: "Old", value: 2 },
         ],
         required: true,
-        label: "Tình trạng",
+        label: "Trạng thái",
       },
       {
-        name: "gia",
+        name: "giaSanPham",
         type: "number",
         required: true,
         label: "Giá",
-      },
-      {
-        name: "tienCoc",
-        type: "number",
-        required: true,
-        label: "Tiền cọc",
       },
       {
         name: "soLuong",
@@ -164,47 +103,15 @@ export const ModalEditBook = (props) => {
         required: true,
         label: "Số lượng",
       },
-      {
-        name: "kichThuoc",
-        type: "string",
-        required: true,
-        label: "Kích thước",
-      },
-      {
-        name: "soTrang",
-        type: "number",
-        required: true,
-        label: "Số trang",
-      },
-      {
-        name: "maNgonNgu",
-        type: "select",
-        dataSelect: ngonNgu?.map((tg) => {
-          return {
-            label: tg?.tenNgonNgu,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Ngôn ngữ",
-      },
-      {
-        name: "quocGia",
-        type: "select",
-        dataSelect: [
-          { label: "Hàn Quốc", value: "HQ" },
-          { label: "Việt Nam", value: "VN" },
-          { label: "Mỹ", value: "EN" },
-        ],
-        required: true,
-        label: "Quốc gia",
-      },
+      // {
+      //   name: "kichThuoc",
+      //   type: "string",
+      //   required: true,
+      //   label: "Kích thước",
+      // },
     ];
-  }, [tacGia, theLoai, nhaXuatBan, nhaCungCap, ngonNgu]);
+  }, []);
 
-  const validationSchema = yup.object().shape({
-    tienCoc: yup.number().required().oneOf([yup.ref('gia')], 'Phải bằng giá sách')
-  });
 
   const {
     register,
@@ -217,13 +124,11 @@ export const ModalEditBook = (props) => {
     formState: { errors },
   } = useForm({
     method: "onChange",
-    resolver: yupResolver(validationSchema),
   });
 
   useEffect(() => {
     if (dataEdit) {
-      // APIEdit.forEach(data => setValue(`${data.name}`, dataEdit?.[data.name]));
-      reset({ ...dataEdit, hinhAnh: dataEdit?.hinhAnh, namXuatBan: dataEdit?.namXuatBan });
+      reset({ ...dataEdit, hinhAnh: dataEdit?.hinhAnh });
     }
   }, [dataEdit]);
 
@@ -232,10 +137,12 @@ export const ModalEditBook = (props) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setImage(base64);
-    setValue("hinhAnh", {
-      url: base64,
-      public_id: null,
-    });
+    setValue("hinhAnh",
+      {
+        reupload: true,
+        file: base64
+      }
+    );
   };
 
   const submitForm = async (data) => {
@@ -250,11 +157,7 @@ export const ModalEditBook = (props) => {
     await mutate({
       Data: {
         ...data,
-        nhaXuatBan: data?.maNhaXuatBan,
-        theLoai: data?.maTheLoai,
-        nhaCungCap: data?.maNhaCungCap,
-        tacGia: data?.maTacGia,
-        ngonNgu: data?.maNgonNgu,
+        giaSanPham: parseInt(data?.giaSanPham), trangThai: parseInt(data?.trangThai), soLuong: parseInt(data?.soLuong)
       },
       onSuccess: async (msg) => {
         toast.success(msg?.data?.message);
@@ -368,7 +271,7 @@ export const ModalEditBook = (props) => {
         />
       );
     } else if (item.type === 'date') {
-      return (<FormDatePicker label={null} name={item.name} max={item.max} control={control}/>)
+      return (<FormDatePicker label={null} name={item.name} max={item.max} control={control} />)
     } else {
       return (
         <div
@@ -428,7 +331,7 @@ export const ModalEditBook = (props) => {
             <div className="rounded-[10px] border-solid border-[1px] border-[#cdcdcd] shadow-lg shadow-gray-400">
               <div className="p-[10px] w-full">
                 <img
-                  src={watch("hinhAnh")?.url}
+                  src={watch("hinhAnh")}
                   className="h-full w-full rounded-[5px]"
                 />
                 {/* {renderImage} */}

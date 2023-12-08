@@ -31,10 +31,6 @@ export const ModalCreateRoom = (props) => {
 
   const { t } = useTranslation();
 
-  const { tacGia, theLoai, nhaXuatBan, nhaCungCap, ngonNgu } = useSelector(
-    (state) => state.commonCode
-  );
-
   useEffect(() => {
     if (isOpen) {
       reset();
@@ -60,14 +56,14 @@ export const ModalCreateRoom = (props) => {
         size: "1",
         label: "Mã sản phẩm",
       },
+      // {
+      //   name: "namSanXuat",
+      //   type: "number",
+      //   required: true,
+      //   label: "Năm sản xuất",
+      // },
       {
-        name: "namSanXuat",
-        type: "number",
-        required: true,
-        label: "Năm sản xuất",
-      },
-      {
-        name: "tinhTrang",
+        name: "trangThai",
         type: "select",
         dataSelect: [
           { label: "New Arrival", value: 0 },
@@ -75,10 +71,10 @@ export const ModalCreateRoom = (props) => {
           { label: "Old", value: 2 },
         ],
         required: true,
-        label: "Tình trạng",
+        label: "Trạng thái",
       },
       {
-        name: "gia",
+        name: "giaSanPham",
         type: "number",
         required: true,
         label: "Giá",
@@ -89,14 +85,14 @@ export const ModalCreateRoom = (props) => {
         required: true,
         label: "Số lượng",
       },
-      {
-        name: "kichThuoc",
-        type: "string",
-        required: true,
-        label: "Kích thước",
-      },
+      // {
+      //   name: "kichThuoc",
+      //   type: "string",
+      //   required: true,
+      //   label: "Kích thước",
+      // },
     ];
-  }, [tacGia, theLoai, nhaXuatBan, nhaCungCap, ngonNgu]);
+  }, []);
 
   const validationSchema = yup.object().shape({});
 
@@ -120,7 +116,6 @@ export const ModalCreateRoom = (props) => {
 
   // Method
   const handleChangeImage = async (e) => {
-    console.log(e);
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     console.log("base64", base64);
@@ -131,7 +126,7 @@ export const ModalCreateRoom = (props) => {
 
   const handleSubmitData = async (data) => {
     await mutate({
-      Data: { ...data },
+      Data: { ...data, giaSanPham: parseInt(data?.giaSanPham), trangThai: parseInt(data?.trangThai), soLuong: parseInt(data?.soLuong) },
       onSuccess: async (msg) => {
         toast.success(msg?.data?.message);
         await fetch();
@@ -184,8 +179,8 @@ export const ModalCreateRoom = (props) => {
                 <button
                   type="button"
                   className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${btn?.tinhTrang
-                      ? "hover:shadow-orange-400"
-                      : "hover:shadow-green-400"
+                    ? "hover:shadow-orange-400"
+                    : "hover:shadow-green-400"
                     }`}
                 >
                   {btn?.[item.dataItemName]}

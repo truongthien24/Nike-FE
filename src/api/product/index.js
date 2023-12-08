@@ -26,13 +26,13 @@ export default {
   },
 
   updateProduct: (params) => {
-    return axiosWrapper.patch(`/updateProduct/${params?._id}`, {
+    return axiosWrapper.patch(`/update-product/${params?.id}`, {
       ...params,
     });
   },
 
   deleteProduct: (params) => {
-    return axiosWrapper.delete(`/deleteProduct/${params?._id}`, {
+    return axiosWrapper.delete(`/delete-product/${params?.id}`, {
       ...params,
     });
   },
