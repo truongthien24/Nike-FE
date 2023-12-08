@@ -1,16 +1,16 @@
 import apiService from "api";
 import { useMutation } from "react-query";
 
-const createBook = async (params = {}) => {
-  const accounts = await apiService.book.createSach({
+const updateProduct = async (params = {}) => {
+  const products = await apiService.product.updateProduct({
     ...params?.Data,
   });
 
-  return accounts;
+  return products;
 };
 
-const useCreateBook = () => {
-  return useMutation(createBook, {
+const useUpdateProduct = () => {
+  return useMutation(updateProduct, {
     onSuccess: (_, { onSuccess, status }) => {
       onSuccess(_);
     },
@@ -20,4 +20,4 @@ const useCreateBook = () => {
   });
 };
 
-export default useCreateBook;
+export default useUpdateProduct;

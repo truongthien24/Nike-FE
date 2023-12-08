@@ -9,7 +9,7 @@ import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
 import { FormAddRoom } from "../form/FormAddRoom";
-import useCreateBook from "../../hook/useCreateBook";
+import useCreateProduct from "../../hook/useCreateProduct";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { toast } from "react-hot-toast";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
@@ -23,7 +23,7 @@ export const ModalCreateRoom = (props) => {
 
   const [isSkeleton, setIsSkeleton] = useState(false);
 
-  const { mutate, isLoading: isSubmitting } = useCreateBook();
+  const { mutate, isLoading: isSubmitting } = useCreateProduct();
 
   const [open, setOpen] = useState(false);
 
@@ -47,73 +47,24 @@ export const ModalCreateRoom = (props) => {
   const APIEdit = useMemo(() => {
     return [
       {
-        name: "tenSach",
+        name: "tenSanPham",
         type: "string",
         required: true,
         size: "1",
-        label: "Tên sách",
+        label: "Tên sản phẩm",
       },
       {
-        name: "maSach",
+        name: "maSanPham",
         type: "string",
         required: true,
         size: "1",
-        label: "Mã sách",
+        label: "Mã sản phẩm",
       },
       {
-        name: "theLoai",
-        type: "select",
-        dataSelect: theLoai?.map((tg) => {
-          return {
-            label: tg?.tenTheLoai,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Thể loại",
-      },
-      {
-        name: "nhaXuatBan",
-        type: "select",
-        dataSelect: nhaXuatBan?.map((tg) => {
-          return {
-            label: tg?.tenNXB,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Nhà xuất bản",
-      },
-      {
-        name: "tacGia",
-        type: "string",
-        type: "select",
-        dataSelect: tacGia?.map((tg) => {
-          return {
-            label: tg?.tenTacGia,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Tác giả",
-      },
-      {
-        name: "namXuatBan",
+        name: "namSanXuat",
         type: "number",
         required: true,
-        label: "Năm xuất bản",
-      },
-      {
-        name: "nhaCungCap",
-        type: "select",
-        dataSelect: nhaCungCap?.map((tg) => {
-          return {
-            label: tg?.tenNhaCungCap,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Nhà cung cấp",
+        label: "Năm sản xuất",
       },
       {
         name: "tinhTrang",
@@ -133,12 +84,6 @@ export const ModalCreateRoom = (props) => {
         label: "Giá",
       },
       {
-        name: "tienCoc",
-        type: "number",
-        required: true,
-        label: "Tiền cọc",
-      },
-      {
         name: "soLuong",
         type: "number",
         required: true,
@@ -149,35 +94,6 @@ export const ModalCreateRoom = (props) => {
         type: "string",
         required: true,
         label: "Kích thước",
-      },
-      {
-        name: "soTrang",
-        type: "number",
-        required: true,
-        label: "Số trang",
-      },
-      {
-        name: "ngonNgu",
-        type: "select",
-        dataSelect: ngonNgu?.map((tg) => {
-          return {
-            label: tg?.tenNgonNgu,
-            value: tg?._id,
-          };
-        }),
-        required: true,
-        label: "Ngôn ngữ",
-      },
-      {
-        name: "quocGia",
-        type: "select",
-        dataSelect: [
-          { label: "Hàn Quốc", value: "HQ" },
-          { label: "Việt Nam", value: "VN" },
-          { label: "Mỹ", value: "EN" },
-        ],
-        required: true,
-        label: "Quốc gia",
       },
     ];
   }, [tacGia, theLoai, nhaXuatBan, nhaCungCap, ngonNgu]);
@@ -239,9 +155,8 @@ export const ModalCreateRoom = (props) => {
     if (item.type === "select") {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
-            errors?.[item.name]?.message ? "border-orange-400" : ""
-          }`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? "border-orange-400" : ""
+            }`}
         >
           <select className="w-full outline-none" {...register(`${item.name}`)}>
             {item.dataSelect?.map((op, index) => {
@@ -268,11 +183,10 @@ export const ModalCreateRoom = (props) => {
               >
                 <button
                   type="button"
-                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${
-                    btn?.tinhTrang
+                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${btn?.tinhTrang
                       ? "hover:shadow-orange-400"
                       : "hover:shadow-green-400"
-                  }`}
+                    }`}
                 >
                   {btn?.[item.dataItemName]}
                 </button>
@@ -281,27 +195,27 @@ export const ModalCreateRoom = (props) => {
           })}
           {(getValues("soLuongPhong")?.length < 5 ||
             !getValues("soLuongPhong")?.length) && (
-            <Popover
-              content={
-                <FormAddRoom
-                  arrRoom={getValues("soLuongPhong")}
-                  setValue={setValue}
-                  handleOpenChange={handleOpenChange}
-                />
-              }
-              title="Title"
-              trigger="click"
-              open={open}
-              onOpenChange={handleOpenChange}
-            >
-              <button
-                type="button"
-                className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:shadow-gray-400`}
+              <Popover
+                content={
+                  <FormAddRoom
+                    arrRoom={getValues("soLuongPhong")}
+                    setValue={setValue}
+                    handleOpenChange={handleOpenChange}
+                  />
+                }
+                title="Title"
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
               >
-                +
-              </button>
-            </Popover>
-          )}
+                <button
+                  type="button"
+                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:shadow-gray-400`}
+                >
+                  +
+                </button>
+              </Popover>
+            )}
         </div>
       );
     } else if (item.type === "string-readOnly") {
@@ -319,9 +233,8 @@ export const ModalCreateRoom = (props) => {
     } else {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
-            errors?.[item.name]?.message ? "border-orange-400" : ""
-          }`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? "border-orange-400" : ""
+            }`}
         >
           <input
             // key={index}

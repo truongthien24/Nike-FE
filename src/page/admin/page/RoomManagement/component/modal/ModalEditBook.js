@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
 import { FormAddRoom } from "../form/FormAddRoom";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
-import useUpdateBook from "../../hook/useUpdateBook";
+import useUpdateProduct from "../../hook/useUpdateProduct";
 import { toast } from "react-hot-toast";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
 import FormDatePicker from "page/admin/shareComponent/form/FormDatePicker";
@@ -45,7 +45,7 @@ export const ModalEditBook = (props) => {
     (state) => state.commonCode
   );
 
-  const { mutate, isLoading: isSubmitting } = useUpdateBook();
+  const { mutate, isLoading: isSubmitting } = useUpdateProduct();
 
   const dispatch = useDispatch();
 

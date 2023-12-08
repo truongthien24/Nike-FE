@@ -4,10 +4,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import ReviewContent from "./components/ReviewContent";
-import ReviewHeading from "./components/ReviewHeading";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import useGetDetailBook from "page/admin/page/RoomManagement/hook/useGetDetailBook";
+// import useGetDetailBook from "page/admin/page/RoomManagement/hook/useGetDetailBook";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { useNavigate } from "react-router-dom";
 import useUpdateGioHang from "page/admin/page/GioHangManagement/hook/useUpdateGioHang";
@@ -31,8 +30,11 @@ const ModalReviewProduct = ({ data, open = false, onReview, title }) => {
       return jwtDC?.users;
     }
   }, [jwt]);
-  const { sachDataDetail, isDataDetailLoading, fetchData, isFetching } =
-    useGetDetailBook("0", "0", data?._id);
+  // const { sachDataDetail, isDataDetailLoading, fetchData, isFetching } =
+  //   useGetDetailBook("0", "0", data?._id);
+
+
+  const sachDataDetail = {}
 
   const { mutate, isLoading } = useUpdateGioHang();
 
@@ -110,7 +112,7 @@ const ModalReviewProduct = ({ data, open = false, onReview, title }) => {
     });
   };
 
-  useLoadingEffect(isDataDetailLoading);
+  // useLoadingEffect(isDataDetailLoading);
 
   return (
     <Modal

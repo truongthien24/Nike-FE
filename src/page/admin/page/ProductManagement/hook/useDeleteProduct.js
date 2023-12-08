@@ -1,17 +1,16 @@
 import apiService from "api";
 import { useMutation } from "react-query";
 
-const deleteBook = async (params = {}) => {
-  console.log('params', params)
-  const accounts = await apiService.book.deleteSach({
+const deleteProduct = async (params = {}) => {
+  const accounts = await apiService.product.deleteProduct({
     ...params?.Data,
   });
 
   return accounts;
 };
 
-const useDeleteBook = () => {
-  return useMutation(deleteBook, {
+const useDeleteProduct = () => {
+  return useMutation(deleteProduct, {
     onSuccess: (_, { onSuccess, status }) => {
       onSuccess(_);
     },
@@ -21,4 +20,4 @@ const useDeleteBook = () => {
   });
 };
 
-export default useDeleteBook;
+export default useDeleteProduct;

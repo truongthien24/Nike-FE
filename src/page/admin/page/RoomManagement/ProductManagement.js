@@ -7,12 +7,12 @@ import { columns } from "./helper";
 import { ModalEditBook } from "./component/modal/ModalEditBook";
 import { ModalCreateRoom } from "./component/modal/ModalCreateRoom";
 import { getCommonCode } from "redux/action/getCommonCode";
-import useGetDataBook from "./hook/useGetDataBook";
-import useGetDetailBook from "./hook/useGetDetailBook";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
-import useDeleteBook from "./hook/useDeleteBook";
 import { setConfirm } from "redux/action/homeAction";
 import toast from "react-hot-toast";
+import useGetDataProduct from "./hook/useGetDataProduct";
+import useDeleteProduct from "./hook/useDeleteProduct";
+import useGetDetailProduct from "./hook/useGetDetailProduct";
 
 export const ProductManagement = () => {
   // State
@@ -34,19 +34,19 @@ export const ProductManagement = () => {
     // await dispatch(getCommonCode("ngonNgu"));
   }, []);
 
-  // const { sachData, isDataLoading, fetchData, isFetching } = useGetDataBook(
-  //   "0",
-  //   "0"
-  // );
+  const { productData, isDataLoading, fetchData, isFetching } = useGetDataProduct(
+    "0",
+    "0"
+  );
 
-  // const {
-  //   sachDataDetail,
-  //   isDataDetailLoading,
-  //   fetchData: fetchDetail,
-  //   isFetching: isFetchingDetail,
-  // } = useGetDetailBook("0", "0", dataEdit?._id);
+  const {
+    productDataDetail,
+    isDataDetailLoading,
+    fetchData: fetchDetail,
+    isFetching: isFetchingDetail,
+  } = useGetDetailProduct("0", "0", dataEdit?._id);
 
-  // const { mutate, isLoading: isLoadingDelete } = useDeleteBook();
+  const { mutate, isLoading: isLoadingDelete } = useDeleteProduct();
 
   // Method
   const handleAdd = () => {
@@ -69,29 +69,29 @@ export const ProductManagement = () => {
   };
 
   const handleDelete = async (data) => {
-    // await dispatch(
-    //   setConfirm({
-    //     status: "open",
-    //     method: async () => {
-    //       await mutate({
-    //         Data: data,
-    //         onSuccess: async (res) => {
-    //           toast.success(res.data.message);
-    //           await fetchData();
-    //           await dispatch(
-    //             setConfirm({
-    //               status: "close",
-    //               method: () => {},
-    //             })
-    //           );
-    //         },
-    //         onError: (err) => {
-    //           toast.error(err.error.message);
-    //         },
-    //       });
-    //     },
-    //   })
-    // );
+    await dispatch(
+      setConfirm({
+        status: "open",
+        method: async () => {
+          await mutate({
+            Data: data,
+            onSuccess: async (res) => {
+              toast.success(res.data.message);
+              await fetchData();
+              await dispatch(
+                setConfirm({
+                  status: "close",
+                  method: () => {},
+                })
+              );
+            },
+            onError: (err) => {
+              toast.error(err.error.message);
+            },
+          });
+        },
+      })
+    );
   };
 
   const handleViewDanhGia = (data) => {
@@ -117,21 +117,21 @@ export const ProductManagement = () => {
       </div>
       <div className="h-[90%]">
         <TableMain
-          data={[]}
+          data={productData}
           columns={columns(handleViewDanhGia)}
           handleEdit={handleEdit}
           handleDelete={handleDelete}
           setIsModalOpen={setIsModalOpen}
         />
       </div>
-      {/* <ModalEditBook
+      <ModalEditBook
         methodCancel={() => {
           setDataEdit(null);
           setIsModalEditOpen(false);
         }}
-        title={t("Sửa sách")}
+        title={t("Sửa sản phẩm")}
         isOpen={isModalEditOpen}
-        dataEdit={sachDataDetail}
+        dataEdit={productDataDetail}
         fetcher={fetchDetail}
         fetch={fetchData}
         childrenForm={<></>}
@@ -141,11 +141,11 @@ export const ProductManagement = () => {
           setDataEdit(null);
           setIsModalOpen(false);
         }}
-        title={t("Thêm sách")}
+        title={t("Thêm sản phẩm")}
         isOpen={isModalOpen}
         fetcher={fetchDetail}
         fetch={fetchData}
-      /> */}
+      />
       <Confirm />
     </>
   );

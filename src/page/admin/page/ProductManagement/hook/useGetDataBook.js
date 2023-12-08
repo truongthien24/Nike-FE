@@ -4,40 +4,35 @@ import { useQuery } from "react-query";
 const getApiData = async (
   pageIndex = 0,
   pageSize = 0,
-  data,
 ) => {
 
   const params = {
     skip: pageIndex * pageSize,
     take: pageSize,
-    data,
   };
 
-  const sachs = await apiServices.book.getSachByID({
+  const sachs = await apiServices.book.getAllSach({
     ...params,
   });
 
   return sachs;
 };
 
-const useGetDetailBook = (
+const useGetDataBook = (
   pageIndex = 0,
   pageSize = 0,
-  data,
 ) => {
   const query = useQuery(
     [
       "get-data-book",
       pageIndex,
       pageSize,
-      data,
     ],
 
     () =>
       getApiData(
         pageIndex,
         pageSize,
-        data,
       ),
 
     {
@@ -46,13 +41,13 @@ const useGetDetailBook = (
     }
   );
   const {
-    data: { data: { data: sachDataDetail = [] } = {} } = {},
-    isLoading: isDataDetailLoading,
+    data: { data: { data: sachData = [] } = {} } = {},
+    isLoading: isDataLoading,
     refetch: fetchData,
     isFetching,
   } = query;
 
-  return { sachDataDetail, isDataDetailLoading, fetchData, isFetching };
+  return { sachData, isDataLoading, fetchData, isFetching };
 };
 
-export default useGetDetailBook;
+export default useGetDataBook;
