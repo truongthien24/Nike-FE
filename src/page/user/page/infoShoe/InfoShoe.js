@@ -11,10 +11,10 @@ import useFindDataProduct from "page/admin/page/ProductManagement/hook/useFindPr
 import { useSelector } from "react-redux";
 import { LayoutContext } from "page/user/layout/Layout1";
 import useUpdateAccount from "page/admin/page/accountManagement/hook/useUpdateAccount";
+import FormReaction from "./components/FormReaction";
 
 const SizeProduct = ({ data, name }) => {
   const { register, watch } = useFormContext();
-  console.log('watch("kichCoSanPham")', watch("kichCoSanPham"));
   return (
     <>
       <label
@@ -23,11 +23,10 @@ const SizeProduct = ({ data, name }) => {
         style={{
           boxShadow:
             "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
-          border: `${
-            watch("kichCoSanPham") === data?.maKichCo
-              ? "1px solid #000"
-              : "1px solid transparent"
-          }`,
+          border: `${watch("kichCoSanPham") === data?.maKichCo
+            ? "1px solid #000"
+            : "1px solid transparent"
+            }`,
         }}
       >
         EU
@@ -90,6 +89,8 @@ const InfoShoe = () => {
     useFindDataProduct({
       id,
     });
+
+  const productDanhGia = [];
 
   const { userInfo } = useSelector((state) => state.home);
 
@@ -158,10 +159,22 @@ const InfoShoe = () => {
       key: "2",
       label: "Đánh giá",
       children: (
-        <Empty
-          image={Empty.PRESENTED_IMAGE_SIMPLE}
-          description="Chức năng đang được phát triển"
-        />
+        <div className="grid grid-cols-1 gap-[10px]">
+          {
+            !_.isEmpty(productDanhGia)
+              ?
+              <></>
+              :
+              <Empty
+                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                description="Chưa có đánh giá nào"
+              />
+          }
+          <div>
+            <FormReaction/>
+          </div>
+        </div>
+
       ),
     },
   ];
@@ -269,9 +282,8 @@ const InfoShoe = () => {
                     disabled={productData?.soLuong < 1}
                     className="text-[#fff] w-full p-[10px] rounded-[25px] flex items-center justify-center"
                     style={{
-                      backgroundColor: `${
-                        productData?.soLuong > 0 ? "#000" : "gray"
-                      }`,
+                      backgroundColor: `${productData?.soLuong > 0 ? "#000" : "gray"
+                        }`,
                     }}
                   >
                     Thêm vào giỏ hàng

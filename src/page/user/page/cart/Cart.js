@@ -111,8 +111,7 @@ const Cart = () => {
 
   return (
     <>
-
-      <div className="md:pt-[150px] pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center">
+      <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center">
         <FormProvider {...method}>
           <form className="bg-[#eaeaea] min-h-[calc(100%_-_150px)] px-[10px] py-[10px] md:px-[25px] md:py-[20px] w-full xl:w-[90%] 2xl:w-[70%]" onSubmit={handleSubmit(handleSubmitCart)}>
             <div className="mb-[10px] md:mb-[20px] flex justify-between">

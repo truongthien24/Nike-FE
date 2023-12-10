@@ -69,7 +69,7 @@ export const ModalEditBook = (props) => {
       },
       {
         name: "maSanPham",
-        type: "string",
+        type: "string-readOnly",
         required: true,
         size: "1",
         label: "Mã sản phẩm",
@@ -357,7 +357,7 @@ export const ModalEditBook = (props) => {
               />
             </div>
           </div>
-          <div className="col-span-3 grid grid-cols-2 gap-[15px] row-span-3">
+          <div className="col-span-3 grid grid-cols-2 gap-[15px] row-span-3 h-fit">
             {APIEdit?.map((item, index) => {
               return (
                 <div className={`${setGridColumn(item.size)}`} key={index}>

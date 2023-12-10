@@ -32,8 +32,8 @@ export const MainRoutes = () => {
           <Route index element={<HomeUser />} />
           <Route path="infoShoe/:id" element={<InfoShoe />} />
           <Route path="favouriteShoes" element={<Favourite />} />
-          {/* <Route path="cart/:id" element={<Cart />} />
-          <Route path="payment" element={<Payment />} /> */}
+          <Route path="cart/:id" element={<Cart />} />
+          {/* <Route path="payment" element={<Payment />} /> */}
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
