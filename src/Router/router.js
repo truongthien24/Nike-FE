@@ -22,6 +22,7 @@ import InfoShoe from "page/user/page/infoShoe/InfoShoe";
 import { Button, Result } from "antd";
 import Favourite from "page/user/page/favourite/Favourite";
 import KichCoManagement from "page/admin/page/System/kichCoManagement/KichCoManagement";
+import DanhGiaManagement from "page/admin/page/danhGiaManagement/DanhGiaManagement";
 
 export const MainRoutes = () => {
   return (
@@ -62,6 +63,7 @@ export const MainRoutes = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="productManagement" element={<ProductManagement />} />
           <Route path="kichCoManagement" element={<KichCoManagement/>} />
+          <Route path="binhLuanManagement" element={<DanhGiaManagement/>} />
           {/* <Route path="theLoaiManagement" element={<TheLoaiManagement />} />
           <Route path="tacGiaManagement" element={<TacGiaManagement />} />
           <Route path="ngonNguManagement" element={<NgonNguManagement />} />

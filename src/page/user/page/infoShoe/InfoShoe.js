@@ -13,6 +13,9 @@ import { LayoutContext } from "page/user/layout/Layout1";
 import useUpdateAccount from "page/admin/page/accountManagement/hook/useUpdateAccount";
 import FormReaction from "./components/FormReaction";
 import useCreateChiTietGioHang from "page/admin/page/GioHangManagement/hook/useCreateDetailCart";
+import useCreateDanhGia from "page/admin/page/danhGiaManagement/hook/useCreateDanhGia";
+import useGetDataDanhGiaByIdSanPham from "page/admin/page/danhGiaManagement/hook/useGetDataDanhGiaByIdSanPham";
+import { Reaction } from "page/user/component/Reaction";
 
 const SizeProduct = ({ data, name }) => {
   const { register, watch } = useFormContext();
@@ -91,8 +94,6 @@ const InfoShoe = () => {
       id,
     });
 
-  const productDanhGia = [];
-
   const { userInfo } = useSelector((state) => state.home);
 
   const { fetchDataAccount } = useContext(LayoutContext);
@@ -100,6 +101,16 @@ const InfoShoe = () => {
   const { mutate, isLoading } = useUpdateAccount();
 
   const { mutate: themGioHang, isLoading: isLoadingThemGioHang } = useCreateChiTietGioHang();
+
+  const {
+    danhGiaDataDetail,
+    isDataDetailLoading: isLoadingDanhGia,
+    fetchData: fetchDanhGia,
+    isFetching: isFetchingDanhGia,
+  } = useGetDataDanhGiaByIdSanPham("0", "0", { idSanPham: id });
+
+  const { mutate: createDanhGia, isLoading: isLoadingCreateDanhGia } =
+    useCreateDanhGia();
 
   const navigate = useNavigate();
 
@@ -149,6 +160,28 @@ const InfoShoe = () => {
     })
   };
 
+  const handleDanhGia = async (data, reset) => {
+    console.log('data', data)
+    await createDanhGia({
+      Data: {
+        idUser: userInfo?.id,
+        idSanPham:  productData?.id,
+        noiDung: data?.noiDung,
+        ...(data?.idDanhGiaFather && {
+          idDanhGiaFather: data?.idDanhGiaFather,
+        }),
+      },
+      onSuccess: async (res) => {
+        await fetchDanhGia();
+        await reset();
+        toast.success(res?.data?.message);
+      },
+      onError: (err) => {
+        toast.error(err?.Error?.message);
+      },
+    });
+  };
+
   const handleChangeQuantity = (type) => {
     let soLuong = getValues("soLuong");
     switch (type) {
@@ -177,9 +210,38 @@ const InfoShoe = () => {
       children: (
         <div className="grid grid-cols-1 gap-[10px]">
           {
-            !_.isEmpty(productDanhGia)
+            !_.isEmpty(danhGiaDataDetail)
               ?
-              <></>
+              <div className="grid grid-cols-1 gap-[10px] md:gap-[15px]">
+                {danhGiaDataDetail?.map((danhGia, index) => {
+                  return (
+                    // <div className="flex">
+                    //   <img
+                    //     className="w-[40px] h-[40px] rounded-[50%]"
+                    //     src="https://cdn1.vectorstock.com/i/1000x1000/60/20/orange-cat-cartoon-cute-vector-45736020.jpg"
+                    //   />
+                    //   <div className="ml-[10px]">
+                    //     <div className="flex item-center">
+                    //       <h5 className="font-[500] mr-[10px]">
+                    //         {danhGia?.idTaiKhoan?.email}
+                    //       </h5>
+                    //       <span>
+                    //         {new Date(danhGia?.ngayTao)?.toLocaleDateString(
+                    //           "en-GB"
+                    //         )}
+                    //       </span>
+                    //     </div>
+                    //     <p>{danhGia?.noiDung}</p>
+                    //   </div>
+                    // </div>
+                    <Reaction
+                      data={danhGia}
+                      key={index}
+                      onSubmitReply={handleDanhGia}
+                    />
+                  );
+                })}
+              </div>
               :
               <Empty
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -187,7 +249,7 @@ const InfoShoe = () => {
               />
           }
           <div>
-            <FormReaction />
+            <FormReaction fetch={fetchDanhGia} onSubmit={handleDanhGia} />
           </div>
         </div>
 

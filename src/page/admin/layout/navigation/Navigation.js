@@ -118,28 +118,39 @@ export const Navigation = () => {
       //   "8"
       // ),
     ]),
-    getItem("Booking", "sub2", <MailOutlined />, [
-      getItem(
-        <div
-          onClick={() => {
-            navigate("/admin/checkingManagement");
-          }}
-        >
-          Checking Management
-        </div>,
-        "9"
-      ),
-      getItem(
-        <div
-          onClick={() => {
-            navigate("/admin/bookingService");
-          }}
-        >
-          Booking Service
-        </div>,
-        "10"
-      ),
-    ]),
+    getItem(
+      <div
+        onClick={() => {
+          navigate("/admin/binhLuanManagement");
+        }}
+      >
+        Quản lý bình luận
+      </div>,
+      "9",
+      <MailOutlined />
+    ),
+    // getItem("Booking", "sub2", <MailOutlined />, [
+    //   getItem(
+    //     <div
+    //       onClick={() => {
+    //         navigate("/admin/binhLuanManagement");
+    //       }}
+    //     >
+    //       Quản lý bình luận
+    //     </div>,
+    //     "9"
+    //   ),
+    //   getItem(
+    //     <div
+    //       onClick={() => {
+    //         navigate("/admin/bookingService");
+    //       }}
+    //     >
+    //       Booking Service
+    //     </div>,
+    //     "10"
+    //   ),
+    // ]),
     // getItem(
     //   <div
     //     onClick={() => {

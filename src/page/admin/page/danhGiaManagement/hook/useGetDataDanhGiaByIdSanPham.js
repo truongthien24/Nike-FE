@@ -8,14 +8,14 @@ const getApiData = async (pageIndex = 0, pageSize = 0, data) => {
     data,
   };
 
-  const ngonNgu = await apiServices.ngonNgu.getNgonNguByID({
+  const ngonNgu = await apiServices.danhGia.getDanhGiaByID({
     ...params,
   });
 
   return ngonNgu;
 };
 
-const useGetDetailNgonNgu = (pageIndex = 0, pageSize = 0, data) => {
+const useGetDataDanhGiaByIdSanPham = (pageIndex = 0, pageSize = 0, data) => {
   const query = useQuery(
     ["get-data-NgonNgu", pageIndex, pageSize, data],
 
@@ -27,13 +27,13 @@ const useGetDetailNgonNgu = (pageIndex = 0, pageSize = 0, data) => {
     }
   );
   const {
-    data: { data: { data: ngonNguDataDetail = [] } = {} } = {},
+    data: { data: { data: danhGiaDataDetail = [] } = {} } = {},
     isLoading: isDataDetailLoading,
     refetch: fetchData,
     isFetching,
   } = query;
 
-  return { ngonNguDataDetail, isDataDetailLoading, fetchData, isFetching };
+  return { danhGiaDataDetail, isDataDetailLoading, fetchData, isFetching };
 };
 
-export default useGetDetailNgonNgu;
+export default useGetDataDanhGiaByIdSanPham;
