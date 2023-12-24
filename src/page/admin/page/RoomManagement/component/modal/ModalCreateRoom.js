@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 import { setGridColumn } from "../../helper";
-import { FormAddRoom } from "../form/FormAddRoom";
+import { FormAddKichCo } from "../form/FormAddKichCo";
 import useCreateProduct from "../../hook/useCreateProduct";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { toast } from "react-hot-toast";
@@ -81,9 +81,9 @@ export const ModalCreateRoom = (props) => {
       },
       {
         name: "soLuong",
-        type: "number",
+        type: "array",
         required: true,
-        label: "Số lượng",
+        label: "Kích cở",
       },
       // {
       //   name: "kichThuoc",
@@ -170,7 +170,7 @@ export const ModalCreateRoom = (props) => {
     } else if (item.type === "array") {
       return (
         <div className="grid grid-cols-5 gap-[20px]">
-          {getValues("soLuongPhong")?.map((btn, index) => {
+          {getValues("soLuong")?.map((btn, index) => {
             return (
               <Badge.Ribbon
                 color={`${btn?.tinhTrang ? "orange" : "green"}`}
@@ -188,12 +188,12 @@ export const ModalCreateRoom = (props) => {
               </Badge.Ribbon>
             );
           })}
-          {(getValues("soLuongPhong")?.length < 5 ||
-            !getValues("soLuongPhong")?.length) && (
+          {(getValues("soLuong")?.length < 5 ||
+            !getValues("soLuong")?.length) && (
               <Popover
                 content={
-                  <FormAddRoom
-                    arrRoom={getValues("soLuongPhong")}
+                  <FormAddKichCo
+                    arrRoom={getValues("soLuong")}
                     setValue={setValue}
                     handleOpenChange={handleOpenChange}
                   />

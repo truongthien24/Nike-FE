@@ -25,10 +25,10 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
   }, [data]);
 
   const indexItem = useMemo(() => {
-    if (arrayData) {
-      return arrayData?.findIndex((i) => i === data);
+    if (getValues('danhSach')) {
+      return getValues('danhSach')?.findIndex((i) => i === data);
     }
-  }, [arrayData])
+  }, [watch('danhSach')])
 
   const handleChangeQuantity = (method) => {
     let preValue = getValues(`danhSach[${indexItem}].soLuong`);
@@ -36,11 +36,13 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
       case 'minas': {
         const nextValue = --preValue;
         setValue(`danhSach[${indexItem}].soLuong`, nextValue);
+        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)))
         break;
       };
       case 'plus': {
         const nextValue = ++preValue;
         setValue(`danhSach[${indexItem}].soLuong`, nextValue)
+        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)))
         break;
       };
       default: break;
@@ -49,13 +51,30 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
 
 
   const deleteItemCart = async (item) => {
-    await dispatch(setConfirm({
-      status: 'open',
-      method: async () => {
-        toast('Chức năng đang phát triển')
-      }
-    }))
+    // await dispatch(setConfirm({
+    //   status: 'open',
+    //   method: async () => {
+    //     toast('Chức năng đang phát triển')
+    //   }
+    // }))
+    await dispatch(
+      setConfirm({
+        status: "open",
+        method: async () => {
+          const index = watch("danhSach").findIndex((item)=> item.id == data.id);
+          setValue(`danhSach[${indexItem}].useYN`, false);
+          dispatch(
+            setConfirm({
+              status: "close",
+              method: null,
+            })
+          );
+        },
+      })
+    );
   }
+
+  console.log('watch', watch())
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -66,12 +85,12 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
               return (
                 <div className="flex" style={{ width: `${item.width}` }}>
                   <img
-                    src={data?.sach?.hinhAnh?.url}
+                    src={data?.sanPham?.hinhAnh}
                     className="h-full w-[50px] md:w-[100px] mr-[10px] md:mr-[25px]"
                   />
                   <div>
                     <h4 className="max-w-[300px] text-[12.5px] md:text-[15px]">
-                      {data?.sach?.tenSach}
+                      {data?.sanPham?.tenSanPham}
                     </h4>
                     <span className="text-[#797979] text-[12px] md:text-[14px]">
                       {getValues("tenTheLoai")}
@@ -155,7 +174,7 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
                   className="flex justify-center text-[11px] md:text-[13px]"
                   style={{ width: `${item.width}` }}
                 >
-                  {data?.sach?.tienCoc?.toLocaleString()}
+                  {data?.sanPham?.giaSanPham?.toLocaleString()}
                 </div>
               );
             }
@@ -165,7 +184,7 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
                   className="flex justify-center text-[11px] md:text-[13px]"
                   style={{ width: `${item.width}` }}
                 >
-                  <Tooltip title="Xoá" onClick={() => deleteItemCart(data?.sach?._id)}>
+                  <Tooltip title="Xoá" onClick={() => deleteItemCart(data?.sanPham?.id)}>
                     <Button type="delete" shape="circle" icon={<DeleteFilled />} />
                   </Tooltip>
                 </div>
@@ -178,7 +197,7 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
                   style={{ width: `${item.width}` }}
                 >
                   {(
-                    parseInt(data.sach.tienCoc) * parseInt(data.soLuong)
+                    parseInt(data?.sanPham?.giaSanPham) * watch(`danhSach[${indexItem}].soLuong`)
                   )?.toLocaleString()}
                 </div>
               );

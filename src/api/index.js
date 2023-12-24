@@ -11,6 +11,8 @@ import ngonNgu from "./ngonNgu";
 import gioHang from "./gioHang";
 import account from "./account";
 import product from "./product";
+import donHang from "./donHang";
+import kichCo from "./kichCo";
 
 const apiService = {
   taiKhoan,
@@ -26,6 +28,8 @@ const apiService = {
   gioHang,
   account,
   product,
+  donHang,
+  kichCo,
 };
 
 export default apiService;

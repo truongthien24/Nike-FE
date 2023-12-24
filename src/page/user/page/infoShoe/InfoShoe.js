@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { LayoutContext } from "page/user/layout/Layout1";
 import useUpdateAccount from "page/admin/page/accountManagement/hook/useUpdateAccount";
 import FormReaction from "./components/FormReaction";
+import useCreateChiTietGioHang from "page/admin/page/GioHangManagement/hook/useCreateDetailCart";
 
 const SizeProduct = ({ data, name }) => {
   const { register, watch } = useFormContext();
@@ -98,12 +99,14 @@ const InfoShoe = () => {
 
   const { mutate, isLoading } = useUpdateAccount();
 
+  const { mutate: themGioHang, isLoading: isLoadingThemGioHang } = useCreateChiTietGioHang();
+
   const navigate = useNavigate();
 
   const method = useForm({
     mode: "onSubmit",
     defaultValues: {
-      // soLuong: 1,
+      soLuong: 1,
     },
     // resolver: yupResolver(
     //   // yup.object().shape({
@@ -121,7 +124,7 @@ const InfoShoe = () => {
 
   const { handleSubmit, setValue, getValues } = method;
 
-  const addToCart = (data) => {
+  const addToCart = async (data) => {
     // if (data?.soLuong > productData?.soLuong) {
     //   toast.error(
     //     `Số lượng không đủ. Chỉ còn ${productData?.soLuong} quyển :((`
@@ -130,7 +133,20 @@ const InfoShoe = () => {
     //   // toast.error("Chức năng đang phát triển");
     //   navigate("/cart/123213123");
     // }
-    console.log("data", data);
+    await themGioHang({
+      Data: {
+        idSanPham: parseInt(productData?.id),
+        idCart: parseInt(userInfo?.cartId),
+        soLuong: data?.soLuong,
+        thanhTien: data?.soLuong * parseInt(productData?.giaSanPham),
+      },
+      onSuccess: (res) => {
+        toast.success(res?.data?.message);
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      }
+    })
   };
 
   const handleChangeQuantity = (type) => {
@@ -171,7 +187,7 @@ const InfoShoe = () => {
               />
           }
           <div>
-            <FormReaction/>
+            <FormReaction />
           </div>
         </div>
 

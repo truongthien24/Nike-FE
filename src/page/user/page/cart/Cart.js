@@ -15,7 +15,7 @@ import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { SaveOutlined, CloseOutlined, EditFilled } from '@ant-design/icons';
 import { Confirm } from "component/Confirm/Confirm";
 import useUpdateGioHang from "page/admin/page/GioHangManagement/hook/useUpdateGioHang";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setConfirm } from "redux/action/homeAction";
 
 
@@ -28,18 +28,11 @@ const Cart = () => {
 
   const [isEdit, setIsEdit] = useState(false);
 
-  // const { userInfo } = useSelector((state) => state.home);
+  const { userInfo } = useSelector((state) => state.home);
   const jwt = localStorage.getItem("jwt");
 
-  const userInfo = useMemo(() => {
-    if (jwt) {
-      const jwtDC = jwtDecode(jwt);
-      return jwtDC?.users;
-    }
-  }, [jwt]);
-
   const { gioHangDataDetail, isDataDetailLoading, fetchData, isFetching } =
-    useGetDetailGioHang("0", "0", userInfo?.gioHang);
+    useGetDetailGioHang("0", "0", userInfo?.cartId);
 
   const { mutate, isLoading } = useCheckSanPham();
 
@@ -59,14 +52,19 @@ const Cart = () => {
 
   useEffect(() => {
     if (gioHangDataDetail) {
-      reset({ ...gioHangDataDetail })
+      reset({ ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds)=> {return {
+        ...ds,
+        useYN: true,
+      }}) })
     }
   }, [gioHangDataDetail])
 
   const renderCartItem = () => {
-    if (gioHangDataDetail?.danhSach?.length > 0) {
-      return gioHangDataDetail?.danhSach?.map((cart, index) => {
-        return <CartItem arrayData={gioHangDataDetail?.danhSach} data={cart} key={index} columns={columns(isMobile, isEdit)} isEdit={isEdit} />;
+    if (watch('danhSach')?.length > 0) {
+      return watch('danhSach')?.map((cart, index) => {
+        if(cart?.useYN == true) {
+          return <CartItem arrayData={gioHangDataDetail?.danhSach} data={cart} key={index} columns={columns(isMobile, isEdit)} isEdit={isEdit} />;
+        }
       });
     } else {
       return (
@@ -79,25 +77,28 @@ const Cart = () => {
   };
 
   const handleSubmitCart = async (data) => {
-    await mutate({
-      Data: gioHangDataDetail,
-      onSuccess: (res) => {
-        toast.success(res?.data?.message);
-        setTimeout(() => {
-          navigate(`/payment`);
-        }, 1000)
-      },
-      onError: (err) => {
-        toast.error(err.error?.message)
-      }
-    })
+    // await mutate({
+    //   Data: gioHangDataDetail,
+    //   onSuccess: (res) => {
+    //     toast.success(res?.data?.message);
+    //     setTimeout(() => {
+    navigate(`/payment`);
+    //     }, 1000)
+    //   },
+    //   onError: (err) => {
+    //     toast.error(err.error?.message)
+    //   }
+    // })
   };
 
   const handleCancel = async () => {
     await dispatch(setConfirm({
       status: 'open',
       method: async () => {
-        await reset({ ...gioHangDataDetail })
+        await reset({ ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds)=> {return {
+          ...ds,
+          useYN: true,
+        }}) })
         setIsEdit(prev => { return !prev })
         await dispatch(setConfirm({
           status: 'close',
@@ -134,13 +135,17 @@ const Cart = () => {
                       </Tooltip>
                       <Tooltip title="Lưu">
                         <Button type="primary" className="ml-[10px]" shape="circle" icon={<SaveOutlined />} onClick={async () => {
-                          // setIsEdit(prev => { return !prev })
+                          // console.log('dataa',
+                          //   {
+                          //     id: userInfo?.cartId,
+                          //     danhSach: watch('danhSach'),
+                          //   }
+                          // )
+                          setIsEdit(prev => { return !prev })
                           await mutateUpdateGioHang({
                             Data: {
-                              id: userInfo?.gioHang,
-                              sach: watch('danhSach'),
-                              insert: false,
-                              update: true,
+                              id: parseInt(userInfo?.cartId),
+                              danhSach: watch('danhSach'),
                             },
                             onSuccess: async (res) => {
                               await fetchData();
@@ -168,7 +173,7 @@ const Cart = () => {
                 {renderCartItem()}
               </div>
               <div className="flex justify-end items-center">
-                <p className="w-[15%] text-[13px] md:text-[15px] flex justify-center mr-[20px]">{(gioHangDataDetail?.danhSach?.reduce((a, b) => a + (b?.sach?.tienCoc * b?.soLuong), 0))?.toLocaleString()}</p>
+                <p className="w-[15%] text-[13px] md:text-[15px] flex justify-center mr-[20px]">{(watch('danhSach')?.reduce((a, b) => a + (b?.sanPham?.giaSanPham * b?.soLuong), 0))?.toLocaleString()}</p>
                 <div className="flex justify-center">
                   <button
                     className="text-[#fff] text-[11px] md:text-[15px] p-[10px] rounded-[5px] flex items-center justify-center"

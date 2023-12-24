@@ -20,7 +20,7 @@ export default {
   },
 
   getGioHangByID: (params) => {
-    return axiosWrapper.get(`/getGioHangByID/${params?.data}`, {
+    return axiosWrapper.get(`/get-cart-by-ID/${params?.data}`, {
       ...params,
     });
   },
@@ -39,6 +39,18 @@ export default {
 
   checkSanPham: (params) => {
     return axiosWrapper.post(`/checkSanPham`, {
+      ...params,
+    });
+  },
+
+  createChiTietGioHang: (params) => {
+    return axiosWrapper.post(`/create-detail-cart`, {
+      ...params,
+    });
+  },
+  
+  payment: (params) => {
+    return axiosWrapper.post(`/thanhToan`, {
       ...params,
     });
   },

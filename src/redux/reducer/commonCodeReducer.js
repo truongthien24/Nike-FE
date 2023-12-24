@@ -1,33 +1,13 @@
 const initialValue = {
-  theLoai: [],
-  tacGia: [],
-  nhaXuatBan: [],
-  nhaCungCap: [],
-  ngonNgu: [],
+  kichCo: [],
 };
 
 export const CommonCodeReducer = (state = initialValue, action) => {
   switch (action.type) {
     case "GET_COMMONCODE": {
       switch (action.payload.name) {
-        case "theLoai": {
-          state.theLoai = action.payload.Data;
-          return { ...state };
-        }
-        case "tacGia": {
-          state.tacGia = action.payload.Data;
-          return { ...state };
-        }
-        case "nhaXuatBan": {
-          state.nhaXuatBan = action.payload.Data;
-          return { ...state };
-        }
-        case "nhaCungCap": {
-          state.nhaCungCap = action.payload.Data;
-          return { ...state };
-        }
-        case "ngonNgu": {
-          state.ngonNgu = action.payload.Data;
+        case "kichCo": {
+          state.kichCo = action.payload.Data;
           return { ...state };
         }
         default:

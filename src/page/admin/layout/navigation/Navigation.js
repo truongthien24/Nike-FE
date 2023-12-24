@@ -66,58 +66,58 @@ export const Navigation = () => {
       "3",
       <ContainerOutlined />
     ),
-    // getItem("System", "sub1", <ContainerOutlined />, [
-    //   getItem(
-    //     <div
-    //       onClick={() => {
-    //         navigate("/admin/theLoaiManagement");
-    //       }}
-    //     >
-    //       Quản lý Thể loại
-    //     </div>,
-    //     "4"
-    //   ),
-    //   getItem(
-    //     <div
-    //       onClick={() => {
-    //         navigate("/admin/tacGiaManagement");
-    //       }}
-    //     >
-    //       Quản lý Tác giả
-    //     </div>,
-    //     "5"
-    //   ),
-    //   getItem(
-    //     <div
-    //       onClick={() => {
-    //         navigate("/admin/nhaCungCapManagement");
-    //       }}
-    //     >
-    //       Quản lý Nhà cung cấp
-    //     </div>,
-    //     "6"
-    //   ),
-    //   getItem(
-    //     <div
-    //       onClick={() => {
-    //         navigate("/admin/nhaXuatBanManagement");
-    //       }}
-    //     >
-    //       Quản lý Nhà Xuất bản
-    //     </div>,
-    //     "7"
-    //   ),
-    //   getItem(
-    //     <div
-    //       onClick={() => {
-    //         navigate("/admin/ngonNguManagement");
-    //       }}
-    //     >
-    //       Quản lý ngôn ngữ
-    //     </div>,
-    //     "8"
-    //   ),
-    // ]),
+    getItem("System", "sub1", <ContainerOutlined />, [
+      getItem(
+        <div
+          onClick={() => {
+            navigate("/admin/kichCoManagement");
+          }}
+        >
+          Quản lý kích cở
+        </div>,
+        "4"
+      ),
+      // getItem(
+      //   <div
+      //     onClick={() => {
+      //       navigate("/admin/tacGiaManagement");
+      //     }}
+      //   >
+      //     Quản lý Tác giả
+      //   </div>,
+      //   "5"
+      // ),
+      // getItem(
+      //   <div
+      //     onClick={() => {
+      //       navigate("/admin/nhaCungCapManagement");
+      //     }}
+      //   >
+      //     Quản lý Nhà cung cấp
+      //   </div>,
+      //   "6"
+      // ),
+      // getItem(
+      //   <div
+      //     onClick={() => {
+      //       navigate("/admin/nhaXuatBanManagement");
+      //     }}
+      //   >
+      //     Quản lý Nhà Xuất bản
+      //   </div>,
+      //   "7"
+      // ),
+      // getItem(
+      //   <div
+      //     onClick={() => {
+      //       navigate("/admin/ngonNguManagement");
+      //     }}
+      //   >
+      //     Quản lý ngôn ngữ
+      //   </div>,
+      //   "8"
+      // ),
+    ]),
     getItem("Booking", "sub2", <MailOutlined />, [
       getItem(
         <div
@@ -140,28 +140,28 @@ export const Navigation = () => {
         "10"
       ),
     ]),
-    getItem(
-      <div
-        onClick={() => {
-          navigate("/admin/serviceManagement");
-        }}
-      >
-        Service Management
-      </div>,
-      "11",
-      <ContainerOutlined />
-    ),
-    getItem(
-      <div
-        onClick={() => {
-          navigate("/admin/baiVietManagement");
-        }}
-      >
-        Bai Viet
-      </div>,
-      "12",
-      <ContainerOutlined />
-    ),
+    // getItem(
+    //   <div
+    //     onClick={() => {
+    //       navigate("/admin/serviceManagement");
+    //     }}
+    //   >
+    //     Service Management
+    //   </div>,
+    //   "11",
+    //   <ContainerOutlined />
+    // ),
+    // getItem(
+    //   <div
+    //     onClick={() => {
+    //       navigate("/admin/baiVietManagement");
+    //     }}
+    //   >
+    //     Bai Viet
+    //   </div>,
+    //   "12",
+    //   <ContainerOutlined />
+    // ),
   ];
 
   return (

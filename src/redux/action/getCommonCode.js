@@ -6,24 +6,8 @@ export const getCommonCode = (name) => async (dispatch) => {
   try {
     let routerCommonCode = "";
     switch (name) {
-      case "tacGia": {
-        routerCommonCode = "/getAllTacGia";
-        break;
-      }
-      case "theLoai": {
-        routerCommonCode = "/getAllTheLoai";
-        break;
-      }
-      case "nhaXuatBan": {
-        routerCommonCode = "/getAllNhaXuatBan";
-        break;
-      }
-      case "nhaCungCap": {
-        routerCommonCode = "/getAllNhaCungCap";
-        break;
-      }
-      case "ngonNgu": {
-        routerCommonCode = "/getAllNgonNgu";
+      case "kichCo": {
+        routerCommonCode = "/get-all-kichCo";
         break;
       }
       default:
