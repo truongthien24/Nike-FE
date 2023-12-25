@@ -33,6 +33,7 @@ export const ProductManagement = () => {
     // await dispatch(getCommonCode("nhaXuatBan"));
     // await dispatch(getCommonCode("nhaCungCap"));
     await dispatch(getCommonCode("kichCo"));
+    await dispatch(getCommonCode("khuyenMai"));
   }, []);
 
   const { productData, isDataLoading, fetchData, isFetching } = useGetDataProduct(

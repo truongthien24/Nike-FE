@@ -43,6 +43,8 @@ export const ModalEditBook = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useUpdateProduct();
 
+  const { khuyenMai } = useSelector((state) => state.commonCode);
+
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
@@ -99,19 +101,25 @@ export const ModalEditBook = (props) => {
       },
       {
         name: "soLuong",
-        type: "array",
+        type: "number",
         required: true,
         label: "Số lượng",
       },
-      // {
-      //   name: "kichThuoc",
-      //   type: "string",
-      //   required: true,
-      //   label: "Kích thước",
-      // },
+      {
+        name: "maKhuyenMai",
+        type: "select",
+        required: true,
+        label: "Khuyến mãi",
+        size: "2",
+        dataSelect: khuyenMai?.map((km) => {
+          return {
+            label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`,
+            value: km.maKhuyenMai,
+          };
+        }),
+      },
     ];
   }, []);
-
 
   const {
     register,
@@ -137,12 +145,10 @@ export const ModalEditBook = (props) => {
     const file = e.target.files[0];
     const base64 = await convertToBase64(file);
     setImage(base64);
-    setValue("hinhAnh",
-      {
-        reupload: true,
-        file: base64
-      }
-    );
+    setValue("hinhAnh", {
+      reupload: true,
+      file: base64,
+    });
   };
 
   const submitForm = async (data) => {
@@ -157,7 +163,10 @@ export const ModalEditBook = (props) => {
     await mutate({
       Data: {
         ...data,
-        giaSanPham: parseInt(data?.giaSanPham), trangThai: parseInt(data?.trangThai), soLuong: parseInt(data?.soLuong)
+        giaSanPham: parseInt(data?.giaSanPham),
+        trangThai: parseInt(data?.trangThai),
+        soLuong: parseInt(data?.soLuong),
+        maKhuyenMai: data?.maKhuyenMai
       },
       onSuccess: async (msg) => {
         toast.success(msg?.data?.message);
@@ -196,8 +205,9 @@ export const ModalEditBook = (props) => {
     if (item.type === "select") {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? "border-orange-400" : ""
-            }`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
+            errors?.[item.name]?.message ? "border-orange-400" : ""
+          }`}
         >
           <select className="w-full outline-none" {...register(`${item.name}`)}>
             {item.dataSelect?.map((op, index) => {
@@ -270,13 +280,21 @@ export const ModalEditBook = (props) => {
           {...register(`${item.name}`)}
         />
       );
-    } else if (item.type === 'date') {
-      return (<FormDatePicker label={null} name={item.name} max={item.max} control={control} />)
+    } else if (item.type === "date") {
+      return (
+        <FormDatePicker
+          label={null}
+          name={item.name}
+          max={item.max}
+          control={control}
+        />
+      );
     } else {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${item?.disable ? "bg-[#cfcece]" : ""
-            } ${errors?.[item.name]?.message ? "border-orange-400" : ""}`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
+            item?.disable ? "bg-[#cfcece]" : ""
+          } ${errors?.[item.name]?.message ? "border-orange-400" : ""}`}
         >
           <input
             // key={index}
@@ -285,8 +303,9 @@ export const ModalEditBook = (props) => {
             name={item.name}
             max={item?.max}
             placeholder={`Điền vào ${item.label}...`}
-            className={`w-[92%] outline-none ${item?.disable ? "bg-[#cfcece]" : ""
-              }`}
+            className={`w-[92%] outline-none ${
+              item?.disable ? "bg-[#cfcece]" : ""
+            }`}
             {...register(`${item.name}`)}
           />
           {errors?.[item.name] && (

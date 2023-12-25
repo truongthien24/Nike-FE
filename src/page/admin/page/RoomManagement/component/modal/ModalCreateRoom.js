@@ -25,6 +25,8 @@ export const ModalCreateRoom = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useCreateProduct();
 
+  const {khuyenMai} = useSelector(state=> state.commonCode);
+
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -81,9 +83,19 @@ export const ModalCreateRoom = (props) => {
       },
       {
         name: "soLuong",
-        type: "array",
+        type: "number",
         required: true,
-        label: "Kích cở",
+        label: "Số lượng",
+      },
+      {
+        name: "maKhuyenMai",
+        type: "select",
+        required: true,
+        label: "Khuyến mãi",
+        size: "2",
+        dataSelect: khuyenMai?.map((km)=> {
+          return { label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`, value: km.id}
+        })
       },
       // {
       //   name: "kichThuoc",
@@ -92,7 +104,7 @@ export const ModalCreateRoom = (props) => {
       //   label: "Kích thước",
       // },
     ];
-  }, []);
+  }, [khuyenMai]);
 
   const validationSchema = yup.object().shape({});
 

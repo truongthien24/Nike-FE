@@ -237,7 +237,7 @@ const CheckCart = ({ onStep, step }) => {
               >
                 điều khoản
               </span>{" "}
-              của Nike Fake.
+              của DN-Store.
             </p>
           </div>
         </form>

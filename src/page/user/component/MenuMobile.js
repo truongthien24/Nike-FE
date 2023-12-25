@@ -37,7 +37,7 @@ export const MenuMobile = () => {
               src="/images/nike-logo.png"
               className="w-[50px] md:w-[70px] lg:w-[80px] cursor-pointer"
             />
-            <h1 className="text-[20px]">Nike Fake</h1>
+            <h1 className="text-[20px]">DN-Store</h1>
           </div>
         }
         placement="left"

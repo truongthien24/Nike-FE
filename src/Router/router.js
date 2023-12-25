@@ -23,6 +23,8 @@ import { Button, Result } from "antd";
 import Favourite from "page/user/page/favourite/Favourite";
 import KichCoManagement from "page/admin/page/System/kichCoManagement/KichCoManagement";
 import DanhGiaManagement from "page/admin/page/danhGiaManagement/DanhGiaManagement";
+import AllShoe from "page/user/page/allShoe/AllShoe";
+import KhuyenMaiManagement from "page/admin/page/System/khuyenMaiManagement/KhuyenMaiManagement";
 
 export const MainRoutes = () => {
   return (
@@ -36,6 +38,7 @@ export const MainRoutes = () => {
           <Route path="favouriteShoes" element={<Favourite />} />
           <Route path="cart/:id" element={<Cart />} />
           <Route path="payment" element={<Payment />} />
+          <Route path="allShoe" element={<AllShoe />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
@@ -62,8 +65,9 @@ export const MainRoutes = () => {
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="productManagement" element={<ProductManagement />} />
-          <Route path="kichCoManagement" element={<KichCoManagement/>} />
-          <Route path="binhLuanManagement" element={<DanhGiaManagement/>} />
+          <Route path="kichCoManagement" element={<KichCoManagement />} />
+          <Route path="binhLuanManagement" element={<DanhGiaManagement />} />
+          <Route path="khuyenMaiManagement" element={<KhuyenMaiManagement />} />
           {/* <Route path="theLoaiManagement" element={<TheLoaiManagement />} />
           <Route path="tacGiaManagement" element={<TacGiaManagement />} />
           <Route path="ngonNguManagement" element={<NgonNguManagement />} />

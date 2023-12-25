@@ -77,16 +77,16 @@ export const Navigation = () => {
         </div>,
         "4"
       ),
-      // getItem(
-      //   <div
-      //     onClick={() => {
-      //       navigate("/admin/tacGiaManagement");
-      //     }}
-      //   >
-      //     Quản lý Tác giả
-      //   </div>,
-      //   "5"
-      // ),
+      getItem(
+        <div
+          onClick={() => {
+            navigate("/admin/khuyenMaiManagement");
+          }}
+        >
+          Quản lý khuyến mãi
+        </div>,
+        "5"
+      ),
       // getItem(
       //   <div
       //     onClick={() => {
