@@ -87,16 +87,16 @@ export const Navigation = () => {
         </div>,
         "5"
       ),
-      // getItem(
-      //   <div
-      //     onClick={() => {
-      //       navigate("/admin/nhaCungCapManagement");
-      //     }}
-      //   >
-      //     Quản lý Nhà cung cấp
-      //   </div>,
-      //   "6"
-      // ),
+      getItem(
+        <div
+          onClick={() => {
+            navigate("/admin/thuongHieuManagement");
+          }}
+        >
+          Quản lý thương hiệu
+        </div>,
+        "6"
+      ),
       // getItem(
       //   <div
       //     onClick={() => {
@@ -121,12 +121,34 @@ export const Navigation = () => {
     getItem(
       <div
         onClick={() => {
+          navigate("/admin/donHangManagement");
+        }}
+      >
+        Quản lý đơn hàng
+      </div>,
+      "8",
+      <MailOutlined />
+    ),
+    getItem(
+      <div
+        onClick={() => {
           navigate("/admin/binhLuanManagement");
         }}
       >
         Quản lý bình luận
       </div>,
       "9",
+      <MailOutlined />
+    ),
+    getItem(
+      <div
+        onClick={() => {
+          navigate("/admin/bannerManagement");
+        }}
+      >
+        Quản lý banner
+      </div>,
+      "10",
       <MailOutlined />
     ),
     // getItem("Booking", "sub2", <MailOutlined />, [

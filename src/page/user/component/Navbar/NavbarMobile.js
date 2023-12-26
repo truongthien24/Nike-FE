@@ -25,7 +25,7 @@ const NavbarMobile = (props) => {
               className="w-[50px] md:w-[70px] lg:w-[80px] cursor-pointer mr-[10px]"
               onClick={returnHome}
             />
-            <h1 className="text-[20px]">DN-Store</h1>
+            <h1 className="text-[20px]">BN-Store</h1>
           </div>
         </div>
         <div className="flex items-center justify-evenly">

@@ -20,8 +20,9 @@ export const Slider = (props) => {
           <div
             className={`text-[white] h-[290px] lg:h-[400px] 2xl:h-[600px]`}
             style={{
-              backgroundImage: `url('${item.image}')`,
+              backgroundImage: `url('${item.hinhAnh}')`,
               backgroundSize: "cover",
+              backgroundPosition: "center"
             }}
           ></div>
         </SwiperSlide>

@@ -30,71 +30,70 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
     setOpenReturnOrder(newOpen);
   };
 
-  const ngayDenHan = useMemo(() => {
-    if (data?.ngayGiao) {
-      let res = new Date(data?.ngayGiao?.toString());
-      res.setDate(res.getDate() + data.danhSach[0]?.soNgayThue);
-      return res;
-    }
-  }, [data?.ngayGiao]);
+  // const ngayDenHan = useMemo(() => {
+  //   if (data?.ngayGiao) {
+  //     let res = new Date(data?.ngayGiao?.toString());
+  //     res.setDate(res.getDate() + data.danhSach[0]?.soNgayThue);
+  //     return res;
+  //   }
+  // }, [data?.ngayGiao]);
 
-  const returnBook = () => {
-    const diffDate = checkDiffDate(ngayDenHan)
-    setContentConfirm({
-      diffDate: diffDate,
-    });
-    dispatch(
-      setConfirm({
-        status: "open",
-        method: async () => {
-          // const newDanhSach = [];
-          // for (let sachItem of data?.danhSach) {
-          //   if (sachItem === sach) {
-          //     sachItem.tinhTrang = true;
-          //   }
-          //   newDanhSach.push(sachItem);
-          // }
-          await mutate({
-            Data: { ...data, tinhTrang: 3, thongTinTraHang: {
-              ngayBatDau: (new Date()).toString(),
-              ngayKetThuc: "",
-            } },
-            onSuccess: (res) => {
-              toast.success("Thành công. Đơn hàng sẽ được trả trong vài ngày");
-              dispatch(
-                setConfirm({
-                  status: "close",
-                  method: () => {},
-                })
-              );
-            },
-            onError: (err) => {
-              toast.error(err?.error?.message);
-            },
-          });
-        },
-      })
-    );
-  };
+  // const returnBook = () => {
+  //   const diffDate = checkDiffDate(ngayDenHan)
+  //   setContentConfirm({
+  //     diffDate: diffDate,
+  //   });
+  //   dispatch(
+  //     setConfirm({
+  //       status: "open",
+  //       method: async () => {
+  //         // const newDanhSach = [];
+  //         // for (let sachItem of data?.danhSach) {
+  //         //   if (sachItem === sach) {
+  //         //     sachItem.tinhTrang = true;
+  //         //   }
+  //         //   newDanhSach.push(sachItem);
+  //         // }
+  //         await mutate({
+  //           Data: { ...data, tinhTrang: 3, thongTinTraHang: {
+  //             ngayBatDau: (new Date()).toString(),
+  //             ngayKetThuc: "",
+  //           } },
+  //           onSuccess: (res) => {
+  //             toast.success("Thành công. Đơn hàng sẽ được trả trong vài ngày");
+  //             dispatch(
+  //               setConfirm({
+  //                 status: "close",
+  //                 method: () => {},
+  //               })
+  //             );
+  //           },
+  //           onError: (err) => {
+  //             toast.error(err?.error?.message);
+  //           },
+  //         });
+  //       },
+  //     })
+  //   );
+  // };
 
   const cancelOrder = () => {
-    toast("Chức năng đang phát triển");
+    toast("Rất tiếc, hệ thống chưa hỗ trợ");
   };
 
   useLoadingEffect(isLoading);
 
   const renderListOrder = () => {
-    return data?.danhSach?.map((sach, index) => {
+    return data?.danhSach?.map((sanPham, index) => {
       return (
         <div className="grid grid-cols-5 gap-[10px]" key={index}>
           <img
-            src={sach?.sach?.hinhAnh?.url}
+            src={sanPham?.sanPham?.hinhAnh}
             className="w-[50px] xl:w-[70px] h-[100px]"
           />
-          <p className="col-span-1">Tên sách: {sach?.sach?.tenSach}</p>
-          <p>Thuê: {sach?.soNgayThue}ngày</p>
-          <p>Tiền cọc: {sach?.tienCoc}</p>
-          <p>Số lượng: {sach?.soLuong}</p>
+          <p className="col-span-1">{sanPham?.sanPham?.tenSanPham}</p>
+          <p>{sanPham?.sanPham?.giaSanPham?.toLocaleString()}</p>
+          <p>Số lượng: {sanPham?.soLuong}</p>
           {/* {data?.tinhTrang == 2 && (
             <PopoverReturnOrder
               sach={sach}
@@ -212,7 +211,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
                 Tình trạng thanh toán:{" "}
               </h5>
               <span>
-                {data?.thongTinGiaoHang?.thanhToan
+                {data?.thongTinThanhToan?.thanhToan
                   ? "Đã thanh toán"
                   : "Chưa thanh toán"}
               </span>
@@ -225,9 +224,9 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
                 Tình trạng đơn hàng:{" "}
               </h5>
               <span>
-                {data?.tinhTrang == 0
+                {data?.tinhTrang == 1
                   ? "Đã xác nhận"
-                  : data?.tinhTrang == 1
+                  : data?.tinhTrang == 2
                   ? "Đang giao"
                   : "Đã giao"}
               </span>
@@ -241,7 +240,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
                 Huỷ đơn hàng
               </button>
             )}
-            {data?.tinhTrang == 2 && (
+            {/* {data?.tinhTrang == 2 && (
               <button
                 className="flex justify-center w-full rounded-[10px] px-[20px] py-[10px] text-[white]"
                 style={{ backgroundColor: `${COLOR.secondaryColor}` }}
@@ -249,7 +248,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
               >
                 Trả đơn hàng
               </button>
-            )}
+            )} */}
           </div>
           <div
             className="rounded-[10px] p-[10px] col-span-3 max-h-[80vh] overflow-y-scroll grid grid-cols-1 gap-[10px]"
@@ -262,7 +261,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
           </div>
         </div>
       </Modal>
-      <Confirm
+      {/* <Confirm
         content={
           <div>
             Hạn thuê sách còn{" "}
@@ -272,7 +271,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
             . Bạn đã chắc chắn ?
           </div>
         }
-      />
+      /> */}
     </>
   );
 };

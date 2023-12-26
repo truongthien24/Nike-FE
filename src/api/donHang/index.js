@@ -19,14 +19,18 @@ export default {
     });
   },
 
+  getDonHangByIDUser: (params) => {
+    return axiosWrapper.get(`/get-donHang-byIdDUser/${params.userId}`);
+  },
+
   updateDonHang: (params) => {
-    return axiosWrapper.patch(`/updateDonHang/${params?._id}`, {
+    return axiosWrapper.patch(`/updateDonHang/${params?.id}`, {
       ...params,
     });
   },
 
   deleteDonHang: (params) => {
-    return axiosWrapper.delete(`/deleteDonHang/${params?._id}`, {
+    return axiosWrapper.delete(`/deleteDonHang/${params?.id}`, {
       ...params,
     });
   },

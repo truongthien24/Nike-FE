@@ -7,14 +7,15 @@ import { COLOR } from "page/user/shareComponent/constant";
 import useGetDataDonHang from "page/admin/page/donHangManagement/hook/useGetDataDonHang";
 import _ from "lodash";
 import moment from "moment";
-import { Empty } from "antd";
+import { Avatar, Empty } from "antd";
 import { toast } from "react-hot-toast";
 import ModalOrderDetail from "./components/modal/ModalOrderDetail";
 import Setting from "./components/Setting";
+import useGetDataDonHangByIdUser from "page/admin/page/donHangManagement/hook/useGetDonHangByIDUser";
 
 export const Profile = () => {
   // State
-  const [statusOrder, setStatusOrder] = useState(0);
+  const [statusOrder, setStatusOrder] = useState(1);
   const [isOpenEdit, setIsOpenEdit] = useState(false);
   const [orderDetail, setOrderDetail] = useState({
     open: false,
@@ -31,7 +32,7 @@ export const Profile = () => {
   const { userInfo } = useSelector((state) => state.home);
 
   const { donHangData, isDataLoading, fetchData, isFetching } =
-    useGetDataDonHang("0", "0", userInfo?._id);
+    useGetDataDonHangByIdUser("0", "0", userInfo?.id);
 
   const donHangList = useMemo(() => {
     if (!_.isEmpty(donHangData)) {
@@ -92,9 +93,7 @@ export const Profile = () => {
             </div>
             <div className="flex items-center text-[12px] xl:text-[13px]">
               <div>
-                <strong>
-                  Số lượng sách đang thuê : {donHang?.danhSach?.length}
-                </strong>
+                <strong>Số lượng sản phẩm : {donHang?.danhSach?.length}</strong>
               </div>
               <div className="ml-[10px]">
                 {" "}
@@ -128,10 +127,20 @@ export const Profile = () => {
               }}
             >
               <div className="flex items-center justify-between">
-                <img
+                {/* <img
                   className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px] rounded-[50%] ml-[10px] object-cover cursor-pointer"
                   src="https://cdn1.vectorstock.com/i/1000x1000/60/20/orange-cat-cartoon-cute-vector-45736020.jpg"
-                />
+                /> */}
+                <Avatar
+                  size={40}
+                  style={{
+                    backgroundColor: "#fde3cf",
+                    color: "#f56a00",
+                    marginLeft: "10px",
+                  }}
+                >
+                  {userInfo?.tenDangNhap?.toString().toUpperCase().charAt(0)}
+                </Avatar>
                 <div className="text-[13px] md:text-[14px] text-[#525252]">
                   <div className="flex justify-end">
                     Thành viên:
@@ -217,39 +226,6 @@ export const Profile = () => {
                     className="flex relative justify-center items-center text-[13px] md:text-[14px] lg:text-[15px] rounded-[10px] py-[5px] px-[10px] duration-300"
                     style={{
                       backgroundColor: `${
-                        statusOrder === 0 ? COLOR.primaryColor : "#fff"
-                      }`,
-                      color: `${statusOrder === 0 ? "#fff" : "#000"}`,
-                    }}
-                    onClick={() => onStatusOrder(0)}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4.5 12.75l6 6 9-13.5"
-                      />
-                    </svg>
-                    <span className="ml-[5px]">Đã xác nhận</span>
-                    <span className="absolute right-[0px] top-[-10px] bg-[#e42e2e] text-[#fff] flex items-center justify-center text-[13px] w-[20px] h-[20px] rounded-[50%]">
-                      {
-                        (donHangData?.filter(
-                          (donHang) => donHang.tinhTrang === 0
-                        )).length
-                      }
-                    </span>
-                  </button>
-                  <button
-                    className="flex relative justify-center items-center text-[13px] md:text-[14px] lg:text-[15px] rounded-[10px] py-[5px] px-[10px] duration-300"
-                    style={{
-                      backgroundColor: `${
                         statusOrder === 1 ? COLOR.primaryColor : "#fff"
                       }`,
                       color: `${statusOrder === 1 ? "#fff" : "#000"}`,
@@ -267,10 +243,10 @@ export const Profile = () => {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+                        d="M4.5 12.75l6 6 9-13.5"
                       />
                     </svg>
-                    <span className="ml-[5px]">Đang giao</span>
+                    <span className="ml-[5px]">Đã xác nhận</span>
                     <span className="absolute right-[0px] top-[-10px] bg-[#e42e2e] text-[#fff] flex items-center justify-center text-[13px] w-[20px] h-[20px] rounded-[50%]">
                       {
                         (donHangData?.filter(
@@ -300,6 +276,39 @@ export const Profile = () => {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
+                        d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+                      />
+                    </svg>
+                    <span className="ml-[5px]">Đang giao</span>
+                    <span className="absolute right-[0px] top-[-10px] bg-[#e42e2e] text-[#fff] flex items-center justify-center text-[13px] w-[20px] h-[20px] rounded-[50%]">
+                      {
+                        (donHangData?.filter(
+                          (donHang) => donHang.tinhTrang === 2
+                        )).length
+                      }
+                    </span>
+                  </button>
+                  <button
+                    className="flex relative justify-center items-center text-[13px] md:text-[14px] lg:text-[15px] rounded-[10px] py-[5px] px-[10px] duration-300"
+                    style={{
+                      backgroundColor: `${
+                        statusOrder === 3 ? COLOR.primaryColor : "#fff"
+                      }`,
+                      color: `${statusOrder === 3 ? "#fff" : "#000"}`,
+                    }}
+                    onClick={() => onStatusOrder(3)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-4 h-4 md:w-5 md:h-5 xl:w-6 xl:h-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                         d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
                       />
                     </svg>
@@ -307,7 +316,7 @@ export const Profile = () => {
                     <span className="absolute right-[0px] top-[-10px] bg-[#e42e2e] text-[#fff] flex items-center justify-center text-[13px] w-[20px] h-[20px] rounded-[50%]">
                       {
                         (donHangData?.filter(
-                          (donHang) => donHang.tinhTrang === 2
+                          (donHang) => donHang.tinhTrang === 3
                         )).length
                       }
                     </span>

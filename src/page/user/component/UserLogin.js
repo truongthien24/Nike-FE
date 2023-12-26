@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import { Avatar } from "antd";
 
 export const UserLogin = (props) => {
   const { setIsProfile } = props;
@@ -11,7 +12,7 @@ export const UserLogin = (props) => {
 
   const userLogin = localStorage.getItem("jwt");
 
-  const { userInfo } = useSelector((state) => state.taiKhoan);
+  const { userInfo } = useSelector((state) => state.home);
 
   return (
     <div>
@@ -36,10 +37,20 @@ export const UserLogin = (props) => {
             </span> */}
             Hello,
           </span>
-          <img
+          <Avatar
+            size={40}
+            style={{
+              backgroundColor: "#fde3cf",
+              color: "#f56a00",
+              marginLeft: "10px"
+            }}
+          >
+            {userInfo?.tenDangNhap?.toString().toUpperCase().charAt(0)}
+          </Avatar>
+          {/* <img
             className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px] rounded-[50%] ml-[10px] object-cover cursor-pointer"
             src="https://cdn1.vectorstock.com/i/1000x1000/60/20/orange-cat-cartoon-cute-vector-45736020.jpg"
-          />
+          /> */}
         </div>
       ) : (
         <div className="flex items-center">

@@ -26,6 +26,9 @@ import DanhGiaManagement from "page/admin/page/danhGiaManagement/DanhGiaManageme
 import AllShoe from "page/user/page/allShoe/AllShoe";
 import KhuyenMaiManagement from "page/admin/page/System/khuyenMaiManagement/KhuyenMaiManagement";
 import { Profile } from "page/user/page/profile/Profile";
+import DonHangManagement from "page/admin/page/donHangManagement/DonHangManagement";
+import BannerManagement from "page/admin/page/bannerManagement/BannerManagement";
+import ThuongHieuManagement from "page/admin/page/System/thuongHieuManagement/ThuongHieuManagement";
 
 export const MainRoutes = () => {
   return (
@@ -70,6 +73,9 @@ export const MainRoutes = () => {
           <Route path="kichCoManagement" element={<KichCoManagement />} />
           <Route path="binhLuanManagement" element={<DanhGiaManagement />} />
           <Route path="khuyenMaiManagement" element={<KhuyenMaiManagement />} />
+          <Route path="donHangManagement" element={<DonHangManagement />} />
+          <Route path="bannerManagement" element={<BannerManagement />} />
+          <Route path="thuongHieuManagement" element={<ThuongHieuManagement />} />
           {/* <Route path="theLoaiManagement" element={<TheLoaiManagement />} />
           <Route path="tacGiaManagement" element={<TacGiaManagement />} />
           <Route path="ngonNguManagement" element={<NgonNguManagement />} />

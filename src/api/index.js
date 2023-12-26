@@ -15,6 +15,8 @@ import donHang from "./donHang";
 import kichCo from "./kichCo";
 import danhGia from "./danhGia";
 import khuyenMai from "./khuyenMai";
+import banner from "./banner";
+import thuongHieu from "./thuongHieu";
 
 const apiService = {
   taiKhoan,
@@ -34,6 +36,8 @@ const apiService = {
   kichCo,
   danhGia,
   khuyenMai,
+  banner,
+  thuongHieu,
 };
 
 export default apiService;

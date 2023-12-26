@@ -136,6 +136,8 @@ export const ModalCreateRoom = (props) => {
     setValue("hinhAnh", base64);
   };
 
+  console.log('watch', watch())
+
   const handleSubmitData = async (data) => {
     await mutate({
       Data: { ...data, giaSanPham: parseInt(data?.giaSanPham), trangThai: parseInt(data?.trangThai), soLuong: parseInt(data?.soLuong) },

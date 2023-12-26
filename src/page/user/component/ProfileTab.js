@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "../../../assets/icon";
-import { Drawer } from "antd";
+import { Avatar, Drawer } from "antd";
 
 export const ProfileTab = (props) => {
   // Props
@@ -56,7 +56,7 @@ export const ProfileTab = (props) => {
       width={250}
       footer={
         <div className="flex justify-center items-center text-[gray]">
-          @Black&Cat
+          @Coppy Right Steven
         </div>
       }
     >
@@ -65,10 +65,20 @@ export const ProfileTab = (props) => {
           className="bg-gray-100 rounded-[10px] flex cursor-pointer p-[10px]"
           onClick={handleViewProfile}
         >
-          <img
+          {/* <img
             className="w-[40px] h-[40px] xl:w-[60px] xl:h-[60px] rounded-[50%]"
             src="https://cdn1.vectorstock.com/i/1000x1000/60/20/orange-cat-cartoon-cute-vector-45736020.jpg"
-          />
+          /> */}
+          <Avatar
+            size={40}
+            style={{
+              backgroundColor: "#fde3cf",
+              color: "#f56a00",
+              marginLeft: "10px",
+            }}
+          >
+            {userInfo?.tenDangNhap?.toString().toUpperCase().charAt(0)}
+          </Avatar>
           <div className="ml-[20px] flex flex-col justify-center">
             <span className="text-[14px] text-gray-500 hover:underline">
               {t("seeProfile")}

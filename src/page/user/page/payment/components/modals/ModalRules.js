@@ -19,7 +19,7 @@ const ModalRules = ({ open, onOpen, title }) => {
       >
         Điều khoản của chúng tôi
       </h2> */}
-      <div>Những điều cần lưu ý khi mua sản phẩm tại cửa hàng DN-Store</div>
+      <div>Những điều cần lưu ý khi mua sản phẩm tại cửa hàng BN-Store</div>
       {/* <div>1. Khi thuê sách nhưng trả sách trễ hơn sẽ bị mất tiền cọc</div>
       <div>2. Khi làm hư hỏng sách sẽ mất tiền cọc</div>
       <div>
