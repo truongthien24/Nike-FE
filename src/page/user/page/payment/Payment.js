@@ -81,29 +81,29 @@ const Payment = () => {
         });
       case "next":
         if (paymentStep.step == 2) {
-          // await mutate({
-          //   Data: {
-          //     userId: userInfo?.id,
-          //     gioHangId: userInfo?.gioHang,
-          //     email: userInfo?.email,
-          //     danhSach: paymentStep?.data.thongTinGioHang?.danhSach,
-          //     thongTinGiaoHang: {
-          //       ngayNhanHangDuKien:
-          //         paymentStep?.data?.thongTinGiaoHang?.ngayNhanHangDuKien,
-          //       thongTinNguoiNhan:
-          //         paymentStep?.data?.thongTinGiaoHang?.thongTinNguoiNhan,
-          //     },
-          //     thongTinThanhToan: {
-          //       phuongThucThanhToan: paymentStep?.data?.thanhToan.online
-          //         ? "online"
-          //         : "cod",
-          //       thanhToan: paymentStep?.data.thanhToan.done,
-          //       viThanhToan: paymentStep?.data?.thanhToan.viThanhToan,
-          //     },
-          //     tongGia: paymentStep?.data?.thongTinGioHang?.tongGia,
-          //   },
-          //   onSuccess: (res) => {
-          //     toast.success(res?.data?.message);
+          await mutate({
+            Data: {
+              userId: userInfo?.id,
+              gioHangId: userInfo?.cartId,
+              email: userInfo?.email,
+              danhSach: paymentStep?.data.thongTinGioHang?.danhSach,
+              thongTinGiaoHang: {
+                ngayNhanHangDuKien:
+                  paymentStep?.data?.thongTinGiaoHang?.ngayNhanHangDuKien,
+                thongTinNguoiNhan:
+                  paymentStep?.data?.thongTinGiaoHang?.thongTinNguoiNhan,
+              },
+              thongTinThanhToan: {
+                phuongThucThanhToan: paymentStep?.data?.thanhToan.online
+                  ? "online"
+                  : "cod",
+                thanhToan: paymentStep?.data.thanhToan.done,
+                viThanhToan: paymentStep?.data?.thanhToan.viThanhToan,
+              },
+              tongGia: paymentStep?.data?.thongTinGioHang?.tongGia,
+            },
+            onSuccess: (res) => {
+              toast.success(res?.data?.message);
               setPaymentStep((prev) => {
                 return {
                   ...prev,
@@ -111,11 +111,11 @@ const Payment = () => {
                   status: false,
                 };
               });
-            // },
-            // onError: (err) => {
-            //   toast.error(err?.error?.message);
-            // },
-          // });
+            },
+            onError: (err) => {
+              toast.error(err?.error?.message);
+            },
+          });
         } else {
           return setPaymentStep((prev) => {
             return {
@@ -139,10 +139,10 @@ const Payment = () => {
           {paymentStep.step === 0
             ? "Thông tin nhận hàng"
             : paymentStep.step === 1
-            ? "Kiểm tra giỏ hàng"
-            : paymentStep.step === 2
-            ? "Thanh toán"
-            : "Hoàn tất"}
+              ? "Kiểm tra giỏ hàng"
+              : paymentStep.step === 2
+                ? "Thanh toán"
+                : "Hoàn tất"}
         </h3>
         <div className="w-full">
           <Steps
@@ -176,8 +176,8 @@ const Payment = () => {
                   paymentStep.step > 1
                     ? "finish"
                     : paymentStep.step == 1
-                    ? "process"
-                    : "wait",
+                      ? "process"
+                      : "wait",
                 icon:
                   paymentStep.step === 1 ? (
                     <LoadingOutlined />
@@ -191,8 +191,8 @@ const Payment = () => {
                   paymentStep.step > 2
                     ? "finish"
                     : paymentStep.step == 2
-                    ? "process"
-                    : "wait",
+                      ? "process"
+                      : "wait",
                 icon:
                   paymentStep.step === 2 ? (
                     <LoadingOutlined />
@@ -228,9 +228,8 @@ const Payment = () => {
               className="text-[#fff] text-[11px] md:text-[15px] p-[10px] rounded-[5px] flex items-center justify-center mr-[10px]"
               type="submit"
               style={{
-                backgroundColor: `${
-                  paymentStep?.step > 0 ? COLOR.primaryColor : "gray"
-                }`,
+                backgroundColor: `${paymentStep?.step > 0 ? COLOR.primaryColor : "gray"
+                  }`,
               }}
               // style={{
               //   backgroundColor: `${COLOR.primaryColor}`,
@@ -244,22 +243,21 @@ const Payment = () => {
               className="text-[#fff] text-[11px] md:text-[15px] p-[10px] rounded-[5px] flex items-center justify-center"
               type="submit"
               style={{
-                backgroundColor: `${
-                  !(paymentStep?.step == 1 && !paymentStep?.data?.dieuKhoan) &&
-                  !(
-                    paymentStep?.step == 0 &&
-                    _.isEmpty(
-                      paymentStep?.data?.thongTinGiaoHang?.thongTinNguoiNhan
+                backgroundColor: `${!(paymentStep?.step == 1 && !paymentStep?.data?.dieuKhoan) &&
+                    !(
+                      paymentStep?.step == 0 &&
+                      _.isEmpty(
+                        paymentStep?.data?.thongTinGiaoHang?.thongTinNguoiNhan
+                      )
+                    ) &&
+                    !(
+                      paymentStep?.step == 2 &&
+                      paymentStep?.data?.thanhToan?.method === "online" &&
+                      paymentStep?.data?.thanhToan?.done === false
                     )
-                  ) &&
-                  !(
-                    paymentStep?.step == 2 &&
-                    paymentStep?.data?.thanhToan?.method === "online" &&
-                    paymentStep?.data?.thanhToan?.done === false
-                  )
                     ? COLOR.primaryColor
                     : "gray"
-                }`,
+                  }`,
               }}
               onClick={() => changeStep("next")}
               disabled={

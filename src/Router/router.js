@@ -25,6 +25,7 @@ import KichCoManagement from "page/admin/page/System/kichCoManagement/KichCoMana
 import DanhGiaManagement from "page/admin/page/danhGiaManagement/DanhGiaManagement";
 import AllShoe from "page/user/page/allShoe/AllShoe";
 import KhuyenMaiManagement from "page/admin/page/System/khuyenMaiManagement/KhuyenMaiManagement";
+import { Profile } from "page/user/page/profile/Profile";
 
 export const MainRoutes = () => {
   return (
@@ -39,6 +40,7 @@ export const MainRoutes = () => {
           <Route path="cart/:id" element={<Cart />} />
           <Route path="payment" element={<Payment />} />
           <Route path="allShoe" element={<AllShoe />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

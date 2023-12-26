@@ -87,10 +87,14 @@ const Shoe = (props) => {
         </div>
         <div className="flex flex-col items-center mt-[5px]">
           <h5>{data?.tenSanPham}</h5>
-          <span style={{ color: `${COLOR.primaryColor}` }} className="my-[7px]">
-            {data?.giaSanPham?.toLocaleString()} VND
+          <span style={{ color: `${COLOR.primaryColor}` }} className="my-[7px] font-[500]">
+            {data?.khuyenMai ? (data?.giaSanPham - ((data?.giaSanPham * data?.khuyenMai?.phanTramKhuyenMai) / 100))?.toLocaleString() : data?.giaSanPham?.toLocaleString()} VND
           </span>
-          <span className="text-[13px] text-[#f7941d]">
+          <p className="leading-[20px] text-[12px] md:text-[13px] lg:text-[14px] h-[20px]">{data?.khuyenMai ? <>
+            <span className="text-[#a5a4a4] line-through mr-[10px]">{data?.giaSanPham?.toLocaleString()}</span>
+            <span>-{data?.khuyenMai?.phanTramKhuyenMai}%</span>
+          </> : ""}</p>
+          <span className="text-[13px] text-[#f7941d] mt-[10px]">
             {data?.soLuong > 0 ? "In Stock" : "Sold out"}
           </span>
         </div>

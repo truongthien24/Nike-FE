@@ -16,26 +16,30 @@ export const UserLogin = (props) => {
   return (
     <div>
       {userLogin ? (
-        <div className="flex items-center">
+        <div
+          className="flex items-center"
+          onClick={() => {
+            setIsProfile(true);
+          }}
+        >
           <span
             className="cursor-pointer text-[14px] block md:hidden lg:block"
-            onClick={() => {
-              // navigate('/user/login')
-              localStorage.removeItem("jwt");
-              window.location.reload();
-            }}
+            // onClick={() => {
+            //   localStorage.removeItem("jwt");
+            //   navigate('/login')
+            //   // window.location.reload();
+            // }}
           >
-            {/* {t('logOut')} */}
-            {/* {t('hi')} */}
-            ĐĂNG XUẤT |
+            {/* ĐĂNG XUẤT |
             <span className="text-[#3790c7] ml-[5px]">
               {userInfo?.tenDangNhap}
-            </span>
+            </span> */}
+            Hello,
           </span>
-          {/* <img className='w-[50px] h-[50px] rounded-[50%] ml-[10px] object-cover cursor-pointer' src="https://img5.thuthuatphanmem.vn/uploads/2022/01/12/anh-tokuda-dep-nhat_101702809.jpg" 
-                    onClick={()=> {
-                        setIsProfile(true);
-                    }}/> */}
+          <img
+            className="w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] xl:w-[60px] xl:h-[60px] rounded-[50%] ml-[10px] object-cover cursor-pointer"
+            src="https://cdn1.vectorstock.com/i/1000x1000/60/20/orange-cat-cartoon-cute-vector-45736020.jpg"
+          />
         </div>
       ) : (
         <div className="flex items-center">
@@ -47,7 +51,6 @@ export const UserLogin = (props) => {
           >
             ĐĂNG NHẬP
           </span>
-          {/* <img className='w-[60px] md:w-[60px] ml-[10px]' src="https://i.seadn.io/gae/qJxeLyPWfxm-feoHxG7qB-ntOYFj1hW-zaH7ARQoEElPDdD5FyN0NDqMROtpLia33q4y-lUj0kmRlcGhESJsh7sd8hpMDqVbItAuyOs?auto=format&w=1000"/> */}
         </div>
       )}
     </div>
