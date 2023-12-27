@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
-import { brandCheckbox, priceRadio } from "./helper";
+import { priceRadio } from "./helper";
 import { Checkbox, Empty } from "antd";
 import useFindDataProduct from "page/admin/page/RoomManagement/hook/useFindProduct";
 import useFilters from "page/user/shareComponent/filter/useFilter";
 import Shoe from "page/user/component/AreaBook/compontents/Shoe";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
+import { useDispatch, useSelector } from "react-redux";
+import { getCommonCode } from "redux/action/getCommonCode";
+import useGetDataThuongHieu from "page/admin/page/System/thuongHieuManagement/hook/useGetDataThuongHieu";
 
 export const FilterItem = ({ data, type }) => {
   const { register } = useFormContext();
@@ -51,14 +54,31 @@ export const FilterItem = ({ data, type }) => {
 const AllShoe = () => {
   const defaultValues = {
     tenSanPham: "",
+    thuongHieu: null
   };
 
   const { count, setCount, filters, onFilter } = useFilters(defaultValues);
 
-  console.log("filters", filters);
+  const dispatch = useDispatch();
 
   const { productData, isDataLoading, fetchData, isFetching } =
     useFindDataProduct(filters);
+
+  const { thuongHieuData, isDataLoading: isLoadingThuongHieu, fetchData: fetchDataThuongHieu, isFetching: isFetchingThuongHieu } =
+    useGetDataThuongHieu("0", "0");
+
+  const brandCheckbox = useMemo(() => {
+    if (thuongHieuData?.length > 0) {
+      return thuongHieuData?.map((th) => {
+        return {
+          label: th.tenThuongHieu,
+          value: th.id,
+          name: "thuongHieu",
+        }
+      })
+    }
+    return []
+  }, [thuongHieuData])
 
   const method = useForm({
     mode: "onSubmit",
@@ -78,8 +98,10 @@ const AllShoe = () => {
   };
 
   const handleSearch = (data) => {
+    console.log('data', data)
     onFilter({
       giaSanPham: parseInt(data?.giaSanPham),
+      thuongHieu: parseInt(data?.thuongHieu),
     });
   };
 

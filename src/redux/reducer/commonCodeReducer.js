@@ -1,6 +1,7 @@
 const initialValue = {
   kichCo: [],
   khuyenMai: [],
+  thuongHieu: [],
 };
 
 export const CommonCodeReducer = (state = initialValue, action) => {
@@ -13,6 +14,10 @@ export const CommonCodeReducer = (state = initialValue, action) => {
         }
         case "khuyenMai": {
           state.khuyenMai = action.payload.Data;
+          return { ...state };
+        }
+        case "thuongHieu": {
+          state.thuongHieu = action.payload.Data;
           return { ...state };
         }
         default:

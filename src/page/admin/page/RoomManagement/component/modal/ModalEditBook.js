@@ -43,21 +43,11 @@ export const ModalEditBook = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useUpdateProduct();
 
-  const { khuyenMai } = useSelector((state) => state.commonCode);
+  const { khuyenMai, thuongHieu } = useSelector((state) => state.commonCode);
 
   const dispatch = useDispatch();
 
   const { t } = useTranslation();
-
-  // Effect
-  // useEffect(() => {
-  //   setIsSkeleton(true);
-  //   setTimeout(() => {
-  //     setIsSkeleton(false);
-  //   }, 500);
-  // }, [dataEdit]);
-
-  // useLoadingEffect(isSubmitting);
 
   // Form
   const APIEdit = useMemo(() => {
@@ -106,6 +96,19 @@ export const ModalEditBook = (props) => {
         label: "Số lượng",
       },
       {
+        name: "maThuongHieu",
+        type: "select",
+        required: true,
+        label: "Mã thương hiệu",
+        size: "1",
+        dataSelect: thuongHieu?.map((th) => {
+          return {
+            label: th.tenThuongHieu,
+            value: th.id,
+          };
+        }), 
+      },
+      {
         name: "maKhuyenMai",
         type: "select",
         required: true,
@@ -119,7 +122,7 @@ export const ModalEditBook = (props) => {
         }),
       },
     ];
-  }, []);
+  }, [khuyenMai, thuongHieu]);
 
   const {
     register,
