@@ -31,8 +31,12 @@ const SliderShoe = (props) => {
           slidesPerView: 3,
           spaceBetween: 20,
         },
-        // when window width is >= 640px
         1000: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+        // when window width is >= 640px
+        1200: {
           slidesPerView: 5,
           spaceBetween: 20,
         },
