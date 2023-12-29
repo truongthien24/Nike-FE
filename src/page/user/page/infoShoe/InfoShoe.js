@@ -96,7 +96,7 @@ const InfoShoe = () => {
 
   const { userInfo } = useSelector((state) => state.home);
 
-  const { fetchDataAccount } = useContext(LayoutContext);
+  const { fetchDataAccount, fetchDataGioHang } = useContext(LayoutContext);
 
   const { mutate, isLoading } = useUpdateAccount();
 
@@ -151,7 +151,8 @@ const InfoShoe = () => {
         soLuong: data?.soLuong,
         thanhTien: data?.soLuong * parseInt(productData?.giaSanPham),
       },
-      onSuccess: (res) => {
+      onSuccess: async (res) => {
+        await fetchDataGioHang();
         toast.success(res?.data?.message);
       },
       onError: (err) => {
@@ -161,7 +162,6 @@ const InfoShoe = () => {
   };
 
   const handleDanhGia = async (data, reset) => {
-    console.log('data', data)
     await createDanhGia({
       Data: {
         idUser: userInfo?.id,

@@ -5,6 +5,7 @@ let initialValue = {
     method: () => {},
   },
   userInfo: {},
+  gioHangInfo: {},
 };
 
 export const homeReducer = (state = initialValue, action) => {
@@ -36,6 +37,10 @@ export const homeReducer = (state = initialValue, action) => {
     }
     case "SET-USER-INFO": {
       state.userInfo = action.payload;
+      return { ...state };
+    }
+    case "SET-GIOHANG-INFO": {
+      state.gioHangInfo = action.payload;
       return { ...state };
     }
     default:

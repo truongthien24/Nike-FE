@@ -34,3 +34,10 @@ export const setUserInfo = (data) => async (dispatch) => {
     payload: data,
   });
 }
+
+export const setGioHangInfo = (data) => async (dispatch) => {
+  dispatch({
+    type: "SET-GIOHANG-INFO",
+    payload: data,
+  });
+}

@@ -6,40 +6,27 @@ import { COLOR } from '../shareComponent/constant'
 import { checkLogin } from '../shareComponent/Function/checkLogin'
 import toast from 'react-hot-toast'
 import { jwtDecode } from 'jwt-decode'
+import useGetDetailGioHang from 'page/admin/page/GioHangManagement/hook/userGetDetailGioHang'
+import { useSelector } from 'react-redux'
 
 const Cart = () => {
 
     const navigate = useNavigate();
 
-    const jwt = localStorage.getItem("jwt");
-
-    const userInfo = useMemo(() => {
-        if (jwt) {
-            const jwtDC = jwtDecode(jwt);
-            return jwtDC?.users;
-        }
-    }, [jwt]);
+    const {userInfo, gioHangInfo} = useSelector((state)=> state.home);
 
     const handleClick = () => {
         if (checkLogin()) {
             navigate('/cart/1231332132');
         } else {
-            // Swal.fire({
-            //     icon: 'info',
-            //     text: 'Rất tiếc! Bạn chưa đăng nhập',
-            //     showConfirmButton: false,
-            //     timer: 3000,
-            //     timerProgressBar: true
-            // })
             toast.error('Rất tiếc! Bạn chưa đăng nhập');
         }
     }
 
-
     return (
         <button className='relative' onClick={handleClick}>
             <Icon name="cart" color={COLOR.primaryColor} />
-            <div className='text-[#fff] p-[2px] min-w-[20px] box-border text-[10px] rounded-[50%] flex items-center justify-center absolute top-0 left-[70%] bg-[#498374]'>1</div>
+            <div className='text-[#fff] p-[2px] min-w-[20px] box-border text-[10px] rounded-[50%] flex items-center justify-center absolute top-0 left-[70%] bg-[#498374]'>{gioHangInfo?.danhSach?.length}</div>
         </button>
     )
 }

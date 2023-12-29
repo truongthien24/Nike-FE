@@ -7,7 +7,8 @@ import { getUser } from "../../../redux/action/accountAction";
 import Navbar from "../component/Navbar";
 import useGetAccountByID from "page/admin/page/accountManagement/hook/useGetAccountByID";
 import { jwtDecode } from "jwt-decode";
-import { setUserInfo } from "redux/action/homeAction";
+import { setGioHangInfo, setUserInfo } from "redux/action/homeAction";
+import useGetDetailGioHang from "page/admin/page/GioHangManagement/hook/userGetDetailGioHang";
 
 export const LayoutContext = createContext(null);
 
@@ -39,11 +40,15 @@ export const Layout1 = () => {
   const { accountData, isDataLoading, fetchData, isFetching } =
     useGetAccountByID({ id: id });
 
+    const { gioHangDataDetail, isDataDetailLoading, fetchData: fetchGioHang, isFetching: isFetchingGioHang } =
+    useGetDetailGioHang("0", "0", accountData?.cartId);
+
   useEffect(() => {
     if (accountData) {
       dispatch(setUserInfo(accountData));
+      dispatch(setGioHangInfo(gioHangDataDetail))
     }
-  }, [accountData]);
+  }, [accountData, gioHangDataDetail]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -60,7 +65,7 @@ export const Layout1 = () => {
 
   return (
     <LayoutContext.Provider
-      value={{ isMobile: isMenuMobile, fetchDataAccount: fetchData }}
+      value={{ isMobile: isMenuMobile, fetchDataAccount: fetchData, fetchDataGioHang: fetchGioHang }}
     >
       <div className="user bg-[#fcfcfc]">
         <Navbar />

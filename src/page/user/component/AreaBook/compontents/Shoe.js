@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import _ from "lodash";
 import useUpdateAccount from "page/admin/page/accountManagement/hook/useUpdateAccount";
 import { LayoutContext } from "page/user/layout/Layout1";
+import useCreateChiTietGioHang from "page/admin/page/GioHangManagement/hook/useCreateDetailCart";
 
 const Shoe = (props) => {
   const { data } = props;
@@ -16,9 +17,12 @@ const Shoe = (props) => {
 
   const { userInfo } = useSelector((state) => state.home);
 
-  const { fetchDataAccount } = useContext(LayoutContext);
+  const { fetchDataAccount, fetchDataGioHang } = useContext(LayoutContext);
 
   const { mutate, isLoading } = useUpdateAccount();
+
+  const { mutate: themGioHang, isLoading: isLoadingThemGioHang } = useCreateChiTietGioHang();
+
 
   const [review, onReview] = useState({
     open: false,
@@ -50,6 +54,24 @@ const Shoe = (props) => {
     }
   };
 
+  const addCart = async (data) => {
+    await themGioHang({
+      Data: {
+        idSanPham: parseInt(data?.id),
+        idCart: parseInt(userInfo?.cartId),
+        soLuong: 1,
+        thanhTien: 1 * parseInt(data?.giaSanPham),
+      },
+      onSuccess: async (res) => {
+        await fetchDataGioHang();
+        toast.success(res?.data?.message);
+      },
+      onError: (err) => {
+        toast.error(err?.message);
+      }
+    })
+  }
+
   const handleReview = (data) => {
     // onReview({
     //   open: true,
@@ -60,7 +82,7 @@ const Shoe = (props) => {
 
   return (
     <>
-      <div className="rounded-[5px] bg-[white] book">
+      <div className="rounded-[5px] bg-[white] book cursor-pointer">
         <div className="relative w-full book__heading">
           <img
             src={data?.hinhAnh}
@@ -71,10 +93,10 @@ const Shoe = (props) => {
               <button
                 className="bg-[#fff] book__heading-option-button rounded-[10px] w-[40px] h-[40px] flex items-center justify-center mx-[5px]"
                 onClick={() => {
-                  handleReview(data);
+                  addCart(data);
                 }}
               >
-                <Icon name="eye" color="#000" />
+                <Icon name="shoppingCart" color="#000" />
               </button>
               <button
                 className="bg-[#fff] book__heading-option-button rounded-[10px] w-[40px] h-[40px] flex items-center justify-center mx-[5px]"
@@ -85,7 +107,9 @@ const Shoe = (props) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center mt-[5px]">
+        <div className="flex flex-col items-center mt-[5px]" onClick={() => {
+          handleReview(data);
+        }}>
           <h5>{data?.tenSanPham}</h5>
           <span style={{ color: `${COLOR.primaryColor}` }} className="my-[7px] font-[500]">
             {data?.khuyenMai ? (data?.giaSanPham - ((data?.giaSanPham * data?.khuyenMai?.phanTramKhuyenMai) / 100))?.toLocaleString() : data?.giaSanPham?.toLocaleString()} VND
