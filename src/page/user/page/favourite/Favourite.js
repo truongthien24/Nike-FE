@@ -45,8 +45,8 @@ const Favourite = () => {
     }
 
   return (
-    <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center items-center">
-      <div className="grid grid-cols-1 gap-[10px] md:gap-[20px] px-[10px] md:px-[20px]">
+    <div className="pb-[20px] min-h-[calc(100vh_-_300px)] flex justify-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-[10px] md:gap-[20px] px-[10px] md:px-[20px] w-[95%] xl:w-[90%] 2xl:w-[70%] h-fit">
         {renderProductFavourite()}
       </div>
     </div>

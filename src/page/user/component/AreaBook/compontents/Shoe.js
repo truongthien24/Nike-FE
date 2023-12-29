@@ -84,6 +84,11 @@ const Shoe = (props) => {
     <>
       <div className="rounded-[5px] bg-[white] book cursor-pointer">
         <div className="relative w-full book__heading">
+          {
+            data?.khuyenMai
+            &&
+            <img src="./images/sale.png" className="absolute top-0 left-[0px] w-[45px] lg:w-[70px] 2xl:w-[80px]"/>
+          }
           <img
             src={data?.hinhAnh}
             className="w-full h-[220px] md:h-[260px] 2xl:h-[300px] rounded-[5px] book__heading-img"
