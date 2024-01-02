@@ -18,7 +18,7 @@ export const Register = () => {
   const initialValue = {
     tenDangNhap: "",
     matKhau: "",
-    loaiTaiKhoan: "guest", //user
+    loaiTaiKhoan: "user", //user
   };
 
   const formField = [
@@ -80,7 +80,7 @@ export const Register = () => {
   const registerUserTest = async (data) => {
     // axios.post("http://localhost:3001/create-TaiKhoan", data?.data).then(result=>
     await mutate({
-      Data: { ...data?.data, loaiTaiKhoan: "user" },
+      Data: { ...data?.data },
       onSuccess: async (msg) => {
         toast.success(msg.data.message);
       },

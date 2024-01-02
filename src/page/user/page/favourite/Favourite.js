@@ -20,6 +20,9 @@ const ShoeItems = ({data}) => {
       <div>
         <h5 className="bg-[#000] text-[#fff] w-fit px-[20px] py-[10px] rounded-[5px]">{data?.giaSanPham?.toLocaleString()} VND</h5>
       </div>
+      <div>
+        <h5 className="bg-[#000] text-[#fff] w-fit px-[20px] py-[10px] rounded-[5px]">{data?.moTa}</h5>
+      </div>
     </div>
   </div>)
 }

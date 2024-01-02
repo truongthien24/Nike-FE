@@ -20,7 +20,7 @@ export const AdminInfo = (props) => {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('jwtAdmin');
+        localStorage.removeItem('jwt');
         navigate('/admin/login')
     }
 

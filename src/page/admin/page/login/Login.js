@@ -53,8 +53,8 @@ export const Login = () => {
           window.location.replace("/admin");
         }, 500);
       },
-      onError: async (err) => {
-        toast.error(err.error);
+      onError: (err) => {
+        toast.error(err.message);
       },
     });
   };
