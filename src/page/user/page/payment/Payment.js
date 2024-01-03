@@ -20,6 +20,8 @@ import _ from "lodash";
 const Payment = () => {
   const { id } = useParams();
 
+  // paymentSTep: giá trị của state
+  // stePaymentStep: thay đổi giá trị state
   const [paymentStep, setPaymentStep] = useState({
     step: 0,
     status: false,

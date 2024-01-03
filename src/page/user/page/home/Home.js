@@ -44,6 +44,7 @@ export const HomeUser = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="w-full">
+        {/* Hiện: 2, ẩn là 1 */}
         <Slider data={bannerData?.filter((banner) => banner.tinhTrang === 2)} />
       </div>
       {/* <SearchArea/> */}

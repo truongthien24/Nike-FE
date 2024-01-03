@@ -54,14 +54,9 @@ export const FormBaseRegister = (props) => {
         })
     }
 
-    const handleLogin = async () => {
+    const handleRegister = async () => {
         // Watch() => Xuất ra tất cả các field và value của form
-        const res = await dispatch(methodSubmit({ data: watch() }));
-        if (res) {
-            setTimeout(() => {
-                reset()
-            }, 1500)
-        }
+       methodSubmit({ data: watch() })
     }
 
     const handleCancel = () => {
@@ -69,9 +64,10 @@ export const FormBaseRegister = (props) => {
         navigate(-1)
     }
 
+    // HandleSubmit: kiểm tra lỗi, field bắt buộc trước khi gửi về BE
     return (
         <>
-            <form className='w-full flex flex-col justify-between items-center' onSubmit={handleSubmit(handleLogin)}>
+            <form className='w-full flex flex-col justify-between items-center' onSubmit={handleSubmit(handleRegister)}>
                 {renderInput()}
                 <div className='w-[90%] lg:w-[80%] mt-[40px] xl:mt-[70px] grid grid-cols-2 gap-3'>
                     <button className='flex items-center justify-center bg-[white] py-[12px] rounded-[7px]' type="button" onClick={handleCancel}>{t('back')}</button>

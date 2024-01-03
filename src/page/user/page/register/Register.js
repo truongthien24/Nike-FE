@@ -10,9 +10,11 @@ import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { message } from "antd";
 
 export const Register = () => {
+  // Chuyển router, trang.
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  // Hàm gọi api
   const { mutate, isLoading: isSubmitting } = useRegister();
 
   const initialValue = {
@@ -79,9 +81,12 @@ export const Register = () => {
 
   const registerUserTest = async (data) => {
     // axios.post("http://localhost:3001/create-TaiKhoan", data?.data).then(result=>
+    
+    // xử lý bất đồng bộ
     await mutate({
       Data: { ...data?.data, loaiTaiKhoan: "user" },
       onSuccess: async (msg) => {
+        navigate('/login')
         toast.success(msg.data.message);
       },
       onError: async (err) => {
@@ -90,6 +95,7 @@ export const Register = () => {
     });
   };
   useLoadingEffect(isSubmitting);
+  // Xuất  màn hình
   return (
     <div className="fixed top-0 left-0 w-screen h-screen bg-[white] z-[101] flex flex-col lg:flex-row items-center lg:justify-center">
       <div className="mr-[10px] my-[20px] flex justify-center lg:flex-1">

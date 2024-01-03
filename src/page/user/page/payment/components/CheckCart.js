@@ -52,6 +52,9 @@ const ProductCartItem = ({ product }) => {
 };
 
 const CheckCart = ({ onStep, step }) => {
+
+  // 1 là: {onStep}
+  // 2 là: const {onStep} = props;
   const { userInfo } = useSelector((state) => state.home);
 
   const [openRules, setOnOpenRules] = useState(false);
@@ -210,6 +213,7 @@ const CheckCart = ({ onStep, step }) => {
           <div className="flex items-center my-[10px]">
             <Checkbox
               onChange={(e) => {
+                console.log('e.target.checked', e.target.checked)
                 onStep((prev) => {
                   return {
                     ...prev,
