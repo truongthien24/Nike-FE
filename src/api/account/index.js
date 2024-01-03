@@ -34,4 +34,10 @@ export default {
       ...params,
     });
   },
+
+  changePassword: (params) => {
+    return axiosWrapper.post(`/change-password`, {
+      ...params,
+    })
+  }
 };

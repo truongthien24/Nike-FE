@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
-// import useChangePassword from "page/admin/page/AccountManagement/hook/useChangePassword";
+import useChangePassword from "page/admin/page/accountManagement/hook/useChangePassword";
 import CustomButton from "page/admin/shareComponent/button/CustomButton";
 import FormTextField from "page/admin/shareComponent/form/FormTextField";
 import React from "react";
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import * as yup from "yup";
 
 const ModalUpdatePassword = ({ open, onOpen, title, data }) => {
-  // const { mutate, isLoading } = useChangePassword();
+  const { mutate, isLoading } = useChangePassword();
 
   const method = useForm({
     mode: "onSubmit",
@@ -43,23 +43,23 @@ const ModalUpdatePassword = ({ open, onOpen, title, data }) => {
   } = method;
 
   const handleChangePassword = async (dataForm) => {
-    // await mutate({
-    //   Data: {
-    //     ...dataForm,
-    //     id: data?._id,
-    //   },
-    //   onSuccess: (res) => {
-    //     toast.success(res.data.message);
-    //     reset();
-    //     onOpen();
-    //   },
-    //   onError: (err) => {
-    //     toast.error(err.error.message);
-    //   },
-    // });
+    await mutate({
+      Data: {
+        ...dataForm,
+        id: data?.id,
+      },
+      onSuccess: (res) => {
+        toast.success(res.data.message);
+        reset();
+        onOpen();
+      },
+      onError: (err) => {
+        toast.error(err.message);
+      },
+    });
   };
 
-  // useLoadingEffect(isLoading);
+  useLoadingEffect(isLoading);
 
   return (
     <Modal

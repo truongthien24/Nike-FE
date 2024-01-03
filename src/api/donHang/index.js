@@ -24,7 +24,7 @@ export default {
   },
 
   updateDonHang: (params) => {
-    return axiosWrapper.patch(`/updateDonHang/${params?.id}`, {
+    return axiosWrapper.patch(`/update-donHang/${params?.id}`, {
       ...params,
     });
   },

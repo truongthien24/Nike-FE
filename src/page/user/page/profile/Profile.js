@@ -335,6 +335,7 @@ export const Profile = () => {
         data={orderDetail.selector}
         onOpen={onOrderDetail}
         title="Chi tiết đơn hàng"
+        fetcher={fetchData}
       />
     </>
   );

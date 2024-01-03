@@ -1,24 +1,18 @@
 import { Modal } from "antd";
 import { COLOR } from "page/user/shareComponent/constant";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-hot-toast";
-import PopoverReturnOrder from "./components/PopoverReturnOrder";
 import { Confirm } from "component/Confirm/Confirm";
 import { useDispatch } from "react-redux";
 import { setConfirm } from "redux/action/homeAction";
 import useUpdateDonHang from "page/admin/page/donHangManagement/hook/useUpdateDonHang";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import moment from "moment";
-import { checkDiffDate } from "page/user/shareComponent/Function/checkDiffDate";
 
-const ModalOrderDetail = ({ open, onOpen, title, data }) => {
+const ModalOrderDetail = ({ open, onOpen, title, data, fetcher }) => {
   const [openReturnOrder, setOpenReturnOrder] = useState(false);
 
-  const [contentConfirm, setContentConfirm] = useState({
-    diffDate: 0,
-  });
-
-  const { mutate, isLoading } = useUpdateDonHang();
+  const { mutate: mutateUpdate, isLoading } = useUpdateDonHang();
 
   const dispatch = useDispatch();
 
@@ -77,8 +71,32 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
   //   );
   // };
 
-  const cancelOrder = () => {
-    toast("Rất tiếc, hệ thống chưa hỗ trợ");
+  const cancelOrder = async () => {
+    await dispatch(setConfirm({
+      status: "open",
+      method: async () => {
+        await mutateUpdate({
+          Data: { ...data, tinhTrang: 4 },
+          onSuccess: async (res) => {
+            toast.success("Bạn đã huỷ đơn hàng thành công");
+            fetcher();
+            dispatch(
+              setConfirm({
+                status: "close",
+                method: () => { },
+              })
+            );
+            onOpen({
+              open: false,
+            })
+          },
+          onError: async (error) => {
+            toast.error(error?.error?.message);
+          },
+        });
+      }
+    }))
+
   };
 
   useLoadingEffect(isLoading);
@@ -227,11 +245,11 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
                 {data?.tinhTrang == 1
                   ? "Đã xác nhận"
                   : data?.tinhTrang == 2
-                  ? "Đang giao"
-                  : "Đã giao"}
+                    ? "Đang giao"
+                    : "Đã giao"}
               </span>
             </div>
-            {data?.tinhTrang == 0 && (
+            {data?.tinhTrang == 1 && (
               <button
                 className="flex justify-center w-full rounded-[10px] px-[20px] py-[10px] text-[white]"
                 style={{ backgroundColor: `${COLOR.secondaryColor}` }}
@@ -261,17 +279,7 @@ const ModalOrderDetail = ({ open, onOpen, title, data }) => {
           </div>
         </div>
       </Modal>
-      {/* <Confirm
-        content={
-          <div>
-            Hạn thuê sách còn{" "}
-            <span style={{ color: `${COLOR.secondaryColor}` }}>
-              {contentConfirm?.diffDate} ngày
-            </span>
-            . Bạn đã chắc chắn ?
-          </div>
-        }
-      /> */}
+      <Confirm/>
     </>
   );
 };

@@ -20,7 +20,7 @@ export const Register = () => {
   const initialValue = {
     tenDangNhap: "",
     matKhau: "",
-    loaiTaiKhoan: "guest", //user
+    loaiTaiKhoan: "user", //user
   };
 
   const formField = [
@@ -84,7 +84,7 @@ export const Register = () => {
     
     // xử lý bất đồng bộ
     await mutate({
-      Data: { ...data?.data, loaiTaiKhoan: "user" },
+      Data: { ...data?.data },
       onSuccess: async (msg) => {
         navigate('/login')
         toast.success(msg.data.message);
