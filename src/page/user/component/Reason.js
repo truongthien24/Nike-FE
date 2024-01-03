@@ -30,10 +30,10 @@ export const Reason = (props) => {
     }
 
     return (
-        <div className="flex flex-col items-center py-[40px] px-[10px]">
-            <div className='flex items-center mb-[40px]'>
-                <Icon name="check" color="3790c7"/>
-                <h3 className='text-[20px] md:text-[25px] ml-[20px] text-[#3790c7] font-[500]'>{t('reasonBooking')}</h3>
+        <div className="flex flex-col items-center py-[20px] lg:py-[40px] xl:py-[50px] px-[10px] w-full">
+            <div className='flex items-center mb-[40px] bg-[#000] w-fit py-[5px] px-[30px] justify-center rounded-tl-[100px] rounded-br-[100px]'>
+                <Icon name="check" color="fff"/>
+                <h3 className='text-[18px] md:text-[22px] ml-[20px] font-[500] text-[#fff]'>Lý do bạn nên chọn chúng tôi</h3>
             </div>
             <div className="grid grid-cols-3 gap-[20px]">
                 {

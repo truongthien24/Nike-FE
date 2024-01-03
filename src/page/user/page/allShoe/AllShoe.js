@@ -34,10 +34,11 @@ export const FilterItem = ({ data, type }) => {
           case "checkbox":
             return (
               <div className="flex items-center" key={index}>
-                <Checkbox
+                <input
                   value={item?.value}
                   name={item?.name}
                   className="mr-[10px]"
+                  type="checkbox"
                   {...register(item?.name)}
                 />
                 <span className="text-[12px] lg:text-[14px] 2xl:text-[15px]">
@@ -101,7 +102,7 @@ const AllShoe = () => {
     console.log('data', data)
     onFilter({
       giaSanPham: parseInt(data?.giaSanPham),
-      thuongHieu: parseInt(data?.thuongHieu),
+      thuongHieu: data?.thuongHieu?.map((thuongHieu)=> parseInt(thuongHieu)),
     });
   };
 
