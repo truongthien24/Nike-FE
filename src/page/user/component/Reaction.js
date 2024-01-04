@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Avatar, Empty, Tooltip } from "antd";
+import { Avatar, Empty, Popover, Tooltip } from "antd";
 import { formateDate } from "../../../method/formatDate";
 import { Icon } from "../../../assets/icon";
 import Swal from "sweetalert2";
@@ -10,14 +10,22 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import useDeleteDanhGia from "page/admin/page/danhGiaManagement/hook/useDeleteDanhGia";
+import useLoadingEffect from "fuse/hook/useLoadingEffect";
+import { setConfirm } from "redux/action/homeAction";
+import { Confirm } from "component/Confirm/Confirm";
 
 export const Reaction = (props) => {
   // Props
-  const { data, onSubmitReply } = props;
+  const { data, onSubmitReply, fetcher } = props;
 
   // State
   const [isReply, setIsReply] = useState(false);
   const [isSeenReply, setIsSeenReply] = useState(false);
+  const { userInfo } = useSelector((state) => state.home);
+  const dispatch = useDispatch();
+  const { mutate, isLoading } = useDeleteDanhGia();
 
   // Somethings
   const { t } = useTranslation();
@@ -69,17 +77,22 @@ export const Reaction = (props) => {
                 size={40}
                 style={{
                   backgroundColor: `${admin ? "#f56a00" : "#fde3cf"}`,
-                  color: `${admin ? "#fde3cf" : "#f56a00"}`
+                  color: `${admin ? "#fde3cf" : "#f56a00"}`,
                 }}
               >
-                {admin ? 'Q' : reply?.taiKhoan?.tenDangNhap
-                  ?.toString()
-                  .toUpperCase()
-                  .charAt(0)}
+                {admin
+                  ? "Q"
+                  : reply?.taiKhoan?.tenDangNhap
+                      ?.toString()
+                      .toUpperCase()
+                      .charAt(0)}
               </Avatar>
               <div className="ml-[8px] h-max">
-                <h5 className="text-[11px] md:text-[13px] font-bold" style={{color: `${admin ? "#f56a00" : "#000"}`}}>
-                  {admin ? "Quản trị viên" :reply?.taiKhoan?.tenDangNhap}
+                <h5
+                  className="text-[11px] md:text-[13px] font-bold"
+                  style={{ color: `${admin ? "#f56a00" : "#000"}` }}
+                >
+                  {admin ? "Quản trị viên" : reply?.taiKhoan?.tenDangNhap}
                 </h5>
                 <p className="text-[10px] md:text-[12px]">
                   {new Date(reply?.ngayTao)?.toLocaleDateString("en-GB")}
@@ -116,6 +129,67 @@ export const Reaction = (props) => {
     onSubmitReply(data, reset);
   };
 
+  const contentTuyChinh = () => {
+    return (
+      <div className="grid grid-cols-1 mt-[10px]">
+        {userInfo?.id === data?.idUser && (
+          <>
+            <div
+              className="flex items-center cursor-pointer p-[5px] rounded-[5px] duration-300 hover:bg-[#eaeaea]"
+              onClick={async () => {
+                await dispatch(
+                  setConfirm({
+                    status: "open",
+                    method: async () =>
+                      await mutate({
+                        Data: { id: data?.id },
+                        onSuccess: async (res) => {
+                          toast.success(res?.data?.message);
+                          fetcher();
+                          dispatch(
+                            setConfirm({
+                              status: "close",
+                              method: () => {},
+                            })
+                          );
+                        },
+                        onError: async (error) => {
+                          toast.error(error?.message);
+                        },
+                      }),
+                  })
+                );
+              }}
+            >
+              <Icon name="trash" font="small" />
+              <span className="ml-[7px]">Xóa đánh giá</span>
+            </div>
+            <div
+              className="flex items-center cursor-pointer p-[5px] rounded-[5px] duration-300 hover:bg-[#eaeaea]"
+              onClick={() => {
+                toast("Chức năng đang phát triển");
+              }}
+            >
+              <Icon name="edit" font="small" />
+              <span className="ml-[7px]">Chỉnh sửa đánh giá</span>
+            </div>
+          </>
+        )}
+        <div
+          className="flex items-center cursor-pointer p-[5px] rounded-[5px] duration-300 hover:bg-[#eaeaea]"
+          onClick={() => {
+            toast("Chức năng đang phát triển");
+          }}
+        >
+          <Icon name="warning" font="small" />
+          <span className="ml-[7px]">Báo cáo</span>
+        </div>
+      </div>
+    );
+  };
+
+  useLoadingEffect(isLoading);
+
   // Return
   return (
     <div className="bg-[#f4f7f8] p-[10px] rounded-[15px]">
@@ -142,7 +216,21 @@ export const Reaction = (props) => {
             </p>
           </div>
         </div>
-        <div className="flex">{renderSoSao()}</div>
+        <div className="flex">
+          <div className="flex mr-[10px]">{renderSoSao()}</div>
+          <div className="relative">
+            <Popover
+              content={contentTuyChinh}
+              title="Tùy chọn"
+              trigger="click"
+              placement="bottom"
+            >
+              <button className="translate-y-[-4px]">
+                <Icon name="more" />
+              </button>
+            </Popover>
+          </div>
+        </div>
       </div>
       <p
         className="text-white rounded-[15px] py-[7px] px-[15px] mt-[8px] mx-[10px] text-[12px] md:text-[14px] w-fit"
@@ -209,6 +297,7 @@ export const Reaction = (props) => {
           </>
         )}
       </div>
+      <Confirm/>
     </div>
   );
 };

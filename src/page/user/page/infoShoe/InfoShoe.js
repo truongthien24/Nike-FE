@@ -238,6 +238,7 @@ const InfoShoe = () => {
                       data={danhGia}
                       key={index}
                       onSubmitReply={handleDanhGia}
+                      fetcher={fetchDanhGia}
                     />
                   );
                 })}

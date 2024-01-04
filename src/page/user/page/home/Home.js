@@ -74,7 +74,7 @@ export const HomeUser = () => {
         /> */}
       </div>
       <div className="bg-cover bg-fixed bg-no-repeat bg-center h-[200px] lg:h-[400px] xl:h-[500px] w-full bg-[url('http://res.cloudinary.com/dsbvqrhhk/image/upload/v1703573642/jtklvuux7yx2wwbj2jhq.jpg')]"></div>
-      <div className="py-[20px] lg:py-[40px] xl:py-[50px] flex w-[90%] lg:w-[90%
+      <div className="py-[20px] lg:py-[40px] xl:py-[80px] flex w-[90%] lg:w-[90%
       ] 2xl:w-[80%]">
         <div className="grid grid-cols-1 gap-[20px] h-fit px-[10px] tracking-[0.5px]">
           <h5 className="text-[16px] lg:text-[22px] pb-[8px] font-[500] whitespace-nowrap">

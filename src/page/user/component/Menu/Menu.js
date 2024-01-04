@@ -4,15 +4,15 @@ import ItemMenu from "./components/ItemMenu";
 const Menu = () => {
   const listMenu = [
     {
-      key: "all",
-      title: "All Shoe",
-      path: "/allShoe",
+      key: "home",
+      title: "Home",
+      path: "/",
       child: [],
     },
     {
-      key: "newArrivals",
-      title: "New Arrivals",
-      path: "/shoe?type=newArrivals",
+      key: "all",
+      title: "All Shoe",
+      path: "/allShoe",
       child: [],
     },
     {

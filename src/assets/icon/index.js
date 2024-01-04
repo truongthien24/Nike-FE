@@ -39,6 +39,8 @@ import Right from "./component/Right";
 import Bar from "./component/Bar";
 import Eye from "./component/Eye";
 import ShoppingCart from "./component/ShoppingCart";
+import Trash from "./component/Trash";
+import Edit from "./component/Edit";
 
 export const Icon = (props) => {
     switch (props.name) {
@@ -107,6 +109,8 @@ export const Icon = (props) => {
         case "bar": return (<Bar {...props} />);
         case "eye": return (<Eye {...props} />);
         case "shoppingCart": return (<ShoppingCart {...props} />)
+        case "trash": return (<Trash {...props} />)
+        case "edit": return (<Edit {...props} />)
         default: return <></>;
     }
 }

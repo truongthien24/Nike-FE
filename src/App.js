@@ -4,6 +4,7 @@ import { MainRoutes } from "./Router/router";
 import { QueryClient, QueryClientProvider } from "react-query";
 import LayoutMaster from "fuse/LayoutMaster";
 // import "@ant-design/flowchart/dist/index.css";
+import 'suneditor/dist/css/suneditor.min.css'; 
 
 const queryClient = new QueryClient({
   defaultOptions: {

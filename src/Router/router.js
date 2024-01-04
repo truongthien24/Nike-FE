@@ -29,6 +29,7 @@ import { Profile } from "page/user/page/profile/Profile";
 import DonHangManagement from "page/admin/page/donHangManagement/DonHangManagement";
 import BannerManagement from "page/admin/page/bannerManagement/BannerManagement";
 import ThuongHieuManagement from "page/admin/page/System/thuongHieuManagement/ThuongHieuManagement";
+import { Contact } from "page/user/page/contact/Contact";
 
 export const MainRoutes = () => {
   return (
@@ -44,6 +45,7 @@ export const MainRoutes = () => {
           <Route path="payment" element={<Payment />} />
           <Route path="allShoe" element={<AllShoe />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

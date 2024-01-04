@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Icon } from "../../../../../../assets/icon";
 import { UploadOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
@@ -13,6 +13,7 @@ import useCreateProduct from "../../hook/useCreateProduct";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { toast } from "react-hot-toast";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
+import SunEditor from "suneditor-react";
 
 export const ModalCreateRoom = (props) => {
   // Props
@@ -25,7 +26,7 @@ export const ModalCreateRoom = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useCreateProduct();
 
-  const {khuyenMai} = useSelector(state=> state.commonCode);
+  const { khuyenMai } = useSelector((state) => state.commonCode);
 
   const [open, setOpen] = useState(false);
 
@@ -93,16 +94,13 @@ export const ModalCreateRoom = (props) => {
         required: true,
         label: "Khuyến mãi",
         size: "2",
-        dataSelect: khuyenMai?.map((km)=> {
-          return { label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`, value: km.id}
-        })
+        dataSelect: khuyenMai?.map((km) => {
+          return {
+            label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`,
+            value: km.id,
+          };
+        }),
       },
-      // {
-      //   name: "kichThuoc",
-      //   type: "string",
-      //   required: true,
-      //   label: "Kích thước",
-      // },
     ];
   }, [khuyenMai]);
 
@@ -115,6 +113,7 @@ export const ModalCreateRoom = (props) => {
     handleSubmit,
     reset,
     watch,
+    control,
     formState: { errors },
   } = useForm({
     method: "onChange",
@@ -136,20 +135,24 @@ export const ModalCreateRoom = (props) => {
     setValue("hinhAnh", base64);
   };
 
-  console.log('watch', watch())
-
   const handleSubmitData = async (data) => {
-    await mutate({
-      Data: { ...data, giaSanPham: parseInt(data?.giaSanPham), trangThai: parseInt(data?.trangThai), soLuong: parseInt(data?.soLuong) },
-      onSuccess: async (msg) => {
-        toast.success(msg?.data?.message);
-        await fetch();
-        handleCancel();
-      },
-      onError: async (err) => {
-        toast.error(err?.error?.message);
-      },
-    });
+    console.log("data", data);
+    // await mutate({
+    //   Data: {
+    //     ...data,
+    //     giaSanPham: parseInt(data?.giaSanPham),
+    //     trangThai: parseInt(data?.trangThai),
+    //     soLuong: parseInt(data?.soLuong),
+    //   },
+    //   onSuccess: async (msg) => {
+    //     toast.success(msg?.data?.message);
+    //     await fetch();
+    //     handleCancel();
+    //   },
+    //   onError: async (err) => {
+    //     toast.error(err?.error?.message);
+    //   },
+    // });
   };
 
   const handleCancel = () => {
@@ -164,8 +167,9 @@ export const ModalCreateRoom = (props) => {
     if (item.type === "select") {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? "border-orange-400" : ""
-            }`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
+            errors?.[item.name]?.message ? "border-orange-400" : ""
+          }`}
         >
           <select className="w-full outline-none" {...register(`${item.name}`)}>
             {item.dataSelect?.map((op, index) => {
@@ -192,10 +196,11 @@ export const ModalCreateRoom = (props) => {
               >
                 <button
                   type="button"
-                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${btn?.tinhTrang
-                    ? "hover:shadow-orange-400"
-                    : "hover:shadow-green-400"
-                    }`}
+                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${
+                    btn?.tinhTrang
+                      ? "hover:shadow-orange-400"
+                      : "hover:shadow-green-400"
+                  }`}
                 >
                   {btn?.[item.dataItemName]}
                 </button>
@@ -204,27 +209,27 @@ export const ModalCreateRoom = (props) => {
           })}
           {(getValues("soLuong")?.length < 5 ||
             !getValues("soLuong")?.length) && (
-              <Popover
-                content={
-                  <FormAddKichCo
-                    arrRoom={getValues("soLuong")}
-                    setValue={setValue}
-                    handleOpenChange={handleOpenChange}
-                  />
-                }
-                title="Title"
-                trigger="click"
-                open={open}
-                onOpenChange={handleOpenChange}
+            <Popover
+              content={
+                <FormAddKichCo
+                  arrRoom={getValues("soLuong")}
+                  setValue={setValue}
+                  handleOpenChange={handleOpenChange}
+                />
+              }
+              title="Title"
+              trigger="click"
+              open={open}
+              onOpenChange={handleOpenChange}
+            >
+              <button
+                type="button"
+                className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:shadow-gray-400`}
               >
-                <button
-                  type="button"
-                  className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:shadow-gray-400`}
-                >
-                  +
-                </button>
-              </Popover>
-            )}
+                +
+              </button>
+            </Popover>
+          )}
         </div>
       );
     } else if (item.type === "string-readOnly") {
@@ -239,11 +244,20 @@ export const ModalCreateRoom = (props) => {
           {...register(`${item.name}`)}
         />
       );
+    } else if (item.type === "editor") {
+      return (
+        <SunEditor
+          name={item.name}
+          className={`border-[1px] border-solid border-[#b4b4b4] bg-[#cfcece] rounded-[5px] px-[15px] py-[7px] outline-none w-full`}
+          {...register(`${item.name}`)}
+        />
+      );
     } else {
       return (
         <div
-          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${errors?.[item.name]?.message ? "border-orange-400" : ""
-            }`}
+          className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] relative ${
+            errors?.[item.name]?.message ? "border-orange-400" : ""
+          }`}
         >
           <input
             // key={index}
@@ -337,10 +351,38 @@ export const ModalCreateRoom = (props) => {
               Nội dung
               <span className="text-[red]">*</span>
             </h5>
-            <textarea
+            {/* <textarea
               required
               {...register("noiDung")}
               className="border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] min-h-[80px] max-h-[120px] w-full"
+            /> */}
+            <Controller
+              name="noiDung" // Name of the field in the form data
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <SunEditor
+                  value={field.value}
+                  className={`border-[1px] border-solid border-[#b4b4b4] bg-[#cfcece] rounded-[5px] px-[15px] py-[7px] outline-none w-full`}
+                  onChange={(content) => field.onChange(content)}
+                  setOptions={{
+                    buttonList: [
+                      ["undo", "redo"],
+                      [
+                        "font",
+                        "fontSize",
+                        "fontColor",
+                        "bold",
+                        "underline",
+                        "italic",
+                      ],
+                      ["fullScreen", "codeView", "image"],
+                      ["preview", "save"], // Make sure 'image' is included in the buttonList
+                      // Other buttons...
+                    ],
+                  }}
+                />
+              )}
             />
           </div>
           <div className="col-span-5 flex justify-end items-center">

@@ -1,16 +1,16 @@
 import apiService from "api";
 import { useMutation } from "react-query";
 
-const deleteKichCo = async (params = {}) => {
-  const kichCo = await apiService.kichCo.deleteKichCo({
+const deleteDanhGia = async (params = {}) => {
+  const danhGia = await apiService.danhGia.deleteDanhGia({
     ...params?.Data,
   });
 
-  return kichCo;
+  return danhGia;
 };
 
-const useDeleteKichCo = () => {
-  return useMutation(deleteKichCo, {
+const useDeleteDanhGia = () => {
+  return useMutation(deleteDanhGia, {
     onSuccess: (_, { onSuccess, status }) => {
       onSuccess(_);
     },
@@ -20,4 +20,4 @@ const useDeleteKichCo = () => {
   });
 };
 
-export default useDeleteKichCo;
+export default useDeleteDanhGia;
