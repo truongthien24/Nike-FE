@@ -30,7 +30,7 @@ export const Reason = (props) => {
     }
 
     return (
-        <div className="flex flex-col items-center py-[20px] lg:py-[40px] xl:py-[50px] px-[10px] w-full">
+        <div className="flex flex-col items-center pb-[20px] lg:pb-[40px] xl:pb-[50px] px-[10px] w-full">
             <div className='flex items-center mb-[40px] bg-[#000] w-fit py-[5px] px-[30px] justify-center rounded-tl-[100px] rounded-br-[100px]'>
                 <Icon name="check" color="fff"/>
                 <h3 className='text-[18px] md:text-[22px] ml-[20px] font-[500] text-[#fff]'>Lý do bạn nên chọn chúng tôi</h3>

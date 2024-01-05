@@ -1,16 +1,16 @@
 import apiService from "api";
 import { useMutation } from "react-query";
 
-const updateKichCo = async (params = {}) => {
-  const kichCo = await apiService.kichCo.updateKichCo({
+const updateDanhGia = async (params = {}) => {
+  const danhGia = await apiService.danhGia.updateDanhGia({
     ...params?.Data,
   });
 
-  return kichCo;
+  return danhGia;
 };
 
-const useUpdateKichCo = () => {
-  return useMutation(updateKichCo, {
+const useUpdateDanhGia = () => {
+  return useMutation(updateDanhGia, {
     onSuccess: (_, { onSuccess, status }) => {
       onSuccess(_);
     },
@@ -20,4 +20,4 @@ const useUpdateKichCo = () => {
   });
 };
 
-export default useUpdateKichCo;
+export default useUpdateDanhGia;

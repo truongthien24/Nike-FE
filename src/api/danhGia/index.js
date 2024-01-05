@@ -20,7 +20,7 @@ export default {
   },
 
   getDanhGiaByID: (params) => {
-    return axiosWrapper.get(`/get-danhGia-byID/${params?.data}`, {
+    return axiosWrapper.get(`/get-danhGia-byID/${params?.data?.idSanPham}`, {
       ...params,
     });
   },

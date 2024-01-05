@@ -26,7 +26,7 @@ export const ModalCreateRoom = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useCreateProduct();
 
-  const { khuyenMai } = useSelector((state) => state.commonCode);
+  const { khuyenMai, thuongHieu } = useSelector((state) => state.commonCode);
 
   const [open, setOpen] = useState(false);
 
@@ -89,22 +89,37 @@ export const ModalCreateRoom = (props) => {
         label: "Số lượng",
       },
       {
+        name: "maThuongHieu",
+        type: "select",
+        required: true,
+        label: "Mã thương hiệu",
+        size: "1",
+        dataSelect: thuongHieu?.map((th) => {
+          return {
+            label: th.tenThuongHieu,
+            value: th.id,
+          };
+        }), 
+      },
+      {
         name: "maKhuyenMai",
         type: "select",
         required: true,
         label: "Khuyến mãi",
         size: "2",
-        dataSelect: khuyenMai?.map((km) => {
-          return {
-            label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`,
-            value: km.id,
-          };
-        }),
+        dataSelect: [
+          { label: "No data", value: null },
+          ...khuyenMai?.map((km) => {
+            return {
+              label: `[${km.maKhuyenMai}] ${km.tenKhuyenMai}`,
+              value: km.id,
+            };
+          }),
+        ],
       },
     ];
   }, [khuyenMai]);
 
-  const validationSchema = yup.object().shape({});
 
   const {
     register,
@@ -117,7 +132,6 @@ export const ModalCreateRoom = (props) => {
     formState: { errors },
   } = useForm({
     method: "onChange",
-    resolver: yupResolver(validationSchema),
     defaultValues: {
       tenSach: "",
       hinhAnh:
@@ -136,23 +150,22 @@ export const ModalCreateRoom = (props) => {
   };
 
   const handleSubmitData = async (data) => {
-    console.log("data", data);
-    // await mutate({
-    //   Data: {
-    //     ...data,
-    //     giaSanPham: parseInt(data?.giaSanPham),
-    //     trangThai: parseInt(data?.trangThai),
-    //     soLuong: parseInt(data?.soLuong),
-    //   },
-    //   onSuccess: async (msg) => {
-    //     toast.success(msg?.data?.message);
-    //     await fetch();
-    //     handleCancel();
-    //   },
-    //   onError: async (err) => {
-    //     toast.error(err?.error?.message);
-    //   },
-    // });
+    await mutate({
+      Data: {
+        ...data,
+        giaSanPham: parseInt(data?.giaSanPham),
+        trangThai: parseInt(data?.trangThai),
+        soLuong: parseInt(data?.soLuong),
+      },
+      onSuccess: async (msg) => {
+        toast.success(msg?.data?.message);
+        await fetch();
+        handleCancel();
+      },
+      onError: async (err) => {
+        toast.error(err?.error?.message);
+      },
+    });
   };
 
   const handleCancel = () => {
@@ -351,12 +364,12 @@ export const ModalCreateRoom = (props) => {
               Nội dung
               <span className="text-[red]">*</span>
             </h5>
-            {/* <textarea
+            <textarea
               required
               {...register("noiDung")}
               className="border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[15px] py-[7px] min-h-[80px] max-h-[120px] w-full"
-            /> */}
-            <Controller
+            />
+            {/* <Controller
               name="noiDung" // Name of the field in the form data
               control={control}
               defaultValue=""
@@ -383,7 +396,7 @@ export const ModalCreateRoom = (props) => {
                   }}
                 />
               )}
-            />
+            /> */}
           </div>
           <div className="col-span-5 flex justify-end items-center">
             <button
