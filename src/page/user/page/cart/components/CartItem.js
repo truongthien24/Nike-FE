@@ -36,13 +36,13 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
       case 'minas': {
         const nextValue = --preValue;
         setValue(`danhSach[${indexItem}].soLuong`, nextValue);
-        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)))
+        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * (getValues(`danhSach[${indexItem}].sanPham.khuyenMai`) ? (parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)) - ((parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)) * parseInt(getValues(`danhSach[${indexItem}].sanPham.khuyenMai.phanTramKhuyenMai`))) / 100))  : parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`))))
         break;
       };
       case 'plus': {
         const nextValue = ++preValue;
         setValue(`danhSach[${indexItem}].soLuong`, nextValue)
-        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)))
+        setValue(`danhSach[${indexItem}].thanhTien`, nextValue * (getValues(`danhSach[${indexItem}].sanPham.khuyenMai`) ? (parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)) - ((parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`)) * parseInt(getValues(`danhSach[${indexItem}].sanPham.khuyenMai.phanTramKhuyenMai`))) / 100))  : parseInt(getValues(`danhSach[${indexItem}].sanPham.giaSanPham`))))
         break;
       };
       default: break;
@@ -61,7 +61,7 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
       setConfirm({
         status: "open",
         method: async () => {
-          const index = watch("danhSach").findIndex((item)=> item.id == data.id);
+          const index = watch("danhSach").findIndex((item) => item.id == data.id);
           setValue(`danhSach[${indexItem}].useYN`, false);
           dispatch(
             setConfirm({
@@ -73,8 +73,6 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
       })
     );
   }
-
-  console.log('watch', watch())
 
   return (
     <div className="flex items-center justify-between w-full">
@@ -174,7 +172,7 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
                   className="flex justify-center text-[11px] md:text-[13px]"
                   style={{ width: `${item.width}` }}
                 >
-                  {data?.sanPham?.giaSanPham?.toLocaleString()}
+                  {data?.sanPham?.khuyenMai?.phanTramKhuyenMai ? (parseInt(data?.sanPham?.giaSanPham) - ((parseInt(data?.sanPham?.giaSanPham) * parseInt(data?.sanPham?.khuyenMai?.phanTramKhuyenMai)) / 100)).toLocaleString() : parseInt(data?.sanPham?.giaSanPham).toLocaleString()}
                 </div>
               );
             }
@@ -196,8 +194,9 @@ const CartItem = ({ arrayData, data, columns, isEdit }) => {
                   className="flex justify-center text-[11px] md:text-[13px]"
                   style={{ width: `${item.width}` }}
                 >
-                  {(
-                    parseInt(data?.sanPham?.giaSanPham) * watch(`danhSach[${indexItem}].soLuong`)
+                  {data?.sanPham?.khuyenMai?.phanTramKhuyenMai ? (
+                    (parseInt(data?.sanPham?.giaSanPham) - ((parseInt(data?.sanPham?.giaSanPham) * parseInt(data?.sanPham?.khuyenMai?.phanTramKhuyenMai)) / 100)) * watch(`danhSach[${indexItem}].soLuong`)
+                  )?.toLocaleString() : parseInt(data?.sanPham?.giaSanPham * watch(`danhSach[${indexItem}].soLuong`)
                   )?.toLocaleString()}
                 </div>
               );
