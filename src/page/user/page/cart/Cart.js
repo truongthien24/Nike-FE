@@ -6,7 +6,6 @@ import { columns } from "./helper";
 import { COLOR } from "page/user/shareComponent/constant";
 import { useNavigate } from "react-router-dom";
 import { LayoutContext } from "page/user/layout/Layout1";
-import { jwtDecode } from "jwt-decode";
 import useGetDetailGioHang from "page/admin/page/GioHangManagement/hook/userGetDetailGioHang";
 import { Button, Empty, Tooltip } from "antd";
 import useCheckSanPham from "page/admin/page/GioHangManagement/hook/useCheckSanPham";
@@ -52,17 +51,21 @@ const Cart = () => {
 
   useEffect(() => {
     if (gioHangDataDetail) {
-      reset({ ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds)=> {return {
-        ...ds,
-        useYN: true,
-      }}) })
+      reset({
+        ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds) => {
+          return {
+            ...ds,
+            useYN: true,
+          }
+        })
+      })
     }
   }, [gioHangDataDetail])
 
   const renderCartItem = () => {
     if (watch('danhSach')?.length > 0) {
       return watch('danhSach')?.map((cart, index) => {
-        if(cart?.useYN == true) {
+        if (cart?.useYN == true) {
           return <CartItem arrayData={gioHangDataDetail?.danhSach} data={cart} key={index} columns={columns(isMobile, isEdit)} isEdit={isEdit} />;
         }
       });
@@ -95,10 +98,14 @@ const Cart = () => {
     await dispatch(setConfirm({
       status: 'open',
       method: async () => {
-        await reset({ ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds)=> {return {
-          ...ds,
-          useYN: true,
-        }}) })
+        await reset({
+          ...gioHangDataDetail, danhSach: gioHangDataDetail?.danhSach?.map((ds) => {
+            return {
+              ...ds,
+              useYN: true,
+            }
+          })
+        })
         setIsEdit(prev => { return !prev })
         await dispatch(setConfirm({
           status: 'close',
@@ -109,6 +116,8 @@ const Cart = () => {
   }
 
   useLoadingEffect(isLoading || isDataDetailLoading || isLoadingUpdateGioHang);
+
+  console.log('watch', watch())
 
   return (
     <>
@@ -173,7 +182,7 @@ const Cart = () => {
                 {renderCartItem()}
               </div>
               <div className="flex justify-end items-center">
-                <p className="w-[15%] text-[13px] md:text-[15px] flex justify-center mr-[20px]">{(watch('danhSach')?.reduce((a, b) => a + (b?.sanPham?.giaSanPham * b?.soLuong), 0))?.toLocaleString()}</p>
+                <p className="w-[15%] text-[13px] md:text-[15px] flex justify-center mr-[20px]">{(watch('danhSach')?.reduce((a, b) => a + ((b?.sanPham?.khuyenMai?.phanTramKhuyenMai ? (parseInt(b?.sanPham?.giaSanPham) - ((parseInt(b?.sanPham?.giaSanPham) * parseInt(b?.sanPham?.khuyenMai?.phanTramKhuyenMai)) / 100)) : parseInt(b?.sanPham?.giaSanPham)) * b?.soLuong), 0))?.toLocaleString()}</p>
                 <div className="flex justify-center">
                   <button
                     className="text-[#fff] text-[11px] md:text-[15px] p-[10px] rounded-[5px] flex items-center justify-center"
