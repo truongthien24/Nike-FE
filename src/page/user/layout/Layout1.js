@@ -34,9 +34,9 @@ export const Layout1 = () => {
       if (["user"].includes(jwtDC?.account?.loaiTaiKhoan)) {
         setId(jwtDC?.account?.id);
       } else {
-        navigate("/admin");
+        window.location.replace("/admin");
         toast.error("Tài khoản không được phân quyền");
-      }
+      }ss
     }
   }, []);
 
