@@ -10,8 +10,6 @@ export const ModalDanhGia = (props) => {
   // Somethings
   const { t } = useTranslation();
 
-  console.log('data', data)
-
   // Return
   return (
     <Modal
