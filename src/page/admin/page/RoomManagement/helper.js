@@ -19,6 +19,28 @@ export const columns = (onClickFuncc) => {
   ];
 };
 
+export const columnsKichCoDetail = () => [
+  {
+    title: "Số kích cở",
+    dataIndex: "soKichCo",
+    editable: true,
+    render: (text, record) => {
+      return {
+        children: <button>1323213</button>,
+      };
+    },
+    // <select>
+    //   <option value={0}>123</option>
+    //   <option value={1}>456</option>
+    // </select>
+  },
+  {
+    title: "Số lượng sản phẩm",
+    dataIndex: "soLuong",
+    editable: true,
+  },
+];
+
 // getDataTable
 export const getDataTable = (data) => {
   const dataResult = [];

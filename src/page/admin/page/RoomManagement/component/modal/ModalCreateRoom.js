@@ -7,13 +7,14 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
-import { setGridColumn } from "../../helper";
+import { columnsKichCoDetail, setGridColumn } from "../../helper";
 import { FormAddKichCo } from "../form/FormAddKichCo";
 import useCreateProduct from "../../hook/useCreateProduct";
 import useLoadingEffect from "fuse/hook/useLoadingEffect";
 import { toast } from "react-hot-toast";
 import { convertToBase64 } from "page/user/shareComponent/Function/convertBase64";
 import SunEditor from "suneditor-react";
+import TableEditInline from "page/admin/shareComponent/table/TableEditInline";
 
 export const ModalCreateRoom = (props) => {
   // Props
@@ -26,7 +27,7 @@ export const ModalCreateRoom = (props) => {
 
   const { mutate, isLoading: isSubmitting } = useCreateProduct();
 
-  const { khuyenMai, thuongHieu } = useSelector((state) => state.commonCode);
+  const { khuyenMai, thuongHieu, kichCo } = useSelector((state) => state.commonCode);
 
   const [open, setOpen] = useState(false);
 
@@ -82,12 +83,12 @@ export const ModalCreateRoom = (props) => {
         required: true,
         label: "Giá",
       },
-      {
-        name: "soLuong",
-        type: "number",
-        required: true,
-        label: "Số lượng",
-      },
+      // {
+      //   name: "soLuong",
+      //   type: "number",
+      //   required: true,
+      //   label: "Số lượng",
+      // },
       {
         name: "maThuongHieu",
         type: "select",
@@ -99,7 +100,14 @@ export const ModalCreateRoom = (props) => {
             label: th.tenThuongHieu,
             value: th.id,
           };
-        }), 
+        }),
+      },
+      {
+        name: "kichCo",
+        type: "array",
+        required: true,
+        label: "Kích cở",
+        size: "2"
       },
       {
         name: "maKhuyenMai",
@@ -120,7 +128,6 @@ export const ModalCreateRoom = (props) => {
     ];
   }, [khuyenMai]);
 
-
   const {
     register,
     getValues,
@@ -133,6 +140,7 @@ export const ModalCreateRoom = (props) => {
   } = useForm({
     method: "onChange",
     defaultValues: {
+      kichCo: [],
       tenSach: "",
       hinhAnh:
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDF9695aEHL20tZNMzJ26nIGr5AYMKr_eaoxXWtDkngU8M8KXhqPQXkhyamMWJ1mvbeYU&usqp=CAU",
@@ -201,31 +209,30 @@ export const ModalCreateRoom = (props) => {
     } else if (item.type === "array") {
       return (
         <div className="grid grid-cols-5 gap-[20px]">
-          {getValues("soLuong")?.map((btn, index) => {
+          {watch("kichCo")?.map((btn, index) => {
             return (
               <Badge.Ribbon
-                color={`${btn?.tinhTrang ? "orange" : "green"}`}
+                color={`${btn?.soLuong === 0 ? "orange" : "green"}`}
                 key={index}
               >
                 <button
                   type="button"
                   className={`w-full p-[10px] bg-[white] shadow-md shadow-gray-300 rounded-[5px] duration-200 hover:translate-x-[-3px] ${
-                    btn?.tinhTrang
+                    btn?.soLuong
                       ? "hover:shadow-orange-400"
                       : "hover:shadow-green-400"
                   }`}
                 >
-                  {btn?.[item.dataItemName]}
+                  {kichCo?.find((kc)=> kc.id === btn.soKichCo)?.soKichCo}
                 </button>
               </Badge.Ribbon>
             );
           })}
-          {(getValues("soLuong")?.length < 5 ||
-            !getValues("soLuong")?.length) && (
+          {(
             <Popover
               content={
                 <FormAddKichCo
-                  arrRoom={getValues("soLuong")}
+                  arrData={getValues("kichCo")}
                   setValue={setValue}
                   handleOpenChange={handleOpenChange}
                 />
@@ -295,6 +302,10 @@ export const ModalCreateRoom = (props) => {
     }
   };
 
+  const columns = useMemo(() => {
+    return columnsKichCoDetail();
+  }, []);
+
   return (
     <Modal
       title={title}
@@ -359,6 +370,16 @@ export const ModalCreateRoom = (props) => {
               );
             })}
           </div>
+          {/* <div className="col-span-5">
+            <h5 className="mb-[7px] ml-[3px]">
+              Size
+              <span className="text-[red]">*</span>
+            </h5>
+            <TableEditInline columns={columns} allowSave={true} defaultInitRow={{
+              soLuong: 0,
+              soKichCo: 0,
+            }}/>
+          </div> */}
           <div className="col-span-5">
             <h5 className="mb-[7px] ml-[3px]">
               Nội dung

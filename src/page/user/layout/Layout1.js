@@ -36,7 +36,7 @@ export const Layout1 = () => {
       } else {
         window.location.replace("/admin");
         toast.error("Tài khoản không được phân quyền");
-      }ss
+      }
     }
   }, []);
 

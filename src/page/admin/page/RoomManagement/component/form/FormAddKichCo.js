@@ -7,7 +7,7 @@ import * as yup from "yup";
 
 export const FormAddKichCo = (props) => {
   // Props
-  const { arrRoom, setValue, handleOpenChange } = props;
+  const { arrData = [], setValue, handleOpenChange } = props;
 
   // Somethings
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ export const FormAddKichCo = (props) => {
 
   const validationSchema = yup.object().shape({
     soLuong: yup.number().typeError("Please input number").required(),
-    kichCo: yup.string().required(),
+    soKichCo: yup.number().typeError("Please input number").required(),
   });
 
   const {
@@ -30,18 +30,21 @@ export const FormAddKichCo = (props) => {
   } = useForm({
     method: "onChange",
     resolver: yupResolver(validationSchema),
+    defaultValues: {
+      soLuong: 1,
+      soKichCo: null
+    }
   });
 
   // Method
   const handleSubmitData = () => {
-    // let a = new Object();
-    // a = {
-    //   ...a,
-    //   tinhTrang: getValues("tinhTrang") === "true" ? true : false,
-    //   soPhong: parseInt(getValues("soPhong")),
-    // };
-    // setValue("soLuongPhong", [...arrRoom, a]);
-    // handleOpenChange(false);
+    const newArr = arrData;
+    newArr.push({
+      soLuong: parseInt(getValues("soLuong")),
+      soKichCo: parseInt(getValues("soKichCo")),
+    })
+    setValue("kichCo", newArr);
+    handleOpenChange(false);
   };
 
   // Return
@@ -53,9 +56,9 @@ export const FormAddKichCo = (props) => {
           <span className="text-[red]">*</span>
         </h5>
         <select
-          {...register("kichCo")}
+          {...register("soKichCo")}
           className={`border-[1px] border-solid border-[#b4b4b4] rounded-[5px] px-[10px] py-[5px] ${
-            errors?.kichCo?.message ? "border-orange-400" : ""
+            errors?.soKichCo?.message ? "border-orange-400" : ""
           } outline-none w-full`}
         >
           {
@@ -71,7 +74,7 @@ export const FormAddKichCo = (props) => {
           <span className="text-[red]">*</span>
         </h5>
         <input
-          {...register("soPhong")}
+          {...register("soLuong")}
           type="number"
           min={100}
           className={`border-[1px] border-solid border-[#b4b4b4] ${

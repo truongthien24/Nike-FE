@@ -12,7 +12,7 @@ import Details from "./component/Details";
 import { columns } from "./helper";
 import useDeleteKichCo from "./hook/useDeleteKichCo";
 import useGetDataKichCo from "./hook/useGetDataKichCo";
-import useGetDetailNgonNgu from "./hook/useGetDetailNgonNgu";
+import useGetDetailKichCo from "./hook/useGetDetailKichCo";
 
 const KichCoManagement = () => {
   // State
@@ -27,11 +27,11 @@ const KichCoManagement = () => {
     useGetDataKichCo("0", "0");
 
   const {
-    ngonNguDataDetail,
+    kichCoDataDetail,
     isDataDetailLoading,
     fetchData: fetchDataDetail,
     isFetching: isFetchDetail,
-  } = useGetDetailNgonNgu("0", "0", showSlice?.initData?._id);
+  } = useGetDetailKichCo("0", "0", showSlice?.initData?._id);
 
   const { mutate: mutateDelete, isLoading: isSubmittingDelete } =
     useDeleteKichCo();
@@ -102,14 +102,14 @@ const KichCoManagement = () => {
       </div>
       <PopupMain
         title={
-          _.isEmpty(showSlice?.initData?._id) ? "Thêm kich co" : "Sửa kich co"
+          _.isEmpty(showSlice?.initData?._id) ? "Thêm kích cở" : "Sửa kích cở"
         }
         showSlice={showSlice}
         onShowSlice={onShowSlice}
         fullWidth
         children={
           <Details
-            data={ngonNguDataDetail}
+            data={kichCoDataDetail}
             fetcher={fetchData}
             fetchDetail={fetchDataDetail}
             showSlice={showSlice}

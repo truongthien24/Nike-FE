@@ -29,7 +29,7 @@ const Details = ({
     },
     resolver: yupResolver(
       yup.object().shape({
-        soKichCo: yup.number().required("Nhập tên ngôn ngữ vào đi"),
+        soKichCo: yup.number().required("Nhập số kích cở vào đi"),
       })
     ),
   });
@@ -53,7 +53,7 @@ const Details = ({
       if (!_.isEmpty(data)) {
         reset(data);
       } else {
-        reset({ tenNgonNgu: "" });
+        reset({ soKichCo: "" });
       }
     }
   }, [showSlice]);
@@ -103,11 +103,12 @@ const Details = ({
         {/* Có 3 cột */}
         <div className="col-span-3">
           <FormTextField
-            label="Tên ngôn ngữ"
-            name="tenNgonNgu"
+            label="Số kích cở"
+            name="soKichCo"
             errors={errors}
             required
             control={control}
+            type="number"
           />
         </div>
 

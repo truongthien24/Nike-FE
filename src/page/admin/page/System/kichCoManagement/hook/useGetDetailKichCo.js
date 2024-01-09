@@ -8,16 +8,16 @@ const getApiData = async (pageIndex = 0, pageSize = 0, data) => {
     data,
   };
 
-  const ngonNgu = await apiServices.ngonNgu.getNgonNguByID({
+  const kichCo = await apiServices.ngonNgu.getNgonNguByID({
     ...params,
   });
 
-  return ngonNgu;
+  return kichCo;
 };
 
-const useGetDetailNgonNgu = (pageIndex = 0, pageSize = 0, data) => {
+const useGetDetailKichCo = (pageIndex = 0, pageSize = 0, data) => {
   const query = useQuery(
-    ["get-data-NgonNgu", pageIndex, pageSize, data],
+    ["get-data-kichCo", pageIndex, pageSize, data],
 
     () => getApiData(pageIndex, pageSize, data),
 
@@ -27,13 +27,13 @@ const useGetDetailNgonNgu = (pageIndex = 0, pageSize = 0, data) => {
     }
   );
   const {
-    data: { data: { data: ngonNguDataDetail = [] } = {} } = {},
+    data: { data: { data: kichCoDataDetail = [] } = {} } = {},
     isLoading: isDataDetailLoading,
     refetch: fetchData,
     isFetching,
   } = query;
 
-  return { ngonNguDataDetail, isDataDetailLoading, fetchData, isFetching };
+  return { kichCoDataDetail, isDataDetailLoading, fetchData, isFetching };
 };
 
-export default useGetDetailNgonNgu;
+export default useGetDetailKichCo;
